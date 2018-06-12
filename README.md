@@ -20,7 +20,7 @@ Our group will be cloning the [Momentum Extension](https://www.google.com/search
 
 ### Setup
 1. Clone the repo - ```$ git clone git@github.com:chingu-voyage5/Geckos-Team-0.git```
-2. Switch to the develpment branch - ```$ git checkout development```
+2. Switch to the development branch - ```$ git checkout development```
 3. Switch to your feature/working branch
     * When creating a new branch:
         * ```$ git checkout -b feature-addTime-#12-jon```
