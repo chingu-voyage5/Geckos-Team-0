@@ -1,0 +1,19 @@
+#Weather {
+  margin-left: auto;
+  margin-top: 15px;
+  margin-right: 20px;
+}
+
+.Weather__Row {
+  display: flex;
+}
+
+.Weather__Row svg {
+  height: 2em;
+  width: 2em;
+}
+
+#Degree {
+  font-size: 1.5em;
+  padding-top: 2px;
+}
