@@ -4,17 +4,15 @@ import Shower from "react-icons/lib/ti/weather-shower";
 
 class Weather extends React.Component {
   render() {
-    return (
-      <div id="Weather">
-        <div class="Weather__Row">
-          <Shower />
-          <Degree />
-        </div>
-        <div class="Weather__Row">
-          <Location />
-        </div>
-      </div>
-    );
+    return <div id="Weather">
+				<div className="Weather__Row">
+					<Shower />
+					<Degree />
+				</div>
+				<div className="Weather__Row">
+					<Location />
+				</div>
+			</div>;
   }
 }
 
