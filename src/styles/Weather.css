@@ -87,6 +87,8 @@
 }
 
 .Daily__Weather__Container {
+  display: flex;
+  justify-content: space-between;
   margin-top: 7px;
   border-top: 1px solid rgba(255,255,255,.15);
 }
@@ -97,14 +99,12 @@
 
 .Day {
   font-size: 10px;
-  margin-left: 18px;
+  margin-left: 19px;
   text-transform: uppercase;
   opacity: 0.6;
 }
 
 .Daily__Weather {
-  /* display: flex; */
-  /* justify-content: space-around; */
   opacity: 0.85;
 }
 

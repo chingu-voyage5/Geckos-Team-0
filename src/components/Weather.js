@@ -28,7 +28,7 @@ class Weather extends React.Component {
 			<div id="Weather">
 				<div className="Weather__Row" onClick={this.handleOpenModal}>
 					<Shower />
-					<Degree />
+          <Temp />
 				</div>
 				<div className="Weather__Row">
 					<Location />
@@ -52,17 +52,14 @@ class Weather extends React.Component {
               </div>
               <span id="Temp__Convert">°C</span>
             </div>
-            
-						<div className="Daily__Weather__Container">
-							<div className="Daily__Weather__Wrapper">
-								<span className="Day">TUE</span>
-                <div className="Daily__Weather">
-								  <Shower />
-								  <span id="Temp_High">19°</span>
-								  <span id="Temp__Low">19°</span>
-                </div>
-							</div>
-						</div>
+            <div className="Daily__Weather__Container">
+              <DailyWeather /> 
+              <DailyWeather /> 
+              <DailyWeather /> 
+              <DailyWeather /> 
+              <DailyWeather /> 
+             </div>
+
 					</div>
 				</ReactModal>
         
@@ -71,7 +68,7 @@ class Weather extends React.Component {
 	}
 }
 
-function Degree() {
+function Temp() {
 	return (
 		<div id="Temp">
 			<span>19°</span>
@@ -85,6 +82,19 @@ function Location() {
 			<span>Location</span>
 		</div>
 	);
+}
+
+function DailyWeather() {
+  return (
+      <div className="Daily__Weather__Wrapper">
+        <span className="Day">TUE</span>
+        <div className="Daily__Weather">
+          <Shower />
+          <span id="Temp_High">19°</span>
+          <span id="Temp__Low">19°</span>
+        </div>
+      </div>
+  );
 }
 
 export default Weather;
