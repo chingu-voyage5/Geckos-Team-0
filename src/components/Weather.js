@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Weather.css";
 
 import Shower from "react-icons/lib/ti/weather-shower";
-import ReactModal from "react-modal";
+import Modal from "react-modal";
 
 class Weather extends React.Component {
 	constructor() {
@@ -36,7 +36,7 @@ class Weather extends React.Component {
           </div>
         </div>
 
-				<ReactModal
+				<Modal
 					className="Modal"
 					overlayClassName="Overlay"
 					isOpen={this.state.showModal}
@@ -64,7 +64,7 @@ class Weather extends React.Component {
               <DailyWeather /> 
              </div>
 					</div>
-				</ReactModal>     
+				</Modal>     
 			</div>
 		);
 	}
@@ -99,4 +99,5 @@ function DailyWeather() {
   );
 }
 
+Modal.setAppElement("#root");
 export default Weather;
