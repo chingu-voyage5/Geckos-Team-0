@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
+import '../styles/time.css';
 
 import {Time} from './time.js';
 import ToDoInput from './ToDoInput.js';
