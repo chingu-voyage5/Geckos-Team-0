@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+import {Time} from './time.js';
 import '../styles/App.css';
 
 class App extends Component {
+ 
+  
   render() {
+   
     return (
       <div className="App">
-        <h1>Hello Geckos-0!😎</h1>
+        <span><Time /></span>
       </div>
-    );
+    )
   }
 }
+
+
 
 export default App;
