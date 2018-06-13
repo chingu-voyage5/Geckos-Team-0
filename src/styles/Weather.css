@@ -1,3 +1,7 @@
+/********************
+   WeatherComponent
+*********************/
+
 #Weather {
   margin-left: auto;
   margin-top: 15px;
@@ -13,7 +17,7 @@
   width: 2em;
 }
 
-#Degree {
+#Temp {
   font-size: 1.5em;
   padding-top: 2px;
 }
@@ -22,15 +26,15 @@
      WeatherModal
 *********************/
 
+
 .Modal {
   width: 380px;
-  height: 200px;
-  background-color: black;
+  height: 205px;
+  background-color: rgba(15,15,15,.925);
   margin-left: auto;
   margin-top: 80px;
   margin-right: 5px;
   border-radius: 3px;
-  opacity: 0.7;
   color: white;
 }
 
@@ -41,4 +45,79 @@
   right: 0;
   bottom: 0;
   background-color: transparent;
+}
+
+.Modal__Content {
+  padding: 15px;  
+}
+
+.Current__Weather__Container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Current__Weather__Wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#Current__Location {
+  font-size: 1.3em;
+}
+
+#Current__Weather {
+  opacity: 0.5;
+}
+
+.Weather__Wrapper {
+  display: flex;
+  align-items: center;
+}
+
+#Weather__Icon {
+  font-size: 5em;
+}
+
+#Current__Temp {
+  font-size: 3.5em;
+}
+
+#Temp__Convert {
+  opacity: 0.5;
+}
+
+.Daily__Weather__Container {
+  margin-top: 7px;
+  border-top: 1px solid rgba(255,255,255,.15);
+}
+
+.Daily__Weather__Wrapper {
+  margin-top: 6px;
+}
+
+.Day {
+  font-size: 10px;
+  margin-left: 18px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.Daily__Weather {
+  /* display: flex; */
+  /* justify-content: space-around; */
+  opacity: 0.85;
+}
+
+.Daily__Weather svg {
+  font-size: 1.3em;
+  margin-right: 3px;
+}
+
+.Daily__Weather span {
+  font-size: 11px;
+}
+
+#Temp__Low {
+  margin-left: 3px;
+  opacity: 0.5;
 }
