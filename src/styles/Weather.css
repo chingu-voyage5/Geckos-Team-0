@@ -47,9 +47,9 @@
   background-color: transparent;
 }
 
-.Modal__Content {
-  padding: 15px;  
-}
+/********************
+   Current Weather 
+*********************/
 
 .Current__Weather__Container {
   display: flex;
@@ -57,6 +57,12 @@
 }
 
 .Current__Weather__Wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0 0 15px;
+}
+
+.Current__Weather__Head {
   display: flex;
   flex-direction: column;
 }
@@ -84,17 +90,26 @@
 
 #Temp__Convert {
   opacity: 0.5;
+  width: 20px;
+  height: 20px;
+  text-align: right;
+  padding: 15px;
 }
+
+/********************
+    Daily Weather 
+*********************/
 
 .Daily__Weather__Container {
   display: flex;
   justify-content: space-between;
   margin-top: 7px;
+  padding: 0 15px;
   border-top: 1px solid rgba(255,255,255,.15);
 }
 
 .Daily__Weather__Wrapper {
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 .Day {
@@ -120,4 +135,23 @@
 #Temp__Low {
   margin-left: 3px;
   opacity: 0.5;
+}
+
+/********************
+    Hover Effects 
+*********************/
+
+
+#Weather:hover {
+  cursor: pointer;
+}
+
+.Current__Weather__Head:hover {
+  cursor: pointer;
+}
+/* 👆 Need to add a location icon so user can change the location when clicked */
+
+#Temp__Convert:hover {
+  cursor: pointer;
+  opacity: 1;
 }

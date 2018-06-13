@@ -26,13 +26,15 @@ class Weather extends React.Component {
 	render() {
 		return (
 			<div id="Weather">
-				<div className="Weather__Row" onClick={this.handleOpenModal}>
-					<Shower />
-          <Temp />
-				</div>
-				<div className="Weather__Row">
-					<Location />
-				</div>
+        <div onClick={this.handleOpenModal}>
+          <div className="Weather__Row">
+            <Shower />
+            <Temp />
+          </div>
+          <div className="Weather__Row">
+            <Location />
+          </div>
+        </div>
 
 				<ReactModal
 					className="Modal"
@@ -43,8 +45,10 @@ class Weather extends React.Component {
 					<div className="Modal__Content">
             <div className="Current__Weather__Container">
               <div className="Current__Weather__Wrapper">
-                <span id="Current__Location">Location</span>
-                <span id="Current__Weather">Rain</span>
+                <div className="Current__Weather__Head">
+                  <span id="Current__Location">Location</span>
+                  <span id="Current__Weather">Rain</span>
+                </div>
                 <div className="Weather__Wrapper">
                   <Shower id="Weather__Icon" />
                   <span id="Current__Temp">19°</span>
@@ -59,10 +63,8 @@ class Weather extends React.Component {
               <DailyWeather /> 
               <DailyWeather /> 
              </div>
-
 					</div>
-				</ReactModal>
-        
+				</ReactModal>     
 			</div>
 		);
 	}
