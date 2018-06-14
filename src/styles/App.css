@@ -1,13 +1,15 @@
 .App {
-  display: flex;
+  /* display: flex; */
   text-align: center;
+  margin: 16px;
 }
 
-p{
-      font-size: 1050%;
-      font-weight: 500;
-          font-family: "Helvetica Neue",
-          Helvetica,
-          Arial,
-          sans-serif;
+.App__Top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.App__Footer {
+  display: flex;
+  justify-content: space-between;
 }
