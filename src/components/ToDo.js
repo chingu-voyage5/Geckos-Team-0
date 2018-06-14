@@ -1,10 +1,11 @@
 import React from 'react';
+import "../styles/ToDo.css";
 
 class ToDo extends React.Component {
     render() {
       return (
         <div className="ToDo">
-            <h3>ToDo</h3>
+            <span>ToDo</span>
         </div>
       );
     }

@@ -1,11 +1,12 @@
 import React from 'react';
+import "../styles/Weather.css";
 
 class ToDoInput extends React.Component {
     render() {
       return (
         <div className="ToDoInput">
             <form>
-                <p>What is your main focus for today?</p>
+                <h1>What is your main focus for today?</h1>
                 <input type="text" name="todo"/>
             </form>
         </div>

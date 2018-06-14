@@ -1,7 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html , #root{
+  height: 100vh;
+}
+
+body {
+  background-image: url(https://cache-blog.credit.com/wp-content/uploads/2013/05/vacation-wreck-credit_iStockphoto.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .App {
+  height: 100vh;
   /* display: flex; */
+  
   text-align: center;
   margin: 16px;
+}
+
+.App__Center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .App__Top {
@@ -12,4 +36,5 @@
 .App__Footer {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
 }
