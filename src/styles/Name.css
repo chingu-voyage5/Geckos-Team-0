@@ -8,9 +8,9 @@ div{
  
 }
 
-/* #greeting .transition {
+#greeting .transition {
     transition: transform .5s ease;
-} */
+}
 
 [contentEditable="true"].single-line {
     white-space: nowrap;
