@@ -4,6 +4,7 @@ import "../styles/time.css";
 
 import { Time } from "./time.js";
 import ToDoInput from "./ToDoInput.js";
+import ToDo from "./ToDo.js";
 import Weather from "./Weather";
 import Links from "./Links";
 
@@ -24,7 +25,7 @@ class App extends Component {
 				<div className="App__Footer">
 					<h3>Setting button Here</h3>
 					<h3>Quotes Here</h3>
-					<h3>Todo Here</h3>
+					<ToDo />
 				</div>
 			</div>
 		);
