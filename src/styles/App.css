@@ -1,12 +1,14 @@
 .App {
-  /* display: flex; */
   text-align: center;
-  margin: 16px;
 }
 
 .App__Top {
   display: flex;
   justify-content: space-between;
+}
+
+.APP__Top__Left {
+  display: flex;
 }
 
 .App__Footer {
