@@ -1,7 +1,7 @@
 import React from 'react';
 import "../styles/Weather.css";
 
-class ToDoInput extends React.Component {
+class Focus extends React.Component {
     render() {
       return (
         <div className="ToDoInput">
@@ -14,4 +14,4 @@ class ToDoInput extends React.Component {
     }
 }
 
-export default ToDoInput;
+export default Focus;

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "../styles/App.css";
-import "../styles/time.css";
+import "../styles/Time.css";
 
-import { Time } from "./time.js";
-import ToDoInput from "./ToDoInput.js";
+import { Time } from "./Time.js";
+import Focus from "./Focus";
 import ToDo from "./ToDo.js";
 import Weather from "./Weather";
 import Links from "./Links";
@@ -20,7 +20,7 @@ class App extends Component {
 					<span>
 						<Time />
 					</span>
-					<ToDoInput />
+					<Focus />
 				</div>
 				<div className="App__Footer">
 					<h3>Setting button Here</h3>
