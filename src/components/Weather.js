@@ -10,11 +10,9 @@ class Weather extends React.Component {
 		this.state = {
 			showModal: false
 		};
-
 		this.handleOpenModal = this.handleOpenModal.bind(this);
 		this.handleCloseModal = this.handleCloseModal.bind(this);
 	}
-
 	handleOpenModal() {
 		this.setState({ showModal: true });
 	}
@@ -37,7 +35,7 @@ class Weather extends React.Component {
         </div>
 
 				<Modal
-					className="Modal"
+					className="Weather__Modal"
 					overlayClassName="Overlay"
 					isOpen={this.state.showModal}
 					onRequestClose={this.handleCloseModal}
