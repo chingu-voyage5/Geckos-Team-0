@@ -2,6 +2,10 @@
    Weather Component
 *********************/
 
+#Weather {
+  padding: 17px;
+}
+
 .Weather__Row {
   display: flex;
 }

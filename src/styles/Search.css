@@ -1,0 +1,40 @@
+/********************
+   Search Component 
+*********************/
+
+#Search {
+  margin-left: 3px;
+  height: 60px;
+}
+
+.Add_Line {
+  display: flex;
+  border-bottom: 2.4px solid;
+  height: 46px; 
+}
+
+#Search span svg {
+  padding: 20px 6px 20px 7px;
+}
+
+/**********************
+  SearchForm Component 
+***********************/
+
+#Search__Form {
+  margin-top: 20px;
+}
+
+#Search__Form input[type=text] {
+  outline: none;
+  border: none;
+  font-size: 13px;
+}
+
+/********************
+    Hover Effects 
+*********************/
+
+#Search:hover {
+  cursor: pointer;
+}
