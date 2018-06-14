@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "../styles/App.css";
-import "../styles/time.css";
 
-import { Time } from "./time.js";
+import { Time } from "./Time";
 import ToDoInput from "./ToDoInput.js";
 import Weather from "./Weather";
 import Links from "./Links";
