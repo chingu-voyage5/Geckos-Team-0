@@ -3,15 +3,23 @@
   flex-direction: column;
 }
 
-#Quotes p {
-  /* padding: 20px; */
-  margin: 0;
+.Quote__Container {
+  display: flex;
+}
+
+.Quote__Container p {
+  margin: 10px 0 0 3px;  
   font-size: 18px;
+}
+
+.Quote__Container {
+  font-size: 25px;
 }
 
 #Actions {
   display: flex;
   justify-content: center;
+  align-items: baseline;
 }
 
 #Name {
@@ -20,7 +28,7 @@
 }
 
 .Heart {
-  font-size: 18px;
+  font-size: 23px;
   padding: 1px 5px 5px 10px;
 }
 
