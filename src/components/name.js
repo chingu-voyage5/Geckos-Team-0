@@ -13,15 +13,14 @@ export class Name extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+
     handleChange = evt => {
         evt.preventDefault();
         this.setState({ html: evt.target.value });
-        
+        console.log(Time.getTimeString());
     };
 
-    handleTime(){
-         
-    }
+  
 
     render() {
         return <div id="greeting" className="transition">
