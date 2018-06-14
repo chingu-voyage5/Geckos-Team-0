@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "../styles/App.css";
-import "../styles/time.css";
+import "../styles/Time.css";
 
-import { Time } from "./time.js";
-import ToDoInput from "./ToDoInput.js";
+import { Time } from "./Time.js";
+import Focus from "./Focus";
+import ToDo from "./ToDo.js";
 import Weather from "./Weather";
 import Links from "./Links";
 import Search from "./Search";
@@ -21,14 +22,14 @@ class App extends Component {
         </div>
         <div className="App__Center">
           <span>
-	    <Time />
+	          <Time />
           </span>
-          <ToDoInput />
+          <Focus />
         </div>
         <div className="App__Footer">
           <h3>Setting button Here</h3>
           <h3>Quotes Here</h3>
-          <h3>Todo Here</h3>
+					<ToDo />
         </div>
       </div>
     );
