@@ -6,13 +6,17 @@ import { Time } from "./time.js";
 import ToDoInput from "./ToDoInput.js";
 import Weather from "./Weather";
 import Links from "./Links";
+import Search from "./Search";
 
 class App extends Component {
 	render() {
 		return (
 			<div className="App">
 				<div className="App__Top">
-					<Links />
+          <div className="APP__Top__Left">
+            <Links />
+            <Search />
+          </div>
 					<Weather />
 				</div>
 				<div className="App__Center">
