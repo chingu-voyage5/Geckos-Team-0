@@ -20,14 +20,14 @@ export class Name extends React.Component {
     };
 
     handleTime(){
-
+         
     }
 
     render() {
         return <div id="greeting" className="transition">
 				<h2>
 					Good <span> 
-                        morning
+                        {Time.getTimeString}
                     </span>,
 					<span className = "single-line" contentEditable={true}  onChange={this.onChange}>
 						{this.state.html}
