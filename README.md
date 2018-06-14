@@ -2,6 +2,8 @@
 ## Project
 Our group will be cloning the [Momentum Extension](https://www.google.com/search?q=momentum+extension&oq=momentum+&aqs=chrome.0.69i59j0l2j69i60j69i57j69i61.1960j0j1&sourceid=chrome&ie=UTF-8). The extension is a home page replacement on the Chrome browser. It can be accessed by opening a new window or tab. 
 
+To see the live demo 👉https://chingu-voyage5.github.io/Geckos-Team-0/
+
 ## Features for the MVP
 * Time
 * Greeting with Name
@@ -17,6 +19,18 @@ Our group will be cloning the [Momentum Extension](https://www.google.com/search
 * Kiran Shuaib
 
 ## Instructions
+
+### Installation
+1. To deploy in your local machaine, clone or download this repo
+2. ```cd``` into the project directory
+3. Run ```yarn install``` to add all the dependencies
+4. Run ```yarn start``` to run the application
+
+### Deployment to Chrome 
+1. Run ```yarn build``` to build the "build" folder
+2. In your Chrome browser, navigate to ***chrome://extensions***
+3. Make sure the "Developer mode" in the top right corner is turned on. 
+4. Click "LOAD UNPACKED" and select the "build" folder
 
 ### Setup
 1. Clone the repo - ```$ git clone git@github.com:chingu-voyage5/Geckos-Team-0.git```
