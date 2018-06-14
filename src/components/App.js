@@ -7,6 +7,7 @@ import ToDoInput from "./ToDoInput.js";
 import Weather from "./Weather";
 import Links from "./Links";
 import Search from "./Search";
+import Quotes from "./Quotes";
 
 class App extends Component {
   render() {
@@ -27,7 +28,7 @@ class App extends Component {
         </div>
         <div className="App__Footer">
           <h3>Setting button Here</h3>
-          <h3>Quotes Here</h3>
+          <Quotes />
           <h3>Todo Here</h3>
         </div>
       </div>
