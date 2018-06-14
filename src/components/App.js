@@ -3,7 +3,7 @@ import '../styles/App.css';
 
 
 import {Time} from './time';
-import {Name} from './Name';
+import {Name} from './name';
 import ToDoInput from './ToDoInput.js';
 import Weather from './Weather';
 
