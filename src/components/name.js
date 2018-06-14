@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
 
-export class Time extends Component {
+export class Name extends Component {
+
 }
