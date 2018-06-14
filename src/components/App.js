@@ -13,7 +13,7 @@ class App extends Component {
    
     return (
       <div className="App">
-        <span><Time /></span>
+        <Time />
         <Weather />
         <ToDoInput />
       </div>

@@ -34,7 +34,7 @@ export class Time extends Component {
 
         return (
             <div className="time">
-                <p>{this.state.time}</p>
+                <h1>{this.state.time}</h1>
                 
             </div>
         )

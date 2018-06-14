@@ -5,7 +5,7 @@ class ToDoInput extends React.Component {
       return (
         <div className="ToDoInput">
             <form>
-                <p>What is your main focus for today?</p>
+                  <p>what is you main focus today</p>
                 <input type="text" name="todo"/>
             </form>
         </div>
