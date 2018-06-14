@@ -1,15 +1,31 @@
 #Quotes {
   display: flex;
+  flex-direction: column;
 }
 
 #Quotes p {
-  padding: 20px;
+  /* padding: 20px; */
   margin: 0;
   font-size: 18px;
 }
 
-.Quotes__Bottom {
+#Actions {
+  display: flex;
+  justify-content: center;
+}
 
+#Name {
+  font-size: 15px;
+  margin: 5px 0 0 0;
+}
+
+.Heart {
+  font-size: 18px;
+  padding: 1px 5px 5px 10px;
+}
+
+#Twitter {
+  font-size: 20px;
 }
 
 
