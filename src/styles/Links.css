@@ -4,6 +4,7 @@
 
 #Links {
   padding: 20px 8px 20px 20px;
+  height: 20px;
 }
 
 /********************
@@ -61,7 +62,7 @@
     Hover Effects 
 *********************/
 
-#Links span:hover {
+#Links:hover {
   cursor: pointer;
 }
 

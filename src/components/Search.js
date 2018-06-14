@@ -24,10 +24,12 @@ class Search extends React.Component {
 
     return (
       <div id="Search">
-        <span onClick={this.toggleShowForm}>
-          <FaSearch />
-        </span>
-        {showForm && <SearchForm />}
+        <div className={showForm ? "Add_Line" : "Search__Wrapper"}>
+          <span onClick={this.toggleShowForm}>
+            <FaSearch />
+          </span>
+          {showForm && <SearchForm />}
+        </div>
       </div>
     );
   }
