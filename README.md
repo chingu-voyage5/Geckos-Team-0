@@ -21,7 +21,7 @@ To see the live demo 👉 https://chingu-voyage5.github.io/Geckos-Team-0/
 ## Instructions
 
 ### Installation
-1. To deploy in your local machaine, clone or download this repo
+1. To deploy in your local machine, clone or download this repo
 2. ```cd``` into the project directory
 3. Run ```yarn install``` to add all the dependencies
 4. Run ```yarn start``` to run the application
