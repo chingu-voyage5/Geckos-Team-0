@@ -1,0 +1,38 @@
+/********************
+   ToDO Component
+*********************/
+
+/********************
+    ToDo Modal
+*********************/
+
+.ToDo__Modal {
+    width: 275px;
+    height: auto;
+    background-color: rgba(15,15,15,.925);
+    margin-top: 63px;
+    margin-left: 5px;
+    color: white;
+    outline: none;
+    border-radius: 3px;
+}
+
+.ToDo__Modal__Content, .ToDo__Modal__Content p {
+font-size: 13px;
+font-weight: 400;
+line-height: 170%;
+opacity: 0.7;
+}
+
+.ToDo__Modal__Content { 
+    padding: 10px 15px;
+}
+
+
+/********************
+    Hover Effects 
+*********************/
+
+.ToDo span:hover {
+    cursor: pointer;
+}
