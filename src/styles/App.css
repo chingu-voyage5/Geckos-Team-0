@@ -15,6 +15,9 @@ body {
 }
 
 .App {
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
   height: 100vh;
   text-align: center;
 }
@@ -26,6 +29,7 @@ body {
 }
 
 .App__Top {
+  margin-bottom: auto;
   display: flex;
   justify-content: space-between;
 }
@@ -35,7 +39,8 @@ body {
 }
 
 .App__Footer {
+  margin-top: auto;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
 }
