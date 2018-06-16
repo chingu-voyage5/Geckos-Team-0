@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
 
-
 import {Time} from './Time';
 import {Name} from './Name';
 import Weather from './Weather';
@@ -9,6 +8,7 @@ import Focus from "./Focus";
 import ToDo from "./ToDo.js";
 import Links from "./Links";
 import Search from "./Search";
+import Quotes from "./Quotes";
 
 class App extends Component {
  
@@ -31,7 +31,7 @@ class App extends Component {
         </div>
         <div className="App__Footer">
           <h3>Setting button Here</h3>
-          <h3>Quotes Here</h3>
+          <Quotes />
 					<ToDo />
         </div>
       </div>
