@@ -1,0 +1,29 @@
+
+div{
+    overflow: hidden;
+}
+
+#greeting h2{
+        font-size: 337.5%;
+ 
+}
+
+#greeting .transition {
+    transition: transform .5s ease;
+}
+
+[contentEditable="true"].single-line {
+    white-space: nowrap;
+    width: 200px;
+    overflow: hidden;
+}
+
+[contentEditable="true"].single-line br {
+    display: none;
+}
+
+[contentEditable="true"].single-line * {
+    display: inline;
+    white-space: nowrap;
+}
+

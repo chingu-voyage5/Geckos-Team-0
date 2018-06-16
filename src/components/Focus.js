@@ -6,6 +6,7 @@ class Focus extends React.Component {
       return (
         <div className="ToDoInput">
             <form>
+                  <p>what is you main focus today</p>
                 <h1>What is your main focus for today?</h1>
                 <input type="text" name="todo"/>
             </form>
