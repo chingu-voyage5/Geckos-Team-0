@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
+import '../styles/Time.css';
 
 
 import {Time} from './Time';
 import {Name} from './Name';
 import Weather from './Weather';
+<<<<<<< Updated upstream
 
 import "../styles/time.css";
 
@@ -12,6 +14,10 @@ import "../styles/time.css";
 import Focus from "./Focus";
 import ToDo from "./ToDo.js";
 
+=======
+import Focus from "./Focus";
+import ToDo from "./ToDo.js";
+>>>>>>> Stashed changes
 import Links from "./Links";
 import Search from "./Search";
 
