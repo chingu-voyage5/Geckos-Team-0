@@ -1,39 +1,79 @@
 #Quotes {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
+  font-weight: 300;
+  height: 60px;
 }
 
 .Quote__Container {
   display: flex;
+  margin-top: 15px;
+
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+	transition: margin-top 0.5s ease;
 }
 
 .Quote__Container p {
-  margin: 10px 0 0 3px;  
-  font-size: 18px;
+	margin: 10px 0 0 3px;
+	font-size: 16px;
 }
 
-.Quote__Container {
-  font-size: 25px;
+.Quote__Container span {
+	font-size: 24px;
+}
+
+.Action__Container {
+  margin-top: -25px;
+  opacity: 0;
+
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 #Actions {
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
 }
 
 #Name {
-  font-size: 15px;
+	font-size: 14px;
   margin: 5px 0 0 0;
+  opacity: 0.6;
 }
 
 .Heart {
-  font-size: 23px;
-  padding: 1px 5px 5px 10px;
+	font-size: 23px;
+	padding: 1px 5px 5px 10px;
 }
 
 #Twitter {
-  font-size: 20px;
+	font-size: 20px;
 }
 
+/********************
+    Hover Effects 
+*********************/
 
+.slide-up {
+  margin-top: 0;
+
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  transition: margin-top 0.5s ease;
+}
+
+.slide-down {
+  opacity: 1;
+  margin-top: 0;
+
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  transition: all 0.5s ease;
+}
