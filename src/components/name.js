@@ -20,9 +20,7 @@ export class Name extends React.Component {
         console.log(Time.getTimeString());
     };
 
-   handleTime(){
-       
-   }
+  
 
     render() {
         return <div id="greeting" className="transition">

@@ -15,6 +15,8 @@ export class Time extends Component {
        
     }
 
+   
+
     componentDidMount() {
         this.timer = setInterval(() => {
             let date = this.getTimeString();
