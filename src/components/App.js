@@ -7,7 +7,7 @@ import {Time} from './Time';
 import {Name} from './Name';
 import Weather from './Weather';
 import Focus from "./Focus";
-import ToDo from "./ToDo.js";P
+import ToDo from "./ToDo.js";
 import Links from "./Links";
 import Search from "./Search";
 
