@@ -26,13 +26,17 @@ class Quotes extends React.Component {
 				onMouseEnter={this.toggleHover}
 				onMouseLeave={this.toggleHover}
 			>
-				{/* 👇 When mouse enters #Quotes, add "slide-down" and "slide-up" classes */}
+        {/* 👇 When mouse enters #Quotes, add "slide-down" and "slide-up" classes */}
+        {/* <div className="Quote__Container slide-up"> */}
+        
 				<div className={`Quote__Container ${quoteClass}`}>
 					<span>
 						<GoQuote />
 					</span>
 					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 				</div>
+        {/* <div className="Quote__Container slide-down"> */}
+
 				<div className={`Action__Container ${actionClass}`}>
 					<Actions />
 				</div>
