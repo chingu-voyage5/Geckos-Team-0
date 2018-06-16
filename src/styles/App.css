@@ -40,7 +40,6 @@ body {
 
 .App__Footer {
   margin-top: auto;
-  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
 }

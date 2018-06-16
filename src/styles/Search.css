@@ -7,14 +7,12 @@
   height: 60px;
 }
 
-.Add_Line {
-  display: flex;
-  border-bottom: 2.4px solid;
-  height: 46px; 
+.Search__Wrapper {
+  padding: 17px 6px 20px 7px;
 }
 
 #Search span svg {
-  padding: 20px 6px 20px 7px;
+  /* padding: 20px 6px 20px 7px; */
 }
 
 /**********************
@@ -22,10 +20,11 @@
 ***********************/
 
 #Search__Form {
-  margin-top: 20px;
+  margin: 2px 0 0 10px;
 }
 
 #Search__Form input[type=text] {
+  background: transparent;
   outline: none;
   border: none;
   font-size: 13px;
@@ -37,4 +36,14 @@
 
 #Search:hover {
   cursor: pointer;
+}
+
+/********************
+    Click Event  
+*********************/
+
+.add-line {
+  display: flex;
+  border-bottom: 2.4px solid;
+  height: 46px; 
 }
