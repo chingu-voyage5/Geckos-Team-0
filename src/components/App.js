@@ -1,38 +1,39 @@
 import React, { Component } from "react";
 import "../styles/App.css";
 
-import { Time } from "./Time";
-import ToDoInput from "./ToDoInput.js";
+import { Time } from "./Time.js";
+import Focus from "./Focus";
+import ToDo from "./ToDo.js";
 import Weather from "./Weather";
 import Links from "./Links";
 import Search from "./Search";
 import Quotes from "./Quotes";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App__Top">
-          <div className="APP__Top__Left">
-            <Links />
-            <Search />
-          </div>
-          <Weather />
-        </div>
-        <div className="App__Center">
-          <span>
-	    <Time />
-          </span>
-          <ToDoInput />
-        </div>
-        <div className="App__Footer">
-          <h3>Setting button Here</h3>
-          <Quotes />
-          <h3>Todo Here</h3>
-        </div>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="App">
+				<div className="App__Top">
+					<div className="APP__Top__Left">
+						<Links />
+						<Search />
+					</div>
+					<Weather />
+				</div>
+				<div className="App__Center">
+					<span>
+						<Time />
+					</span>
+					<Focus />
+				</div>
+				<div className="App__Footer">
+					<h3>Setting button Here</h3>
+					<Quotes />
+					<ToDo />
+				</div>
+			</div>
+		);
+	}
 }
 
 export default App;
