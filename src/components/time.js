@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import '../styles/time.css';
+
+import '../styles/Time.css';
 
 export class Time extends Component {
     constructor(props) {
@@ -35,8 +36,7 @@ export class Time extends Component {
 
         return (
             <div className="time">
-                <h1>{this.state.time}</h1>
-                
+                <p id="Time">{this.state.time}</p>      
             </div>
         )
     }
