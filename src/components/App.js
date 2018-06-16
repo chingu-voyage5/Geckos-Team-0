@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { Component } from 'react';
 import '../styles/App.css';
 
@@ -7,7 +6,6 @@ import {Time} from './time';
 import {Name} from './name';
 import ToDoInput from './ToDoInput.js';
 import Weather from './Weather';
-=======
 import React, { Component } from "react";
 import "../styles/App.css";
 import "../styles/Time.css";
@@ -18,13 +16,11 @@ import ToDo from "./ToDo.js";
 import Weather from "./Weather";
 import Links from "./Links";
 import Search from "./Search";
->>>>>>> origin
 
 class App extends Component {
  
   
   render() {
-<<<<<<< HEAD
    
     return <div className="App">
 			<Time />
@@ -32,7 +28,6 @@ class App extends Component {
 			<ToDoInput />
 			<Weather />
 		</div>;
-=======
     return (
       <div className="App">
         <div className="App__Top">
@@ -55,7 +50,6 @@ class App extends Component {
         </div>
       </div>
     );
->>>>>>> origin
   }
 }
 
