@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
-import '../styles/Time.css';
 
 
 import {Time} from './Time';
