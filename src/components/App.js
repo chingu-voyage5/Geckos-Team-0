@@ -2,18 +2,16 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 
 
-import {Time} from './time';
-import {Name} from './name';
-import ToDoInput from './ToDoInput.js';
+import {Time} from './Time';
+import {Name} from './Name';
 import Weather from './Weather';
-import React, { Component } from "react";
-import "../styles/App.css";
-import "../styles/Time.css";
 
-import { Time } from "./Time.js";
+import "../styles/time.css";
+
+
 import Focus from "./Focus";
 import ToDo from "./ToDo.js";
-import Weather from "./Weather";
+
 import Links from "./Links";
 import Search from "./Search";
 
@@ -25,7 +23,7 @@ class App extends Component {
     return <div className="App">
 			<Time />
 			<Name />
-			<ToDoInput />
+			
 			<Weather />
 		</div>;
     return (
