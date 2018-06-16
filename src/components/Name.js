@@ -29,8 +29,10 @@ export class Name extends React.Component {
                         
                         morning
                     </span>,
-					<span className = "single-line" contentEditable={true}  onChange={this.onChange}>
-						{this.state.html}
+	
+                    
+                <span className="single-line" ref={function (e) { if (e != null) e.contentEditable = true; }} onChange={this.onChange}>
+                    {this.state.html}
                         .
 					</span>
 				</h2>
