@@ -35,11 +35,11 @@ class ToDo extends React.Component {
                         <p>2 to do</p>
                         <div className="ToDo__List">
                             <input type="checkbox" id="react" name="todo" value="Learn React"></input>
-                            <label for="react">Learn React</label>
+                            <label htmlFor="react">Learn React</label>
                         </div>
                         <div className="ToDo__List">
                             <input type="checkbox" id="chingu" name="todo" value="Chingu Project"></input>
-                            <label for="chingu">Chingu Project</label>
+                            <label htmlFor="chingu">Chingu Project</label>
                         </div>
 						<input type="text" name="todo" placeholder="New Todo"/>
 					</div>
