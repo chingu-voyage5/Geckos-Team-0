@@ -21,17 +21,16 @@ class Search extends React.Component {
 
   render() {
     const { showForm } = this.state;
+    const addClass = showForm ? "add-line" : "";
 
-    return (
-      <div id="Search">
-        <div className={showForm ? "Add_Line" : "Search__Wrapper"}>
-          <span onClick={this.toggleShowForm}>
-            <FaSearch />
-          </span>
-          {showForm && <SearchForm />}
-        </div>
-      </div>
-    );
+    return <div id="Search">
+				<div className={`Search__Wrapper ${addClass}`}>
+					<span onClick={this.toggleShowForm}>
+						<FaSearch />
+					</span>
+					{showForm && <SearchForm />}
+				</div>
+			</div>;
   }
 }
 
