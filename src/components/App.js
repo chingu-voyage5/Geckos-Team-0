@@ -16,12 +16,6 @@ class App extends Component {
   
   render() {
    
-    return <div className="App">
-			<Time />
-			<Name />
-			
-			<Weather />
-		</div>;
     return (
       <div className="App">
         <div className="App__Top">
@@ -32,9 +26,8 @@ class App extends Component {
           <Weather />
         </div>
         <div className="App__Center">
-          <span>
-	          <Time />
-          </span>
+          <Time />
+          <Name />
           <Focus />
         </div>
         <div className="App__Footer">

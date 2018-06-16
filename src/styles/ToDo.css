@@ -11,11 +11,14 @@
 *********************/
 
 .ToDo__Modal {
-    width: 275px;
-    height: auto;
-    background-color: rgba(15,15,15,.925);
     margin-top: 63px;
     margin-left: 5px;
+    width: 275px;
+    height: auto;
+    position: absolute;
+    bottom: 45px;
+    right: 10px;
+    background-color: rgba(15,15,15,.925);
     color: white;
     outline: none;
     border-radius: 3px;
