@@ -25,10 +25,9 @@ export class Name extends React.Component {
         return <div id="greeting" className="transition">
             <h2>
                 Good <span>
-
                     morning
                     </span>,
-					<span className="single-line" contentEditable={true} onChange={this.onChange} html={this.state.html}>
+					<span className="single-line" ref={function (e) { if (e != null) e.contentEditable = true; }} onChange={this.onChange} html={this.state.html}>
                     .
 					</span>
             </h2>
