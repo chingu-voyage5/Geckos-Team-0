@@ -16,6 +16,9 @@ div{
     transition: transform .5s ease;
 }
 
+
+
+
 [contentEditable="true"].single-line {
     white-space: nowrap;
     width: 200px;
@@ -30,4 +33,11 @@ div{
     display: inline;
     white-space: nowrap;
 }
+
+ [contentEditable="false"] {
+   min-width: 1.5em;
+   margin-bottom: -8px;
+   border-bottom: 3px solid #ffffff;
+   cursor: auto;
+}  
 
