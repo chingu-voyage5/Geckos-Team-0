@@ -1,0 +1,49 @@
+/********************
+   Settings Component
+*********************/
+
+.Settings {
+    padding: 15px 20px;
+  }
+  
+  /********************
+      ToDo Modal
+  *********************/
+  
+  .Settings__Modal {
+      margin-top: 63px;
+      margin-left: 5px;
+      width: 700px;
+      height: 450px;
+      overflow-y: scroll;
+      position: absolute;
+      bottom: 45px;
+      left: 10px;
+      background-color: rgba(15,15,15,.925);
+      color: white;
+      outline: none;
+      border-radius: 3px;
+
+
+      padding: 50px;
+  }
+  
+  .ToDo__Modal__Content, .ToDo__Modal__Content p {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 170%;
+    opacity: 0.7;
+  }
+  
+  .ToDo__Modal__Content { 
+      padding: 10px 15px;
+  }
+  
+  
+  /********************
+      Hover Effects 
+  *********************/
+  
+  .Settings span:hover {
+      cursor: pointer;
+  }
