@@ -1,19 +1,19 @@
 /********************
    Settings Component
 *********************/
-* {
+.Settings__Modal__Content * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-size: 15px;
 }
 
-li {
+.Settings__Modal__Content li {
     list-style: none;
     padding: 7px 0;
 }
 
-a {
+.Settings__Modal__Content a {
     text-decoration: none;
     color: #cecece;
 }
