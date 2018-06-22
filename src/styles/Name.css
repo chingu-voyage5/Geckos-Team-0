@@ -5,12 +5,19 @@ div{
 
 #greeting h2{
         font-size: 337.5%;
+        font-family: "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif;
  
 }
 
 #greeting .transition {
     transition: transform .5s ease;
 }
+
+
+
 
 [contentEditable="true"].single-line {
     white-space: nowrap;
@@ -26,4 +33,11 @@ div{
     display: inline;
     white-space: nowrap;
 }
+
+ [contentEditable="false"] {
+   min-width: 1.5em;
+   margin-bottom: -8px;
+   border-bottom: 3px solid #ffffff;
+   cursor: auto;
+}  
 

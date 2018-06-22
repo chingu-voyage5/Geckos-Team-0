@@ -5,6 +5,7 @@
   "dependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
+    "react-contenteditable": "^2.1.0",
     "react-dom": "^16.4.0",
     "react-icons": "^2.2.7",
     "react-modal": "^3.4.5",
