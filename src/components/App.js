@@ -9,6 +9,7 @@ import ToDo from "./ToDo.js";
 import Links from "./Links";
 import Search from "./Search";
 import Quotes from "./Quotes";
+import Settings from "./Settings";
 
 class App extends Component {
  
@@ -30,7 +31,7 @@ class App extends Component {
           <Focus />
         </div>
         <div className="App__Footer">
-          <h3>Setting button Here</h3>
+          <Settings />
           <Quotes />
 					<ToDo />
         </div>
