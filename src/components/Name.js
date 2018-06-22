@@ -9,16 +9,27 @@ export class Name extends React.Component {
         this.state = {
             html: " "
         }
-        this.handleChange = this.handleChange.bind(this);
+      this.handleChange = this.handleChange.bind(this);
     }
 
 
-    handleChange = evt => {
-        evt.preventDefault();
-        this.setState({ html: evt.target.value });
-        console.log(this.html)
-    };
+    // handleChange = evt => {
+    //     evt.preventDefault();
+    //     console.log(evt.target.value);
+    //     this.setState({ html: evt.target.value });
+    //     console.log(evt);
+    //     // console.log(this.state.html)
+      
+    // };
 
+
+    handleChange = (evt) =>{
+      
+        console.log(evt.target.value);
+       
+
+    };
+ 
 
 
     render() {
@@ -27,7 +38,10 @@ export class Name extends React.Component {
                 Good <span>
                     morning
                     </span>,
-					<span className="single-line" ref={function (e) { if (e != null) e.contentEditable = true; }} onChange={this.onChange} html={this.state.html}>
+					{/* <span className="single-line" ref={function (e) { if (e != null) e.contentEditable = true; }} onBlur={this.handleChange}> */}
+					<span className="single-line"  contentEditable = "true";  onBlur={this.handleChange}>
+                  {this.state.html}
+					</span>
                     .
 					</span>
             </h2>
