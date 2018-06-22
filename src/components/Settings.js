@@ -33,24 +33,58 @@ class Settings extends React.Component {
 					{/* Modal Content */}
 					<div className="Settings__Modal__Content">
                         <div className="Settings__Left">
-                            Settings will go here<br/><br/>
+							<h3 class="Settings__Left__Header">General</h3>
+							<ul>
+								<a href="#"><li>Todo</li></a>
+								<a href="#"><li>Photos</li></a>
+								<a href="#"><li>Quotes</li></a>
+								<a href="#"><li>Links</li></a>
+								<a href="#"><li>Balance</li></a>
+							</ul>
+							<ul>
+								<a href="#"><li>Help</li></a>
+								<a href="#"><li>What's new</li></a>
+								<a href="#"><li>About</li></a>
+								<a href="#"><li>Upgrade to Plus</li></a>
+							</ul>
+							<a href="#">
+								<div class="Settings__Login">
+									<p>Log In</p>
+									<p>Sync your account and more!</p>
+								</div>
+							</a>
                         </div>
                         <div className="Settings__Right">
-                            <div>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure voluptas quod sapiente, pariatur dolor autem at ea perferendis ad unde culpa voluptatibus ullam nam fugiat voluptatem veritatis quaerat. Quae dolores minus assumenda nisi sunt doloribus impedit deserunt deleniti soluta placeat. Repellat asperiores necessitatibus numquam beatae, rerum error labore natus.
-                            </div>
-                            <br/><br/>
-                            <div>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure voluptas quod sapiente, pariatur dolor autem at ea perferendis ad unde culpa voluptatibus ullam nam fugiat voluptatem veritatis quaerat. Quae dolores minus assumenda nisi sunt doloribus impedit deserunt deleniti soluta placeat. Repellat asperiores necessitatibus numquam beatae, rerum error labore natus.
-                            </div>
-                            <br/><br/>
-                            <div>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure voluptas quod sapiente, pariatur dolor autem at ea perferendis ad unde culpa voluptatibus ullam nam fugiat voluptatem veritatis quaerat. Quae dolores minus assumenda nisi sunt doloribus impedit deserunt deleniti soluta placeat. Repellat asperiores necessitatibus numquam beatae, rerum error labore natus.
-                            </div>
-                            <br/><br/>
-                            <div>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur iure voluptas quod sapiente, pariatur dolor autem at ea perferendis ad unde culpa voluptatibus ullam nam fugiat voluptatem veritatis quaerat. Quae dolores minus assumenda nisi sunt doloribus impedit deserunt deleniti soluta placeat. Repellat asperiores necessitatibus numquam beatae, rerum error labore natus.
-                            </div>
+							<h2 class="Settings__Right__Header">General</h2>
+
+							<h3 class="Settings__Right__Header">SHOW</h3>
+							<ul>
+								<li>Links</li>
+								<li>Bookmarks Bar</li>
+								<li>Search</li>
+								<li>Weather</li>
+								<li>Focus</li>
+								<li>Quote</li>
+								<li>Todo</li>
+								<li>Countdown</li>
+								<li>Notes</li>
+							</ul>
+
+							<h3 class="Settings__Right__Header">CUSTOMIZE</h3>
+							<ul>
+								<li>Theme</li>
+								<li>Font</li>
+							</ul>
+
+							<h3 class="Settings__Right__Header">OPTIONS</h3>
+							<ul>
+								<li>Clock Format</li>
+								<li>Percent Clock</li>
+								<li>Search Provider</li>
+							</ul>
+
+							<h5>Tip</h5>
+							<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci, impedit?</p>
                         </div>
 					</div>
 				</Modal>
