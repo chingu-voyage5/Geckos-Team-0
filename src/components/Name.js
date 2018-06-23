@@ -32,7 +32,7 @@ export class Name extends React.Component {
        if(html){
         this.setState(() => ({ html: html }));
        }
-        console.log(html);
+       
     } catch(e){
         // do nothing ata ll
     }
@@ -58,10 +58,11 @@ export class Name extends React.Component {
 				<h2>
 					Good <span>morning</span>,
                 
-                   <ContentEditable html={this.state.html} // innerHTML of the editable div
+                   <contentEditable
+                        html={this.state.html} // innerHTML of the editable div
                         disabled={false}       // use true to disable edition
                         onChange={this.handleChange} 
-                         />
+                    />
 					.
 				</h2>
             </div>
@@ -71,19 +72,21 @@ export class Name extends React.Component {
 }
 
     class ContentEditable extends React.Component{
-        constructor(){
-            super();
+        constructor(props){
+            super(props);
             this.emitChange = this.emitChange.bind(this);
 
         }
-             render(){
-            return <span
+            render(){
+            return (
+            <span
              className="single-line"
              onInput={this.emitChange} 
              onBlur={this.emitChange}
              ref={function (e) { if (e != null) e.contentEditable = true; }}
              dangerouslySetInnerHTML={{ __html: this.props.html }}> 
              </span>
+            )
              }
     
     
