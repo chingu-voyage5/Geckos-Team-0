@@ -24,28 +24,30 @@ export class Name extends React.Component {
     
  
     componentDidMount() {
+        try{
         const json = localStorage.getItem('name');
         console.log(json);
         const html = JSON.parse(json);
-
-      
 
        if(html){
         this.setState(() => ({ html: html }));
        }
         console.log(html);
-
+    } catch(e){
+        // do nothing ata ll
+    }
     }
 
 
 
    componentDidUpdate(prevState){
+       
        if(prevState.html !== this.state.html){
        const json = JSON.stringify(this.state.html);
        console.log(json)
        localStorage.setItem('name', json);
        console.log('Saving Data');
-       }
+
    }
 
 
