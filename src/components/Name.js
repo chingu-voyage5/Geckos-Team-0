@@ -14,7 +14,7 @@ export class Name extends React.Component {
 
 			handleChange(event) {
 				this.setState({ html: event.target.value });
-				console.log(this.state.html);
+				// console.log(this.state.html);
 			}
 
 			componentDidMount() {
@@ -31,7 +31,7 @@ export class Name extends React.Component {
 		
 					const html = this.state.html;
 					localStorage.setItem('html', html);
-					console.log('Saving Data');
+					// console.log('Saving Data');
 				}
 			}
 
