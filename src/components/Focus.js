@@ -29,9 +29,15 @@ class Focus extends React.Component {
         console.log('It Updated!');
     }
 
+    // Handles form submission
     addFocus = (e) => {
         e.preventDefault();
         console.log(`focus added`);
+    }
+
+    // Handles removal of Focus field
+    deleteFocus = (e) => {
+        console.log(`focus deleted`);
     }
 
     render() {
