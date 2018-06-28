@@ -1,5 +1,5 @@
 import React from 'react';
-import "../styles/Weather.css";
+import "../styles/Focus.css";
 
 class Focus extends React.Component {
     constructor(props) {
@@ -33,8 +33,8 @@ class Focus extends React.Component {
       return (
         <div className="FocusInput">
             <form>
-                <h1>What is your main focus for today?</h1>
-                <input id="FocusValue" type="text" name="todo" value={'Value'}/>
+                <p id="FocusHeader">What is your main focus for today?</p>
+                <input id="FocusValue" type="text" name="todo" value={'Code in React'}/>
             </form>
         </div>
       );
