@@ -29,12 +29,21 @@ class Focus extends React.Component {
         console.log('It Updated!');
     }
 
+    addFocus = (e) => {
+        e.preventDefault();
+        console.log(`focus added`);
+    }
+
     render() {
       return (
         <div className="FocusInput">
-            <form>
+            <form onSubmit={this.addFocus}>
                 <p id="FocusHeader">What is your main focus for today?</p>
-                <input id="FocusValue" type="text" name="todo" value={'Code in React'}/>
+                <input 
+                    id="FocusValue" 
+                    type="text" 
+                    name="focus" 
+                />
             </form>
         </div>
       );
