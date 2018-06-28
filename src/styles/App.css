@@ -43,3 +43,7 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.App__Footer__Left {
+  display: flex;
+}
