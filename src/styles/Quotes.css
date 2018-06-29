@@ -4,22 +4,28 @@
 
 #Quotes {
 	display: flex;
-	flex-direction: column;
+  flex-direction: column;
+  align-items: center;
   font-weight: 300;
+  height: 60px;
+  width: 50%;
+  padding-bottom: 10px;
 }
 
 .Quote__Container {
   display: flex;
-  margin-top: 15px;
+  justify-content: center;
+  width: 500px;
+  position: absolute;
+  bottom: 20px;
 
   -webkit-transition: 0.5s ease;
   -moz-transition: 0.5s ease;
   -o-transition: 0.5s ease;
-	transition: margin-top 0.5s ease;
+	transition: bottom 0.5s ease;
 }
 
 .Quote__Container p {
-	margin: 10px 0 0 3px;
 	font-size: 16px;
 }
 
@@ -28,8 +34,10 @@
 }
 
 .Action__Container {
-  margin-top: -25px;
+  max-width: 100%;
   opacity: 0;
+  position: absolute;
+  bottom: 20px;
 
   -webkit-transition: 0.5s ease;
   -moz-transition: 0.5s ease;
@@ -43,22 +51,20 @@
 
 #Actions {
 	display: flex;
-	justify-content: center;
-	align-items: baseline;
+  align-items: center;
 }
 
-#Name {
+.Actions__Name {
 	font-size: 14px;
-  margin: 5px 0 0 0;
   opacity: 0.6;
 }
 
-.Heart {
-	font-size: 23px;
-	padding: 1px 5px 5px 10px;
+.Actions__Heart {
+  font-size: 23px;
+  padding: 0 2px;
 }
 
-#Twitter {
+.Actions__Twitter {
 	font-size: 20px;
 }
 
@@ -66,21 +72,11 @@
     Hover Effects 
 *********************/
 
-.slide-up {
-  margin-top: 0;
-
-  -webkit-transition: 0.5s ease;
-  -moz-transition: 0.5s ease;
-  -o-transition: 0.5s ease;
-  transition: margin-top 0.5s ease;
+#Quotes:hover .Quote__Container {
+  bottom: 35px;
 }
 
-.slide-down {
+#Quotes:hover .Action__Container {
   opacity: 1;
-  margin-top: 0;
-
-  -webkit-transition: 0.5s ease;
-  -moz-transition: 0.5s ease;
-  -o-transition: 0.5s ease;
-  transition: all 0.5s ease;
+  bottom: 10px;
 }
