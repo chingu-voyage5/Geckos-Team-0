@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import '../styles/App.css';
+import React, { Component } from "react";
+import "../styles/App.css";
 
-import {Time} from './Time';
-import {Name} from './Name';
-import Weather from './Weather';
+import { Time } from "./Time";
+import { Name } from "./Name";
+import Weather from "./Weather";
 import Focus from "./Focus";
 import ToDo from "./ToDo.js";
 import Links from "./Links";
@@ -13,12 +13,9 @@ import Settings from "./Settings";
 import WallpaperInfo from "./WallpaperInfo";
 
 class App extends Component {
- 
-  
-  render() {
-   
-    return (
-      <div className="App">
+	render() {
+		return (
+			<div className="App">
 				<div className="App__Top">
 					<div className="APP__Top__Left">
 						<Links />
@@ -32,16 +29,16 @@ class App extends Component {
 					<Focus />
 				</div>
 				<div className="App__Footer">
-          <div className="App__Footer__Left">
-            <Settings />
-            <WallpaperInfo />
-          </div>
+					<div className="App__Footer__Left">
+						<Settings />
+						<WallpaperInfo />
+					</div>
 					<Quotes />
 					<ToDo />
 				</div>
-      </div>
-    );
-  }
+			</div>
+		);
+	}
 }
 
 export default App;

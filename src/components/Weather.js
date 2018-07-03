@@ -4,16 +4,40 @@ import "../styles/Weather.css";
 import Shower from "react-icons/lib/ti/weather-shower";
 import Modal from "react-modal";
 
+const GEO_CODING_API_KEY = process.env.REACT_APP_GEO_CODING_API_KEY;
+
 class Weather extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			showModal: false
+      showModal: false,
+      currentCity: null
 		};
 		this.handleOpenModal = this.handleOpenModal.bind(this);
 		this.handleCloseModal = this.handleCloseModal.bind(this);
   }
-  
+
+  componentDidMount() {
+    this.getLocation();
+  }
+
+  getLocation = () => {
+    navigator.geolocation.getCurrentPosition(position => {
+      console.log(position.coords.latitude, position.coords.longitude);
+      this.getCityName(position.coords.latitude, position.coords.longitude);
+    });
+  };
+
+  getCityName = (lat, lon) => {
+    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${GEO_CODING_API_KEY}`)
+    .then(response => response.json())
+    .then(json => {
+      this.setState({
+        currentCity: json.results[0].components.city
+      });
+    });
+  };
+
 	handleOpenModal() {
 		this.setState({ showModal: true });
 	}
@@ -23,6 +47,7 @@ class Weather extends React.Component {
 	}
 
 	render() {
+    const { currentCity } = this.state;
 		return (
 			<div id="Weather">
         <div onClick={this.handleOpenModal}>
@@ -31,7 +56,7 @@ class Weather extends React.Component {
             <Temp />
           </div>
           <div className="Weather__Row">
-            <Location />
+            <Location location={currentCity}/>
           </div>
         </div>
 
@@ -45,7 +70,7 @@ class Weather extends React.Component {
             <div className="Current__Weather__Container">
               <div className="Current__Weather__Wrapper">
                 <div className="Current__Weather__Head">
-                  <span id="Current__Location">Location</span>
+                  <span id="Current__Location">{currentCity}</span>
                   <span id="Current__Weather">Rain</span>
                 </div>
                 <div className="Weather__Wrapper">
@@ -77,10 +102,10 @@ function Temp() {
 	);
 }
 
-function Location() {
+function Location({location}) {
 	return (
 		<div id="Location">
-			<span>Location</span>
+      <span>{location}</span>
 		</div>
 	);
 }
