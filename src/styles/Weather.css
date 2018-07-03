@@ -20,6 +20,10 @@
   padding-top: 2px;
 }
 
+#Location {
+  font-size: 10px;
+}
+
 /********************
     Weather Modal
 *********************/

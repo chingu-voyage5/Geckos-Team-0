@@ -5,58 +5,71 @@ import Shower from "react-icons/lib/ti/weather-shower";
 import Modal from "react-modal";
 
 const GEO_CODING_API_KEY = process.env.REACT_APP_GEO_CODING_API_KEY;
+const WEATHER_API_KEY    = process.env.REACT_APP_WEATHER_API_KEY;
 
 class Weather extends React.Component {
 	constructor() {
 		super();
 		this.state = {
       showModal: false,
-      currentCity: null
+      city: null,
+      country: null,
+      temperature: null,
+      weather: null
 		};
-		this.handleOpenModal = this.handleOpenModal.bind(this);
-		this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   componentDidMount() {
-    this.getLocation();
+    this.getGeoLocation();
   }
 
-  getLocation = () => {
+  getGeoLocation = () => {
     navigator.geolocation.getCurrentPosition(position => {
-      console.log(position.coords.latitude, position.coords.longitude);
-      this.getCityName(position.coords.latitude, position.coords.longitude);
+      let { latitude, longitude } = position.coords;
+      this.callGeoApi(latitude, longitude);
     });
   };
 
-  getCityName = (lat, lon) => {
+  callGeoApi = (lat, lon) => {
     fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${GEO_CODING_API_KEY}`)
-    .then(response => response.json())
-    .then(json => {
-      this.setState({
-        currentCity: json.results[0].components.city
-      });
-    });
+      .then(response => response.json())
+      .then(json => {
+        let cityName = json.results[0].components.city
+        this.getWeather(cityName);
+      }
+    );
   };
 
-	handleOpenModal() {
-		this.setState({ showModal: true });
-	}
+  getWeather = (cityName) => {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${WEATHER_API_KEY}`)
+			.then(response => response.json())
+			.then(json => {
+        console.log(json)
+				this.setState({
+          city: json.name,
+          country: json.sys.country,
+					weather: json.weather[0].main,
+					temperature: json.main.temp
+				});
+			});
+  }
 
-	handleCloseModal() {
-		this.setState({ showModal: false });
-	}
+	handleOpenModal = () => { this.setState({ showModal: true }); }
+
+	handleCloseModal = () => { this.setState({ showModal: false }); }
 
 	render() {
-    const { currentCity } = this.state;
+    const { city, country, weather, temperature } = this.state;
+    console.log(city, country, weather, temperature);
 		return (
 			<div id="Weather">
         <div onClick={this.handleOpenModal}>
           <div className="Weather__Row">
             <Shower />
-            <Temp />
+            <Temp temp={Math.floor(temperature - 273.15)}/>
           </div>
           <div className="Weather__Row">
-            <Location location={currentCity}/>
+            <Location currentCity={city} currentCountry={country}/>
           </div>
         </div>
 
@@ -70,12 +83,12 @@ class Weather extends React.Component {
             <div className="Current__Weather__Container">
               <div className="Current__Weather__Wrapper">
                 <div className="Current__Weather__Head">
-                  <span id="Current__Location">{currentCity}</span>
-                  <span id="Current__Weather">Rain</span>
+                  <span id="Current__Location">{city}, {country}</span>
+                  <span id="Current__Weather">{weather}</span>
                 </div>
                 <div className="Weather__Wrapper">
                   <Shower id="Weather__Icon" />
-                  <span id="Current__Temp">19°</span>
+                  <span id="Current__Temp">{Math.floor(temperature - 273.15)}°</span>
                 </div>
               </div>
               <span id="Temp__Convert">°C</span>
@@ -94,18 +107,20 @@ class Weather extends React.Component {
 	}
 }
 
-function Temp() {
+function Temp({temp}) {
 	return (
 		<div id="Temp">
-			<span>19°</span>
+			<span>{temp}°</span>
 		</div>
 	);
 }
 
-function Location({location}) {
+function Location({ currentCity, currentCountry }) {
 	return (
 		<div id="Location">
-      <span>{location}</span>
+			<span>
+				{currentCity}, {currentCountry}
+			</span>
 		</div>
 	);
 }
