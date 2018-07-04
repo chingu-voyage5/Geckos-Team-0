@@ -3,7 +3,7 @@ import "../styles/App.css";
 
 import { Time } from "./Time";
 import { Name } from "./Name";
-import Weather from "./Weather";
+import WeatherContainer from "./WeatherContainer";
 import Focus from "./Focus";
 import ToDo from "./ToDo.js";
 import Links from "./Links";
@@ -21,7 +21,7 @@ class App extends Component {
 						<Links />
 						<Search />
 					</div>
-          <Weather />
+          <WeatherContainer />
 				</div>
 				<div className="App__Center">
 					<Time />

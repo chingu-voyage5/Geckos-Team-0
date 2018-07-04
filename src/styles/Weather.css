@@ -1,16 +1,16 @@
-/********************
-   Weather Component
-*********************/
+/***************************
+   Weather & Main Component
+****************************/
 
 #Weather {
   padding: 17px;
 }
 
-.Weather__Row {
+.Weather--Main__Row {
   display: flex;
 }
 
-.Weather__Row i {
+.Weather--Main__Row i {
   font-size: 1.7em;
 }
 
