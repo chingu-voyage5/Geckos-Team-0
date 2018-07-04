@@ -9,7 +9,7 @@ class Weather extends React.Component {
 		super(props);
 		this.state = {
       showModal: false,
-      id: null,
+      id: "0",
       city: null,
       region: null,
       countryCode: null,
@@ -63,7 +63,7 @@ class Weather extends React.Component {
 		return <div id="Weather">
 				<div onClick={this.handleOpenModal}>
 					<div className="Weather__Row">
-						{/* <WeatherIcon name="yahoo" iconId={id} /> */}
+						<WeatherIcon name="yahoo" iconId={id} />
 						<Temp temp={temperature} />
 					</div>
 					<div className="Weather__Row">
@@ -82,7 +82,7 @@ class Weather extends React.Component {
 									<span className="current__weather">{weather}</span>
 								</div>
 								<div className="Weather__Wrapper">
-                  {/* <WeatherIcon name="yahoo" iconId={id} /> */}
+                  <WeatherIcon name="yahoo" iconId={id} />
 									<span className="current__temp">{temperature}°</span>
 								</div>
 							</div>
