@@ -21,7 +21,7 @@ class App extends Component {
 						<Links />
 						<Search />
 					</div>
-					<Weather />
+          <Weather />
 				</div>
 				<div className="App__Center">
 					<Time />

@@ -5,73 +5,82 @@ import Shower from "react-icons/lib/ti/weather-shower";
 import Modal from "react-modal";
 
 const GEO_CODING_API_KEY = process.env.REACT_APP_GEO_CODING_API_KEY;
-const WEATHER_API_KEY    = process.env.REACT_APP_WEATHER_API_KEY;
 
 class Weather extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-      showModal: false,
+			showModal: false,
       city: null,
-      country: null,
-      temperature: null,
-      weather: null
+      state: null,
+      country_code: null,
+			temperature: null,
+			weather: null
 		};
-  }
+	}
 
-  componentDidMount() {
+	componentDidMount() {
     this.getGeoLocation();
-  }
+	}
 
-  getGeoLocation = () => {
-    navigator.geolocation.getCurrentPosition(position => {
-      let { latitude, longitude } = position.coords;
-      this.callGeoApi(latitude, longitude);
-    });
+	getGeoLocation = () => {
+		navigator.geolocation.getCurrentPosition(position => {
+			let { latitude, longitude } = position.coords;
+			this.callGeoApi(latitude, longitude);
+		});
   };
-
+  
   callGeoApi = (lat, lon) => {
-    fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${GEO_CODING_API_KEY}`)
+    fetch(
+      `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${GEO_CODING_API_KEY}`
+    )
       .then(response => response.json())
       .then(json => {
-        let cityName = json.results[0].components.city
-        this.getWeather(cityName);
-      }
-    );
+        let { city, state, country_code } = json.results[0].components;
+        this.setState({ city, state, country_code });
+        this.getWeather(city, state);
+        // console.log(this.state.city, this.state.state, country_code);
+      });
   };
 
-  getWeather = (cityName) => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${WEATHER_API_KEY}`)
+  getWeather = (city, region) => {
+    const searchText = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text= "${city}, ${region}")`;
+    const endPoint = `https://query.yahooapis.com/v1/public/yql?q=${searchText}&format=json`;
+    
+    fetch(endPoint)
 			.then(response => response.json())
-			.then(json => {
+      .then(json => {
         console.log(json)
-				this.setState({
-          city: json.name,
-          country: json.sys.country,
-					weather: json.weather[0].main,
-					temperature: json.main.temp
-				});
-			});
-  }
+        this.setState({
+					temperature: json.query.results.channel.item.condition.temp,
+          weather: json.query.results.channel.item.condition.text
+        });
+        console.log(this.state.temperature, this.state.weather);
+      });
+  };
 
-	handleOpenModal = () => { this.setState({ showModal: true }); }
+	handleOpenModal = () => {
+		this.setState({ showModal: true });
+	};
 
-	handleCloseModal = () => { this.setState({ showModal: false }); }
+	handleCloseModal = () => {
+		this.setState({ showModal: false });
+	};
 
 	render() {
-    const { city, country, weather, temperature } = this.state;
-    console.log(city, country, weather, temperature);
+    const { city, country_code, weather, temperature } = this.state;
+		// console.log(city, country, weather, temperature);
 		return (
 			<div id="Weather">
-        <div onClick={this.handleOpenModal}>
-          <div className="Weather__Row">
-            <Shower />
-            <Temp temp={Math.floor(temperature - 273.15)}/>
-          </div>
-          <div className="Weather__Row">
-            <Location currentCity={city} currentCountry={country}/>
-          </div>
-        </div>
+				<div onClick={this.handleOpenModal}>
+					<div className="Weather__Row">
+						<Shower />
+						<Temp temp={temperature} />
+					</div>
+					<div className="Weather__Row">
+            <Location currentCity={city} currentCountry={country_code} />
+					</div>
+				</div>
 
 				<Modal
 					className="Weather__Modal"
@@ -80,28 +89,32 @@ class Weather extends React.Component {
 					onRequestClose={this.handleCloseModal}
 				>
 					<div className="Modal__Content">
-            <div className="Current__Weather__Container">
-              <div className="Current__Weather__Wrapper">
-                <div className="Current__Weather__Head">
-                  <span id="Current__Location">{city}, {country}</span>
-                  <span id="Current__Weather">{weather}</span>
-                </div>
-                <div className="Weather__Wrapper">
-                  <Shower id="Weather__Icon" />
-                  <span id="Current__Temp">{Math.floor(temperature - 273.15)}°</span>
-                </div>
-              </div>
-              <span id="Temp__Convert">°C</span>
-            </div>
-            <div className="Daily__Weather__Container">
-              <DailyWeather /> 
-              <DailyWeather /> 
-              <DailyWeather /> 
-              <DailyWeather /> 
-              <DailyWeather /> 
-             </div>
+						<div className="Current__Weather__Container">
+							<div className="Current__Weather__Wrapper">
+								<div className="Current__Weather__Head">
+									<span className="current__location">
+                    {city}, {country_code}
+									</span>
+									<span className="current__weather">{weather}</span>
+								</div>
+								<div className="Weather__Wrapper">
+									<Shower id="Weather__Icon" />
+									<span className="current__temp">
+										{temperature}°
+									</span>
+								</div>
+							</div>
+							<span className="temp__convert">°C</span>
+						</div>
+						<div className="Daily__Weather__Container">
+							<DailyWeather />
+							<DailyWeather />
+							<DailyWeather />
+							<DailyWeather />
+							<DailyWeather />
+						</div>
 					</div>
-				</Modal>     
+				</Modal>
 			</div>
 		);
 	}
@@ -109,15 +122,15 @@ class Weather extends React.Component {
 
 function Temp({temp}) {
 	return (
-		<div id="Temp">
-			<span>{temp}°</span>
+		<div className="temp">
+      <span>{temp}°</span>
 		</div>
 	);
 }
 
 function Location({ currentCity, currentCountry }) {
 	return (
-		<div id="Location">
+		<div className="location">
 			<span>
 				{currentCity}, {currentCountry}
 			</span>
@@ -128,11 +141,11 @@ function Location({ currentCity, currentCountry }) {
 function DailyWeather() {
   return (
       <div className="Daily__Weather__Wrapper">
-        <span className="Day">TUE</span>
+        <span className="day">TUE</span>
         <div className="Daily__Weather">
           <Shower />
-          <span id="Temp_High">19°</span>
-          <span id="Temp__Low">19°</span>
+          <span className="temp_high">19°</span>
+          <span className="temp__low">19°</span>
         </div>
       </div>
   );
