@@ -10,9 +10,8 @@
   display: flex;
 }
 
-.Weather__Row svg {
-  height: 2em;
-  width: 2em;
+.Weather__Row i {
+  font-size: 1.7em;
 }
 
 .temp {
@@ -85,8 +84,8 @@
   align-items: center;
 }
 
-#Weather__Icon {
-  font-size: 5em;
+.Weather__Wrapper i {
+  font-size: 4em;
 }
 
 .current__temp {
