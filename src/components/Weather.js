@@ -15,17 +15,26 @@ class Weather extends React.Component {
 
   render() {
     const { showModal } = this.state;
+    // const { city, country, weather, temp } = this.props;
 
     return (
       <div id="Weather">
-        <MainWeather handleOpenModal={this.handleOpenModal} />
-				<WeatherModal />
+        <MainWeather 
+          handleOpenModal={this.handleOpenModal} 
+          {...this.props} 
+        />
+        <WeatherModal 
+          isActive={showModal}
+          handleCloseModal={this.handleCloseModal}
+        />
       </div>
     );
   }
 }
 
-function MainWeather({ handleOpenModal }) {
+function MainWeather(props) {
+  const { city, country, temp, handleOpenModal } = props;
+
   return (
     <div 
       className="Weather--Main" 
@@ -33,10 +42,10 @@ function MainWeather({ handleOpenModal }) {
     >
       <div className="Weather--Main__Row">
         <WeatherIcon name="yahoo" iconId={"0"} />
-        {/* <Temp temp={temperature} /> */}
+        <Temp temp={temp} />
       </div>
       <div className="Weather--Main__Row">
-        {/* <Location currentCity={city} currentCountry={countryCode} /> */}
+        <Location currentCity={city} currentCountry={country} />
       </div>
     </div>
   );
