@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Weather from "./Weather";
-import Store from "../store.js";
+import Store from "../store";
 import "../styles/Weather.css";
 
 class WeatherContainer extends React.Component {
@@ -37,18 +37,11 @@ class WeatherContainer extends React.Component {
 				console.log(json);
         let data = json.query.results.channel;
         let { forecast } = data.item;
-        // location 
-        // countryCode: data.title.split(", ").pop(),
-				// city: data.location.city,
-        // 
-        // currentWeather 
-        // weatherCode: data.item.condition.code,
-        // temperature: data.item.condition.temp,
-        // weather: data.item.condition.text
+
         this.setState({
           location: {
-            countryCode: data.title.split(", ").pop(),
-            city: data.location.city
+            city: data.location.city,
+            countryCode: data.title.split(", ").pop()
           },
           currentWeather: {
             weatherCode: data.item.condition.code,
@@ -64,36 +57,15 @@ class WeatherContainer extends React.Component {
           },
         });
         console.log(this.state)
-
-				// this.setState({
-        //   weatherCode: data.item.condition.code,
-				// 	city: data.location.city,
-				// 	countryCode: data.title.split(", ").pop(),
-				// 	temperature: data.item.condition.temp,
-				// 	weather: data.item.condition.text
-				// });
-				// console.log(
-				// 	this.state.temperature,
-				// 	this.state.weather,
-				// 	this.state.id,
-				// 	this.state.city,
-				// 	this.state.countryCode,
-				// 	json
-				// );
 			});
 	};
 
 	render() {
-		// console.log(city, country, weather, temperature);
 		return ( 
       <Fragment>
-        <p>hi</p>
-        {/* <Weather 
-          city={city}
-          country={countryCode}
-          weather={weather}
-          temp={temperature}
-        /> */}
+        <Store.Provider value={this.state}>
+          <Weather />
+        </Store.Provider>
       </Fragment>
     );
 	}
