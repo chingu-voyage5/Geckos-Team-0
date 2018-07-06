@@ -70,7 +70,7 @@ function CurrentWeather(props) {
 }
 
 function ForecastWeather({ data }) {
-  console.log("data", data)
+  console.log("data", data);
 	return (
 		<div className="ForecastWeather__Wrapper">
       <span className="day">

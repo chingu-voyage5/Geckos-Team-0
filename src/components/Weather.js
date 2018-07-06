@@ -4,8 +4,6 @@ import WeatherModal from "./WeatherModal";
 
 import "../styles/Weather.css";
 
-import WeatherIcon from "react-icons-weather";
-
 class Weather extends React.Component {
   state = {
     showModal: false

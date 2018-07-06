@@ -72,22 +72,3 @@ class WeatherContainer extends React.Component {
 }
 
 export default WeatherContainer;
-
-/*
-		this.state = {
-			currentWeather: {
-				weatherCode: "0",
-				city: null,
-				region: null,
-				countryCode: null,
-				temperature: null,
-				weather: null
-      },
-      forecastWeather: {
-        day1: currentWeather,
-        day2: {},
-        day3: {},
-        day4: {},
-        day5: {}
-      }
-*/
