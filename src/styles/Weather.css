@@ -1,26 +1,30 @@
 /***************************
-   Weather & Main Component
+Weather & Main Component
 ****************************/
+* {
+  font-family: BlinkMacSystemFont;
+}
 
 #Weather {
-  padding: 17px;
+  padding: 15px 19px;
 }
 
 .Weather--Main__Row {
   display: flex;
+  justify-content: flex-end;
 }
 
 .Weather--Main__Row i {
-  font-size: 1.7em;
+  font-size: 1.3em;
 }
 
 .temp {
-  font-size: 1.5em;
-  padding-top: 2px;
+  font-size: 1.4em;
+  margin-left: 5px;
 }
 
 .location {
-  font-size: 10px;
+  font-size: 9px;
   text-transform: uppercase;
 }
 
@@ -30,12 +34,12 @@
 
 
 .Weather--Modal {
-  width: 380px;
-  height: 205px;
+  width: 400px;
+  height: 215px;
   background-color: rgba(15,15,15,.925);
   margin-left: auto;
-  margin-top: 80px;
-  margin-right: 5px;
+  margin-top: 62px;
+  margin-right: 7px;
   border-radius: 3px;
   color: white;
   outline: none;
@@ -63,7 +67,7 @@
 .CurrentWeather__Wrapper {
   display: flex;
   flex-direction: column;
-  padding: 15px 0 0 15px;
+  padding: 15px 0 0 19px;
 }
 
 .CurrentWeather__Top {
@@ -71,12 +75,23 @@
   flex-direction: column;
 }
 
+.CurrentWeather__Bottom {
+  margin-top: 13px;
+  height: 78px;
+}
+
+.CurrentWeather__Bottom i {
+    font-size: 54px;
+}
+
 .current-location {
-  font-size: 1.3em;
+  font-size: 19px;
 }
 
 .current-weather {
   opacity: 0.5;
+  font-size: 15px;
+  margin-top: 4px;
 }
 
 .Weather__Bottom {
@@ -89,7 +104,8 @@
 }
 
 .current-temp {
-  font-size: 3.5em;
+  margin-left: 11px;
+  font-size: 61px;
 }
 
 .temp-unit {
@@ -106,8 +122,8 @@
 .ForecastWeather__Container {
   display: flex;
   justify-content: space-between;
-  margin-top: 7px;
-  padding: 0 15px;
+  width: 360px;
+  margin: auto;
   border-top: 1px solid rgba(255,255,255,.15);
 }
 
@@ -122,22 +138,19 @@
   opacity: 0.6;
 }
 
-.Daily__Weather {
-  opacity: 0.85;
+.weather i {
+  font-size: 14px;
 }
 
-/* .Daily__Weather i {
-  font-size: 1.3em;
-  margin-right: 3px;
-} */
-
-.temp-low, .temp-high {
+.temp-high {
   font-size: 11px;
+  margin-left: 4px;
 }
 
 .temp-low {
   margin-left: 3px;
   opacity: 0.5;
+  font-size: 10px;
 }
 
 /********************

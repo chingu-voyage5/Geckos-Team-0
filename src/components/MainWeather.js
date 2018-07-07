@@ -1,4 +1,4 @@
-import React from "react"; 
+import React, {Fragment} from "react"; 
 import Store from "../store";
 import "../styles/Weather.css";
 
@@ -8,6 +8,10 @@ function MainWeather(props) {
   const { handleOpenModal } = props;
 
   return (
+  <div
+    className="Weather--Main"
+    onClick={() => handleOpenModal()}
+  >
     <Store.Consumer>
       {
         store => {
@@ -15,10 +19,7 @@ function MainWeather(props) {
           const { city, countryCode } = store.location;
 
           return (
-            <div
-              className="Weather--Main"
-              onClick={() => handleOpenModal()}
-            >
+            <Fragment>
               <div className="Weather--Main__Row">
                 <WeatherIcon name="yahoo" iconId={weatherCode || "32"} />
                 <Temp temp={temperature} />
@@ -26,11 +27,12 @@ function MainWeather(props) {
               <div className="Weather--Main__Row">
                 <Location currentCity={city} currentCountry={countryCode} />
               </div>
-            </div>
+              </Fragment>
           );
         }      
       }
     </Store.Consumer>
+      </div>
   );
 }
 

@@ -1,8 +1,8 @@
 import React from "react";
 import MainWeather from "./MainWeather";
-import WeatherModal from "./WeatherModal";
-
 import "../styles/Weather.css";
+
+import WeatherModal from "./WeatherModal";
 
 class Weather extends React.Component {
   state = {
