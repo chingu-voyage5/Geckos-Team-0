@@ -7,6 +7,7 @@ import WeatherModal from "./WeatherModal";
 class Weather extends React.Component {
 	state = {
     showModal: false,
+    showForm: false
 	};
 
 	handleOpenModal = () => {
@@ -15,17 +16,24 @@ class Weather extends React.Component {
 
 	handleCloseModal = () => {
 		this.setState({ showModal: false });
-	}; 
+  }; 
+  
+  handleLocationForm = () => {
+    this.setState({ showForm: !this.state.showForm })
+  }
+
 
 	render() {
-		const { showModal } = this.state;
+		const { showModal, showForm } = this.state;
 
 		return (
 			<div id="Weather">
 				<MainWeather handleOpenModal={this.handleOpenModal} />
 				<WeatherModal
 					isActive={showModal}
+          showForm={showForm}
           handleCloseModal={this.handleCloseModal}
+          handleLocationForm={this.handleLocationForm}
 				/>
 			</div>
 		);

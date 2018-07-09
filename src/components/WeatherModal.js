@@ -6,7 +6,7 @@ import WeatherIcon from "react-icons-weather";
 import Modal from "react-modal";
 
 function WeatherModal(props) {
-	const { isActive, handleCloseModal } = props;
+  const { isActive, showForm, handleCloseModal, handleLocationForm } = props;
 
 	return (
 		<Modal
@@ -33,6 +33,8 @@ function WeatherModal(props) {
                   weather={weather}
                   unit={unit}
                   convertToC={store.convertToC}
+                  showForm={showForm}
+                  handleLocationForm={handleLocationForm}
 								/>
 								<div className="ForecastWeather__Container">
 									<ForecastWeather data={day1} unit={unit} convertToC={convertToC} />
@@ -50,16 +52,31 @@ function WeatherModal(props) {
 	);
 }
 
-
 function CurrentWeather(props) {
-  const { city, countryCode, weatherCode, temperature, weather, unit, convertToC } = props;
+  const { 
+    city, 
+    countryCode, 
+    weatherCode, 
+    temperature, 
+    weather, 
+    unit, 
+    convertToC, 
+    handleLocationForm,
+    showForm
+  } = props;
 
-	return <div className="CurrentWeather__Container">
+	return (
+    <div className="CurrentWeather__Container">
 			<div className="CurrentWeather__Wrapper">
 				<div className="CurrentWeather__Top">
-					<span className="current-location">
-						{city}, {countryCode}
-					</span>
+          <div className="current-location">
+            <span>
+              {showForm ? <LocationForm /> : `${city}, ${countryCode}` }
+            </span>
+            <span onClick={handleLocationForm}>
+              O
+            </span>
+					</div>
           <span className="current-weather">
             {weather}
           </span>
@@ -83,7 +100,16 @@ function CurrentWeather(props) {
           )
         }
       </Store.Consumer>
-		</div>;
+    </div>
+  );
+}
+
+function LocationForm() {
+  return (
+    <form onSubmit={() => {}}>
+      <input type="text" name="current-city"/>
+    </form>
+  );
 }
 
 function ForecastWeather(props) {
