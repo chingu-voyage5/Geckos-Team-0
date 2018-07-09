@@ -77,7 +77,7 @@ function CurrentWeather(props) {
               className="temp-unit" 
               onClick={() => store.handleTempUnit()}
             >
-              °C
+              {unit ? "°C" : "°F"}
               {console.log(store.unit)}
             </span>
           )
