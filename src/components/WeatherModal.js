@@ -20,7 +20,7 @@ function WeatherModal(props) {
 					const { city, countryCode } = store.location;
 					const { weatherCode, temperature, weather } = store.currentWeather;
           const { day1, day2, day3, day4, day5 } = store.forecastWeather;
-          const { unit } = store.unit;
+          const { unit, convertToC } = store;
 
           return (
 						<Fragment>
@@ -31,13 +31,15 @@ function WeatherModal(props) {
 									weatherCode={weatherCode}
 									temperature={temperature}
                   weather={weather}
+                  unit={unit}
+                  convertToC={store.convertToC}
 								/>
 								<div className="ForecastWeather__Container">
-									<ForecastWeather data={day1} />
-                  <ForecastWeather data={day2} />
-                  <ForecastWeather data={day3} />
-                  <ForecastWeather data={day4} />
-                  <ForecastWeather data={day5} />
+									<ForecastWeather data={day1} unit={unit} convertToC={convertToC} />
+                  <ForecastWeather data={day2} unit={unit} convertToC={convertToC} />
+                  <ForecastWeather data={day3} unit={unit} convertToC={convertToC} />
+                  <ForecastWeather data={day4} unit={unit} convertToC={convertToC} />
+                  <ForecastWeather data={day5} unit={unit} convertToC={convertToC} />
 								</div>
 							</div>
 						</Fragment>
@@ -50,7 +52,7 @@ function WeatherModal(props) {
 
 
 function CurrentWeather(props) {
-  const { city, countryCode, weatherCode, temperature, weather } = props;
+  const { city, countryCode, weatherCode, temperature, weather, unit, convertToC } = props;
 
 	return <div className="CurrentWeather__Container">
 			<div className="CurrentWeather__Wrapper">
@@ -58,16 +60,23 @@ function CurrentWeather(props) {
 					<span className="current-location">
 						{city}, {countryCode}
 					</span>
-					<span className="current-weather">{weather}</span>
+          <span className="current-weather">
+            {weather}
+          </span>
 				</div>
 				<div className="CurrentWeather__Bottom">
 					<WeatherIcon name="yahoo" iconId={weatherCode} />
-					<span className="current-temp">{temperature}°</span>
+          <span className="current-temp">
+            {unit ? convertToC(temperature) : temperature}°
+          </span>
 				</div>
 			</div>
       <Store.Consumer>
         {store => (
-            <span className="temp-unit" onClick={() => store.handleTempUnit()}>
+            <span 
+              className="temp-unit" 
+              onClick={() => store.handleTempUnit()}
+            >
               °C
               {console.log(store.unit)}
             </span>
@@ -77,8 +86,10 @@ function CurrentWeather(props) {
 		</div>;
 }
 
-function ForecastWeather({ data }) {
+function ForecastWeather(props) {
+  const { data, unit, convertToC } = props;
   console.log("data", data);
+
 	return (
 		<div className="ForecastWeather__Wrapper">
       <span className="day">
@@ -87,10 +98,10 @@ function ForecastWeather({ data }) {
 			<div className="weather">
         <WeatherIcon name="yahoo" iconId={data.code} />
         <span className="temp-high">
-          {data.high}°
+          {unit ? convertToC(data.high) : data.high}°
         </span>
         <span className="temp-low">
-          {data.low}°
+          {unit ? convertToC(data.low) : data.low}°
         </span>
 			</div>
 		</div>
