@@ -5,27 +5,31 @@ import "../styles/Weather.css";
 import WeatherModal from "./WeatherModal";
 
 class Weather extends React.Component {
-  state = {
-    showModal: false
-  };
+	state = {
+    showModal: false,
+	};
 
-  handleOpenModal = () => { this.setState({ showModal: true }); console.log('open') };
+	handleOpenModal = () => {
+		this.setState({ showModal: true });
+	};
 
-  handleCloseModal = () => { this.setState({ showModal: false }); };
+	handleCloseModal = () => {
+		this.setState({ showModal: false });
+	}; 
 
-  render() {
-    const { showModal } = this.state;
+	render() {
+		const { showModal } = this.state;
 
-    return (
-      <div id="Weather">
-        <MainWeather handleOpenModal={this.handleOpenModal} />
-        <WeatherModal 
-          isActive={showModal} 
+		return (
+			<div id="Weather">
+				<MainWeather handleOpenModal={this.handleOpenModal} />
+				<WeatherModal
+					isActive={showModal}
           handleCloseModal={this.handleCloseModal}
-        />
-      </div>
-    );
-  }
+				/>
+			</div>
+		);
+	}
 }
 
 export default Weather;

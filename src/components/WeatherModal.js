@@ -19,7 +19,8 @@ function WeatherModal(props) {
 				{store => {
 					const { city, countryCode } = store.location;
 					const { weatherCode, temperature, weather } = store.currentWeather;
-					const { day1, day2, day3, day4, day5 } = store.forecastWeather;
+          const { day1, day2, day3, day4, day5 } = store.forecastWeather;
+          const { unit } = store.unit;
 
           return (
 						<Fragment>
@@ -29,7 +30,7 @@ function WeatherModal(props) {
 									countryCode={countryCode}
 									weatherCode={weatherCode}
 									temperature={temperature}
-									weather={weather}
+                  weather={weather}
 								/>
 								<div className="ForecastWeather__Container">
 									<ForecastWeather data={day1} />
@@ -47,11 +48,11 @@ function WeatherModal(props) {
 	);
 }
 
-function CurrentWeather(props) {
-	const { city, countryCode, weatherCode, temperature, weather } = props;
 
-	return (
-		<div className="CurrentWeather__Container">
+function CurrentWeather(props) {
+  const { city, countryCode, weatherCode, temperature, weather } = props;
+
+	return <div className="CurrentWeather__Container">
 			<div className="CurrentWeather__Wrapper">
 				<div className="CurrentWeather__Top">
 					<span className="current-location">
@@ -64,9 +65,16 @@ function CurrentWeather(props) {
 					<span className="current-temp">{temperature}°</span>
 				</div>
 			</div>
-			<span className="temp-unit">°C</span>
-		</div>
-	);
+      <Store.Consumer>
+        {store => (
+            <span className="temp-unit" onClick={() => store.handleTempUnit()}>
+              °C
+              {console.log(store.unit)}
+            </span>
+          )
+        }
+      </Store.Consumer>
+		</div>;
 }
 
 function ForecastWeather({ data }) {
