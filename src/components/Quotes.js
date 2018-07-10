@@ -6,15 +6,38 @@ import FaTwitter from "react-icons/lib/fa/twitter";
 import GoQuote from "react-icons/lib/go/quote";
 
 class Quotes extends React.Component {
+	constructor() {
+		super();
+		this.state = { isHovered: false };
+
+		this.toggleHover = this.toggleHover.bind(this);
+	}
+
+	toggleHover() {
+		this.setState({ isHovered: !this.state.isHovered });
+	}
+
 	render() {
+		const actionClass = this.state.isHovered ? "slide-down" : "";
+		const quoteClass = this.state.isHovered ? "slide-up" : "";
 		return (
-			<div id="Quotes">
-				<div className="Quote__Container">
-					<p>
-            <span><GoQuote /></span>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </p>
+			<div
+				id="Quotes"
+				onMouseEnter={this.toggleHover}
+				onMouseLeave={this.toggleHover}
+			>
+        {/* 👇 When mouse enters #Quotes, add "slide-down" and "slide-up" classes */}
+        {/* <div className="Quote__Container slide-up"> */}
+        
+				<div className={`Quote__Container ${quoteClass}`}>
+					<span>
+						<GoQuote />
+					</span>
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 				</div>
-				<div className="Action__Container">
+        {/* <div className="Quote__Container slide-down"> */}
+
+				<div className={`Action__Container ${actionClass}`}>
 					<Actions />
 				</div>
 			</div>
@@ -39,11 +62,11 @@ class Actions extends React.Component {
 
 		return (
 			<div id="Actions">
-				<span className="Actions__Name">Author Name</span>
-        <span className="Actions__Heart" onClick={this.toggleHeart}>
+				<span id="Name">Author Name</span>
+				<span className="Heart" onClick={this.toggleHeart}>
 					{isFull ? <TiHeartFullOutline /> : <TiHeartOutline />}
 				</span>
-        <span className="Actions__Twitter">
+				<span id="Twitter">
 					<FaTwitter />
 				</span>
 			</div>
