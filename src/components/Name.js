@@ -1,14 +1,14 @@
 import React from 'react';
 import '../styles/Name.css';
 import ReactDOM from 'react-dom';
+import Greetings from './Greetings'
 
 
 
-
-export class Name extends React.Component {
+export default class Name extends React.Component {
 			constructor(props) {
 				super(props);
-				this.state = { html: ' ' };
+				this.state = { html: '' };
 				this.handleChange = this.handleChange.bind(this);
 			}
 
@@ -36,14 +36,14 @@ export class Name extends React.Component {
 			}
 
 			render = () => {
-				return <div id="greeting" className="transition">
-						<h2>
-							Good <span>morning</span>,
-							<ContentEditable html={this.state.html} disabled={false // innerHTML of the editable div
-								} onChange={this.handleChange // use true to disable edition
-								} />
-							.
-						</h2>
+				return <div id="greeting" className="app-container greeting transition">
+						Good
+						<span>
+							<Greetings />
+						</span>,
+						<ContentEditable html={this.state.html} disabled={false // innerHTML of the editable div
+					} onChange={this.handleChange} />
+					.	
 					</div>;
 			};
 		}
@@ -84,4 +84,3 @@ class ContentEditable extends React.Component {
         this.lastHtml = html;
     }
 }
-
