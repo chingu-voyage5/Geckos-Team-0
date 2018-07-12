@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import '../styles/Time.css';
 
-export class Time extends Component {
+export default class Time extends React.Component {
     constructor(props) {
         super(props)
         let date = this.getTimeString()
         this.state = { time: date }
     }
 
-    getTimeString() {
+     getTimeString = () => {
 
         var date = new Date(Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' , hour12:false});
-        return date;
-       
+        // var date = new Date(Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' , hour12:true});
+        return date;   
     }
 
-   
+    
 
     componentDidMount() {
         this.timer = setInterval(() => {
@@ -31,13 +31,14 @@ export class Time extends Component {
         clearInterval(this.timer);
     }
 
-
+    
     render() {
 
         return (
             <div className="time">
-                <p id="Time">{this.state.time}</p>      
+                <p id="Time">{this.state.time}</p> 
             </div>
         )
     }
 }
+

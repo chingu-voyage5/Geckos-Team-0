@@ -1,27 +1,22 @@
-
-div{
+div {
     overflow: hidden;
 }
 
-#greeting h2{
-        font-size: 337.5%;
-        font-family: "Helvetica Neue",
-        Helvetica,
-        Arial,
-        sans-serif;
- 
+#greeting {
+    font-size: 337.5%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center
 }
 
 #greeting .transition {
     transition: transform .5s ease;
 }
 
-
-
-
 [contentEditable="true"].single-line {
     white-space: nowrap;
-    width: 200px;
+    /* width: 100px; */
+    /* max-width: 3em; */
+    min-width: 1.5em;
     overflow: hidden;
 }
 
@@ -34,10 +29,14 @@ div{
     white-space: nowrap;
 }
 
- [contentEditable="false"] {
-   min-width: 1.5em;
-   margin-bottom: -8px;
-   border-bottom: 3px solid #ffffff;
-   cursor: auto;
-}  
+[contentEditable="false"] {
+    min-width: 1.5em;
+    margin-bottom: -8px;
+    border-bottom: 3px solid #ffffff;
+    cursor: auto;
+}
 
+#greeting {
+    display: inline-flex;
+    justify-content: center;
+}
