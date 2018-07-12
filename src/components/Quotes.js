@@ -14,8 +14,6 @@ class Quotes extends React.Component {
             <span><GoQuote /></span>Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </p>
 				</div>
-        {/* <div className="Quote__Container slide-down"> */}
-
 				<div className="Action__Container">
 					<Actions />
 				</div>
