@@ -42,15 +42,21 @@ class Focus extends React.Component {
 
     render() {
       return (
-        <div className="FocusInput">
-            <form onSubmit={this.addFocus}>
-                <p id="FocusHeader">What is your main focus for today?</p>
-                <input 
-                    id="FocusValue" 
-                    type="text" 
-                    name="focus" 
-                />
-            </form>
+        <div>   
+            <div className="FocusInput">
+                <form onSubmit={this.addFocus}>
+                    <p id="FocusHeader">What is your main focus for today?</p>
+                    <input 
+                        id="FocusValue" 
+                        type="text" 
+                        name="focus" 
+                    />
+                </form>
+            </div>
+            <div className="FocusInput hide">
+                <p id="FocusItem">TODAY</p>
+                <p>My Focus</p>
+            </div>
         </div>
       );
     }
