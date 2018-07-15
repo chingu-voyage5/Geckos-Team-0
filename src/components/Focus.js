@@ -13,25 +13,28 @@ class Focus extends React.Component {
         this.deleteFocus = this.deleteFocus.bind(this);
     }
 
-    // componentDidMount() {
-    //     try {
-    //       const json = localStorage.getItem('focus');
-    //       const options = JSON.parse(json);
+    componentDidMount() {
+        try {
+          const json = localStorage.getItem('focus');
+          const options = JSON.parse(json);
       
-    //       if (options) {
-    //         // this.setState(() => ({ focus }));
-    //       }
-    //     } catch (e) {
-    //       // Do nothing
-    //     }
-    // }
+          if (options) {
+            // this.setState(() => ({ focus }));
+          }
+        } catch (e) {
+          // Do nothing
+        }
+    }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (prevState.focus !== this.state.focus.length) {
-    //         localStorage.setItem('focus', this.state.focus);
-    //     }
-    //     console.log('It Updated!');
-    // }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.focus !== this.state.focus.length) {
+            const html = this.state.focus;
+
+            localStorage.setItem('focus', html);
+            console.log('I\'m here', html);
+        }
+        console.log('It Updated!');
+    }
 
     // Grabs the input
     handleChange(e) {
@@ -59,13 +62,14 @@ class Focus extends React.Component {
       return (
         <div>   
             <div className="FocusInput">
-                <form onSubmit={() => this.addFocus(this.state.focus)}>
+                <form onSubmit={() => this.addFocus(this.state.value)}>
                     <p id="FocusHeader">What is your main focus for today?</p>
                     <input 
                         id="  " 
                         type="text" 
                         name="focus" 
                         onChange={this.handleChange}
+                        value={this.state.focus}
                     />
                 </form>
             </div>
