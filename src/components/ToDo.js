@@ -7,17 +7,54 @@ class ToDo extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			showModal: false
+			showModal: false,
+			todo: {}
 		};
 		this.handleOpenModal = this.handleOpenModal.bind(this);
 		this.handleCloseModal = this.handleCloseModal.bind(this);
+		this.addFocus = this.addFocus.bind(this);
+        this.deleteFocus = this.deleteFocus.bind(this);
 	}
+
+	// Modal
 	handleOpenModal() {
 		this.setState({ showModal: true });
 	}
 
 	handleCloseModal() {
 		this.setState({ showModal: false });
+	}
+
+	// Local Storage
+    componentDidMount() {
+        try {
+          const value = localStorage.getItem('todo');
+      
+          if (value) {
+            console.log(value);
+          }
+        } catch (e) {
+          // Do nothing
+		}
+		console.log('test');
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.todo !== this.state.todo.length) {
+            localStorage.setItem('todo', this.state.todo);
+        }
+        console.log(`Focus is ${this.state.todo}`);
+    }
+
+    // Grabs the input
+    addFocus(e) {
+        e.preventDefault();
+		console.log(`focus added`);
+    }
+
+    // Handles removal of Focus field
+    deleteFocus() {
+        console.log(`focus deleted`);
     }
     
 	render() {
