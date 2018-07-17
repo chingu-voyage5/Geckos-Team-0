@@ -8,12 +8,16 @@ class ToDo extends React.Component {
 		super();
 		this.state = {
 			showModal: false,
-			todo: {}
+			todos: [
+				// 'React',
+				// 'JavaScript'
+			]
 		};
 		this.handleOpenModal = this.handleOpenModal.bind(this);
 		this.handleCloseModal = this.handleCloseModal.bind(this);
-		this.addFocus = this.addFocus.bind(this);
-        this.deleteFocus = this.deleteFocus.bind(this);
+		this.addToDo = this.addToDo.bind(this);
+		this.deleteToDo = this.deleteToDo.bind(this);
+		this.strikeToDo = this.strikeToDo.bind(this);
 	}
 
 	// Modal
@@ -28,7 +32,7 @@ class ToDo extends React.Component {
 	// Local Storage
     componentDidMount() {
         try {
-          const value = localStorage.getItem('todo');
+          const value = localStorage.getItem('todos');
       
           if (value) {
             console.log(value);
@@ -36,26 +40,46 @@ class ToDo extends React.Component {
         } catch (e) {
           // Do nothing
 		}
-		console.log('test');
+		try {
+			const value = localStorage.getItem('todos');
+			const options = JSON.parse(value);
+		
+			if (options) {
+				this.setState(() => ({ 
+					todos: options 
+				}));
+			}
+		} catch (e) {
+			// Do nothing
+		}
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.todo !== this.state.todo.length) {
-            localStorage.setItem('todo', this.state.todo);
+        if (prevState.todos !== this.state.todos.length) {
+			const value = JSON.stringify(this.state.todos);
+      		localStorage.setItem('todos', value);
+			  console.log(`Todos is ${this.state.todos}`);
         }
-        console.log(`Focus is ${this.state.todo}`);
+        // console.log(`Todos is ${this.state.todos} ${value}`);
     }
 
     // Grabs the input
-    addFocus(e) {
+    addToDo(e) {
         e.preventDefault();
-		console.log(`focus added`);
+		console.log(`Todo added`);
     }
 
     // Handles removal of Focus field
-    deleteFocus() {
-        console.log(`focus deleted`);
-    }
+    deleteToDo() {
+		this.setState({
+			todos: []
+		})
+        console.log(`Todo deleted`);
+	}
+	
+	strikeToDo() {
+		console.log('To Do Strike');
+	}
     
 	render() {
 		return (
@@ -69,15 +93,22 @@ class ToDo extends React.Component {
 				>
 					{/* Modal Content */}
 					<div className="ToDo__Modal__Content">
-                        <p>2 to do</p>
+                        <p>{this.state.todos.length} to do{this.state.todos.length > 1 && 's'}</p>
                         <div className="ToDo__List">
                             <input type="checkbox" id="react" name="todo" value="Learn React"></input>
                             <label htmlFor="react">Learn React</label>
                         </div>
-                        <div className="ToDo__List">
-                            <input type="checkbox" id="chingu" name="todo" value="Chingu Project"></input>
-                            <label htmlFor="chingu">Chingu Project</label>
-                        </div>
+
+						<div className="ToDoItems">
+							<div id="CheckboxItem" onClick={this.strikeToDo}>
+								<input type="checkbox" id="FocusCheck" name="focus-check" />
+								<label htmlFor="FocusCheck"></label>
+							</div>
+							<p id="ToDoItem"  >{this.state.todos}</p>
+							<p id="DeleteToDo" onClick={this.deleteToDo}>x</p>
+						</div>
+						
+
 						<input type="text" name="todo" placeholder="New Todo"/>
 					</div>
 				</Modal>
