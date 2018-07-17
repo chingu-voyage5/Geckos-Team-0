@@ -9,8 +9,8 @@ class ToDo extends React.Component {
 		this.state = {
 			showModal: false,
 			todos: [
-				// 'React',
-				// 'JavaScript'
+				'React',
+				'JavaScript'
 			]
 		};
 		this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -31,15 +31,6 @@ class ToDo extends React.Component {
 
 	// Local Storage
     componentDidMount() {
-        try {
-          const value = localStorage.getItem('todos');
-      
-          if (value) {
-            console.log(value);
-          }
-        } catch (e) {
-          // Do nothing
-		}
 		try {
 			const value = localStorage.getItem('todos');
 			const options = JSON.parse(value);
@@ -58,15 +49,26 @@ class ToDo extends React.Component {
         if (prevState.todos !== this.state.todos.length) {
 			const value = JSON.stringify(this.state.todos);
       		localStorage.setItem('todos', value);
-			  console.log(`Todos is ${this.state.todos}`);
+			console.log(`Todos is ${this.state.todos}`);
         }
-        // console.log(`Todos is ${this.state.todos} ${value}`);
     }
 
     // Grabs the input
     addToDo(e) {
         e.preventDefault();
 		console.log(`Todo added`);
+
+		e.preventDefault();
+
+        const { value } = this.input;
+
+        if (value === '') { return }
+
+        this.setState({
+            focus: value
+        });
+
+        console.log(`focus added`);
     }
 
     // Handles removal of Focus field
@@ -77,10 +79,13 @@ class ToDo extends React.Component {
         console.log(`Todo deleted`);
 	}
 	
-	strikeToDo() {
+	strikeToDo(todo) {
+		this.setState((prevState) => ({todos: prevState.todos.concat(todo)}));
 		console.log('To Do Strike');
 	}
-    
+	
+	
+	
 	render() {
 		return (
 			<div className="ToDo">
@@ -94,22 +99,25 @@ class ToDo extends React.Component {
 					{/* Modal Content */}
 					<div className="ToDo__Modal__Content">
                         <p>{this.state.todos.length} to do{this.state.todos.length > 1 && 's'}</p>
-                        <div className="ToDo__List">
-                            <input type="checkbox" id="react" name="todo" value="Learn React"></input>
-                            <label htmlFor="react">Learn React</label>
-                        </div>
 
-						<div className="ToDoItems">
-							<div id="CheckboxItem" onClick={this.strikeToDo}>
-								<input type="checkbox" id="FocusCheck" name="focus-check" />
-								<label htmlFor="FocusCheck"></label>
-							</div>
-							<p id="ToDoItem"  >{this.state.todos}</p>
-							<p id="DeleteToDo" onClick={this.deleteToDo}>x</p>
-						</div>
+						{
+							this.state.todos.map((todo) => (
+								<div className="ToDoItems" key={todo}>
+									<div id="CheckboxItem" onClick={this.strikeToDo}>
+										<input type="checkbox" id="FocusCheck" name="focus-check" />
+										<label htmlFor="FocusCheck"></label>
+									</div>
+									<p id="ToDoItem"  >{this.state.todo}</p>
+									<p id="DeleteToDo" onClick={this.deleteToDo}>x</p>
+								</div>
+							))
+						}
+
 						
-
-						<input type="text" name="todo" placeholder="New Todo"/>
+						<form onSubmit={this.strikeToDo}>
+							<input type="text" name="todo" placeholder="New Todo"/>
+							<button type="submit">Add</button>
+						</form>
 					</div>
 				</Modal>
 			</div>
