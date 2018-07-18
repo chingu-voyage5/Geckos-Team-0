@@ -102,7 +102,7 @@ class ToDo extends React.Component {
 										<input type="checkbox" id="ToDoCheck" name="focus-check" />
 										<label htmlFor="ToDoCheck"></label>
 									</div>
-									<p id="ToDoItem">{this.state.todo}</p>
+									<p id="ToDoItem">{todo}</p>
 									<p id="DeleteToDo" onClick={this.deleteToDo}>x</p>
 								</div>
 							))
