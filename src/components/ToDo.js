@@ -80,7 +80,7 @@ class ToDo extends React.Component {
     // Handles removal of Focus field
     deleteToDo(todo) {
 		this.setState((prevState) => ({
-			todos: prevState.todos.filter((item) => item != todo)
+			todos: prevState.todos.filter((item) => item !== todo)
 		}));
 		this.setState(() => ({ 
 			error: ''
