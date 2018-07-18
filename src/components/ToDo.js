@@ -49,26 +49,21 @@ class ToDo extends React.Component {
         if (prevState.todos !== this.state.todos.length) {
 			const value = JSON.stringify(this.state.todos);
       		localStorage.setItem('todos', value);
-			console.log(`Todos is ${this.state.todos}`);
+			console.log(`Todos is ${value}`);
+			console.log(value);
         }
     }
 
     // Grabs the input
     addToDo(e) {
         e.preventDefault();
-		console.log(`Todo added`);
 
-		e.preventDefault();
+		const todo = e.target.elements.todo.value.trim();
+		this.setState((prevState) => ({todos: prevState.todos.concat(todo)}));
 
-        const { value } = this.input;
+		e.target.elements.todo.value = '';
 
-        if (value === '') { return }
-
-        this.setState({
-            focus: value
-        });
-
-        console.log(`focus added`);
+		console.log(todo);
     }
 
     // Handles removal of Focus field
@@ -79,9 +74,9 @@ class ToDo extends React.Component {
         console.log(`Todo deleted`);
 	}
 	
-	strikeToDo(todo) {
-		this.setState((prevState) => ({todos: prevState.todos.concat(todo)}));
-		console.log('To Do Strike');
+	// Strikes through item when checked
+	strikeToDo() {
+		// TODO: Strike through item when checked
 	}
 	
 	
@@ -103,20 +98,19 @@ class ToDo extends React.Component {
 						{
 							this.state.todos.map((todo) => (
 								<div className="ToDoItems" key={todo}>
-									<div id="CheckboxItem" onClick={this.strikeToDo}>
-										<input type="checkbox" id="FocusCheck" name="focus-check" />
-										<label htmlFor="FocusCheck"></label>
+									<div id="CheckboxItemToDo" onClick={this.strikeToDo}>
+										<input type="checkbox" id="ToDoCheck" name="focus-check" />
+										<label htmlFor="ToDoCheck"></label>
 									</div>
-									<p id="ToDoItem"  >{this.state.todo}</p>
+									<p id="ToDoItem">{this.state.todo}</p>
 									<p id="DeleteToDo" onClick={this.deleteToDo}>x</p>
 								</div>
 							))
 						}
 
-						
-						<form onSubmit={this.strikeToDo}>
-							<input type="text" name="todo" placeholder="New Todo"/>
-							<button type="submit">Add</button>
+						{/* TODO:  Work on getting the item to be added to the todos state */}
+						<form onSubmit={this.addToDo}>
+							<input id="ToDoInput" type="text" name="todo" placeholder="New Todo"/>
 						</form>
 					</div>
 				</Modal>
