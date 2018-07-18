@@ -8,6 +8,7 @@ class ToDo extends React.Component {
 		super();
 		this.state = {
 			showModal: false,
+			error: undefined,
 			todos: [
 				'React',
 				'JavaScript'
@@ -58,19 +59,38 @@ class ToDo extends React.Component {
     addToDo(e) {
         e.preventDefault();
 
-		const todo = e.target.elements.todo.value.trim();
-		this.setState((prevState) => ({todos: prevState.todos.concat(todo)}));
+		const todo = e.target.elements.todo.value.trim().toLowerCase();
+		console.log(todo);
+		
+		if (!todo) {
+			this.setState(() => ({ 
+				error: 'Enter valid value to add item'
+			}));
+		} else if (this.state.todos.indexOf(todo) > -1) {
+			this.setState(() => ({ 
+				error: 'This Todo item already exists'
+			}));
+			e.target.elements.todo.value = '';
+		} else {
+			this.setState(() => ({ 
+				error: ''
+			}));
+			this.setState((prevState) => ({todos: prevState.todos.concat(todo)}));
+			e.target.elements.todo.value = '';
+		}
 
-		e.target.elements.todo.value = '';
-
+		
 		console.log(todo);
     }
 
     // Handles removal of Focus field
-    deleteToDo() {
-		this.setState({
-			todos: []
-		})
+    deleteToDo(todo) {
+		this.setState((prevState) => ({
+			todos: prevState.todos.filter((item) => item != todo)
+		}));
+		this.setState(() => ({ 
+			error: ''
+		}));
         console.log(`Todo deleted`);
 	}
 	
@@ -93,7 +113,8 @@ class ToDo extends React.Component {
 				>
 					{/* Modal Content */}
 					<div className="ToDo__Modal__Content">
-                        <p>{this.state.todos.length} to do{this.state.todos.length > 1 && 's'}</p>
+                        <p id="ToDoCount">{this.state.todos.length} to do{this.state.todos.length > 1 && 's'}</p>
+						{this.state.error && <p id="ToDoError">{this.state.error}</p>}
 
 						{
 							this.state.todos.map((todo) => (
@@ -103,7 +124,9 @@ class ToDo extends React.Component {
 										<label htmlFor="ToDoCheck"></label>
 									</div>
 									<p id="ToDoItem">{todo}</p>
-									<p id="DeleteToDo" onClick={this.deleteToDo}>x</p>
+									<p id="DeleteToDo" onClick={(e) => {
+										this.deleteToDo(todo);
+									  }}>x</p>
 								</div>
 							))
 						}
