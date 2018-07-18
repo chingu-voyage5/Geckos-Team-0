@@ -50,8 +50,6 @@ class ToDo extends React.Component {
         if (prevState.todos !== this.state.todos.length) {
 			const value = JSON.stringify(this.state.todos);
       		localStorage.setItem('todos', value);
-			console.log(`Todos is ${value}`);
-			console.log(value);
         }
     }
 
@@ -60,7 +58,6 @@ class ToDo extends React.Component {
         e.preventDefault();
 
 		const todo = e.target.elements.todo.value.trim().toLowerCase();
-		console.log(todo);
 		
 		if (!todo) {
 			this.setState(() => ({ 
@@ -78,9 +75,6 @@ class ToDo extends React.Component {
 			this.setState((prevState) => ({todos: prevState.todos.concat(todo)}));
 			e.target.elements.todo.value = '';
 		}
-
-		
-		console.log(todo);
     }
 
     // Handles removal of Focus field
@@ -91,7 +85,6 @@ class ToDo extends React.Component {
 		this.setState(() => ({ 
 			error: ''
 		}));
-        console.log(`Todo deleted`);
 	}
 	
 	// Strikes through item when checked
@@ -120,8 +113,8 @@ class ToDo extends React.Component {
 							this.state.todos.map((todo) => (
 								<div className="ToDoItems" key={todo}>
 									<div id="CheckboxItemToDo" onClick={this.strikeToDo}>
-										<input type="checkbox" id="ToDoCheck" name="focus-check" />
-										<label htmlFor="ToDoCheck"></label>
+										<input type="checkbox" id={todo} name="focus-check" />
+										<label htmlFor={todo}></label>
 									</div>
 									<p id="ToDoItem">{todo}</p>
 									<p id="DeleteToDo" onClick={(e) => {
@@ -131,7 +124,6 @@ class ToDo extends React.Component {
 							))
 						}
 
-						{/* TODO:  Work on getting the item to be added to the todos state */}
 						<form onSubmit={this.addToDo}>
 							<input id="ToDoInput" type="text" name="todo" placeholder="New Todo"/>
 						</form>

@@ -32,7 +32,6 @@ class Focus extends React.Component {
         if (prevState.focus !== this.state.focus.length) {
             localStorage.setItem('focus', this.state.focus);
         }
-        console.log(`Focus is ${this.state.focus}`);
     }
 
     // Grabs the input
@@ -46,8 +45,6 @@ class Focus extends React.Component {
         this.setState({
             focus: value
         });
-
-        console.log(`focus added`);
     }
 
     // Handles removal of Focus field
@@ -55,7 +52,6 @@ class Focus extends React.Component {
         this.setState({
             focus: ''
         });
-        console.log(`focus deleted`);
     }
 
     // Strikethrough text
