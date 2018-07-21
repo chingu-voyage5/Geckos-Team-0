@@ -23,7 +23,9 @@ class Settings extends React.Component {
 	render() {
 		return (
 			<div className="Settings">
-				<span onClick={this.handleOpenModal}>Settings</span>
+				<span onClick={this.handleOpenModal}>
+					<i className="fas fa-cog"></i>
+				</span>
 				<Modal
 					className="Settings__Modal"
 					overlayClassName="Overlay"
