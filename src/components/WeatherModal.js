@@ -70,15 +70,25 @@ function CurrentWeather(props) {
     showForm
   } = props;
 
+  // handleFocus: function(event) {
+  //   event.target.select();
+  // },
+
+  // render: function() {
+  //   return (
+  //     <input type='text' value='Some something' onFocus={this.handleFocus} />
+  //   );
+  // },
   return (
     <div className="CurrentWeather__Container">
       <div className="CurrentWeather__Wrapper">
         <div className="CurrentWeather__Top">
           <div className="current-location">
             <span>
-              {showForm ? <LocationForm /> : `${city}, ${countryCode}`}
+              {city}, {countryCode}
+              {/* {showForm ? <LocationForm /> : `${city}, ${countryCode}`} */}
             </span>
-            <span onClick={handleLocationForm}>
+            <span onClick={(e) => console.log(e.currentTarget)}>
               O
             </span>
           </div>
@@ -118,7 +128,7 @@ function LocationForm() {
 }
 
 function ForecastWeather(props) {
-  const { data, unit, convertToC, handleClick } = props;
+  const { data, unit, convertToC } = props;
   // console.log("data", data);
 
   return (

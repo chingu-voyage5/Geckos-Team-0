@@ -11,23 +11,48 @@ class WeatherContainer extends React.Component {
       location: {},
       currentWeather: {},
       forecastWeather: {},
-      unit: false,
       // false: Fahrenheit, true: Celcius
+      unit: false,
       handleTempUnit: this.handleTempUnit,
       convertToC: this.convertToC
     };
   }
-  
-  
+
   componentDidMount() {
+    // If there is no weather saved in storage, run below. 
+    // Every hour: get location, get weather, save weather in localStorage
+    // this.intervalId = setInterval(() => this.getGeoLocation(), 3600000)
+
+    // this.loadWeather();
     this.getGeoLocation();
+    this.loadState();
     // console.log(this.state)
   }
+
+  saveState = state => {
+    localStorage.setItem("state", JSON.stringify(state));
+  }
+
+  loadState = async () => {
+    try {
+      const state = await localStorage.getItem("state");
+      const parsedState = JSON.parse(state);
+      // console.log(parsedState)
+      const { location, currentWeather, forecastWeather, unit } = parsedState;
+
+      this.setState({
+				location,
+				currentWeather,
+				forecastWeather,
+				unit
+			});
+    } catch (err) {
+      console.log(err);
+    }
+  };
   
   handleTempUnit = () => {
-    this.setState({
-      unit: !this.state.unit
-    });
+    this.setState({ unit: !this.state.unit });
   };
   
   convertToC = temp => parseInt((temp - 32) / 1.8); 
@@ -71,6 +96,8 @@ class WeatherContainer extends React.Component {
           day5: forecast[4]
         },
       });
+
+      this.saveState(this.state)
       // console.log(this.state)
     });
   };
