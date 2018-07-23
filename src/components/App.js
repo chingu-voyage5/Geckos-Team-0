@@ -3,6 +3,7 @@ import "../styles/App.css";
 
 import Time from './Time';
 import Name from './Name';
+import WeatherContainer from "./WeatherContainer";
 import Focus from "./Focus";
 import ToDo from "./ToDo.js";
 import Links from "./Links";
