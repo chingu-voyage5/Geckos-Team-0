@@ -22,10 +22,7 @@ class WeatherContainer extends React.Component {
     // If there is no weather saved in storage, run below. 
     // Every hour: get location, get weather, save weather in localStorage
     // this.intervalId = setInterval(() => this.getGeoLocation(), 3600000)
-
-    // this.loadWeather();
-    this.getGeoLocation();
-    this.loadState();
+    this.loadState() 
     // console.log(this.state)
   }
 
@@ -36,16 +33,20 @@ class WeatherContainer extends React.Component {
   loadState = async () => {
     try {
       const state = await localStorage.getItem("state");
-      const parsedState = JSON.parse(state);
-      // console.log(parsedState)
-      const { location, currentWeather, forecastWeather, unit } = parsedState;
-
-      this.setState({
-				location,
-				currentWeather,
-				forecastWeather,
-				unit
-			});
+      if (state) {
+        const parsedState = JSON.parse(state);
+        // console.log(parsedState)
+        const { location, currentWeather, forecastWeather, unit } = parsedState;
+  
+        this.setState({
+          location,
+          currentWeather,
+          forecastWeather,
+          unit
+        });
+      } else {
+        this.getGeoLocation();
+      }
     } catch (err) {
       console.log(err);
     }
@@ -98,11 +99,9 @@ class WeatherContainer extends React.Component {
       });
 
       this.saveState(this.state)
-      // console.log(this.state)
+      console.log(this.state)
     });
   };
-  
-
   
 	render() {
 		return ( 
