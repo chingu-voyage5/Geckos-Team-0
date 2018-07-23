@@ -129,6 +129,7 @@ Weather & Main Component
 
 .ForecastWeather__Wrapper {
   margin-top: 8px;
+  cursor: pointer;
 }
 
 .day {

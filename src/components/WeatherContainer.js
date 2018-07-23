@@ -49,7 +49,7 @@ class WeatherContainer extends React.Component {
 		fetch(endPoint)
     .then(response => response.json())
     .then(json => {
-      console.log(json);
+      // console.log(json);
       let data = json.query.results.channel;
       let { forecast } = data.item;
       

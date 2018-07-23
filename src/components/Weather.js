@@ -5,10 +5,13 @@ import "../styles/Weather.css";
 import WeatherModal from "./WeatherModal";
 
 class Weather extends React.Component {
-	state = {
-    showModal: false,
-    showForm: false
-	};
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false,
+      showForm: false,
+    };
+  }
 
 	handleOpenModal = () => {
 		this.setState({ showModal: true });
@@ -22,9 +25,8 @@ class Weather extends React.Component {
     this.setState({ showForm: !this.state.showForm })
   }
 
-
 	render() {
-		const { showModal, showForm } = this.state;
+    const { showModal, showForm } = this.state;
 
 		return (
 			<div id="Weather">
