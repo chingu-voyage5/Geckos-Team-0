@@ -10,6 +10,7 @@ import Search from "./Search";
 import Quotes from "./Quotes";
 import Settings from "./Settings";
 import WallpaperInfo from "./WallpaperInfo";
+import WeatherContainer from "./WeatherContainer";
 
 class App extends Component {
 	render() {
