@@ -38,8 +38,8 @@ class SearchForm extends React.Component {
   render() {
     return (
       <div id="Search__Form">
-        <form action="#">
-          <input type="text" name="search"/>
+        <form action="https://www.google.com/search?">
+          <input type="text" name="q"/>
         </form>
       </div>
     );

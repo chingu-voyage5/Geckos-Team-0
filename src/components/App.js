@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import "../styles/App.css";
 
-import { Time } from "./Time";
-import { Name } from "./Name";
-import WeatherContainer from "./WeatherContainer";
+import Time from './Time';
+import Name from './Name';
 import Focus from "./Focus";
 import ToDo from "./ToDo.js";
 import Links from "./Links";
