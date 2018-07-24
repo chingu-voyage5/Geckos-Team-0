@@ -208,3 +208,7 @@ Weather & Main Component
 .ForecastWeather__Wrapper:hover {
   background: rgba(255,255,255,.09);
 }
+
+.selected {
+  background: rgba(255,255,255,.09);
+}

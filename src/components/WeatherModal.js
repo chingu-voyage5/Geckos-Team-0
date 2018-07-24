@@ -12,6 +12,8 @@ function WeatherModal(props) {
     editLocation,
     handleCloseModal,
     handleLocationIcon,
+    handleDisplay,
+    changeDisplay
   } = props;
 
   return (
@@ -45,11 +47,44 @@ function WeatherModal(props) {
                   handleSubmitLocation={handleSubmitLocation}
                 />
                 <div className="ForecastWeather__Container">
-                  <ForecastWeather data={day1} unit={unit} convertToC={convertToC} />
-                  <ForecastWeather data={day2} unit={unit} convertToC={convertToC} />
-                  <ForecastWeather data={day3} unit={unit} convertToC={convertToC} />
-                  <ForecastWeather data={day4} unit={unit} convertToC={convertToC} />
-                  <ForecastWeather data={day5} unit={unit} convertToC={convertToC} />
+                  <div className="ForecastWeather__Row">
+                    <ForecastWeather 
+                      data={day1} 
+                      unit={unit} 
+                      convertToC={convertToC} 
+                      handleDisplay={handleDisplay} 
+                      // changeDisplay={changeDisplay}
+                    />
+
+                  </div>
+                  <ForecastWeather 
+                    data={day2} 
+                    unit={unit} 
+                    convertToC={convertToC} 
+                    handleDisplay={handleDisplay}
+                    changeDisplay={changeDisplay}
+                  />
+                  <ForecastWeather
+                    data={day3}
+                    unit={unit}
+                    convertToC={convertToC}
+                    handleDisplay={handleDisplay}
+                    changeDisplay={changeDisplay}
+                  />
+                  <ForecastWeather
+                    data={day4}
+                    unit={unit}
+                    convertToC={convertToC}
+                    handleDisplay={handleDisplay}
+                    changeDisplay={changeDisplay}
+                  />
+                  <ForecastWeather
+                    data={day5}
+                    unit={unit}
+                    convertToC={convertToC}
+                    handleDisplay={handleDisplay}
+                    changeDisplay={changeDisplay}
+                  />
                 </div>
               </div>
             </Fragment>
@@ -131,13 +166,6 @@ function CurrentWeather(props) {
   );
 }
 
-// changeLocation = location => {
-// 	const newLocation = this.refs.location.value;
-// 	this.setState({
-// 		location: newLocation
-// 	});
-// };
-
 function RenderForm(props) {
   const { city, countryCode, handleChangeLocation, handleSubmitLocation } = props;
 	return (
@@ -164,20 +192,15 @@ function RenderLocation(props) {
 	);
 }
 
-function LocationForm() {
-  return (
-    <form onSubmit={(e) => { e.preventDefault; console.log(e.target.value) }}>
-      <input type="text" name="current-city" />
-    </form>
-  );
-}
-
 function ForecastWeather(props) {
-  const { data, unit, convertToC } = props;
+  const { data, unit, convertToC, handleDisplay, changeDisplay } = props;
   // console.log("data", data);
-
+  const addClass = changeDisplay ? "selected" : "";
   return (
-    <div className="ForecastWeather__Wrapper">
+    <div 
+      className={`ForecastWeather__Wrapper ${addClass}`} 
+      onClick={() => {handleDisplay()}}
+    >
       <span className="day">
         {data.day}
       </span>
