@@ -26,7 +26,7 @@ function WeatherModal(props) {
           const { city, countryCode } = store.location;
           const { weatherCode, temperature, weather } = store.currentWeather;
           const { day1, day2, day3, day4, day5 } = store.forecastWeather;
-          const { unit, convertToC } = store;
+          const { unit, convertToC, handleChangeLocation, handleSubmitLocation } = store;
 
           return (
             <Fragment>
@@ -41,6 +41,8 @@ function WeatherModal(props) {
                   convertToC={convertToC}
                   editLocation={editLocation}
                   handleLocationIcon={handleLocationIcon}
+                  handleChangeLocation={handleChangeLocation}
+                  handleSubmitLocation={handleSubmitLocation}
                 />
                 <div className="ForecastWeather__Container">
                   <ForecastWeather data={day1} unit={unit} convertToC={convertToC} />
@@ -68,7 +70,9 @@ function CurrentWeather(props) {
     unit,
     convertToC,
     handleLocationIcon,
-    editLocation
+    editLocation,
+    handleChangeLocation,
+    handleSubmitLocation
   } = props;
 
   return (
@@ -81,6 +85,8 @@ function CurrentWeather(props) {
                 <RenderForm 
                   city={city}
                   countryCode={countryCode}
+                  handleChangeLocation={handleChangeLocation}
+                  handleSubmitLocation={handleSubmitLocation}
                 />
                 :
                 <RenderLocation
@@ -133,11 +139,18 @@ function CurrentWeather(props) {
 // };
 
 function RenderForm(props) {
-  const { city, countryCode } = props;
+  const { city, countryCode, handleChangeLocation, handleSubmitLocation } = props;
 	return (
 		<div>
-			<input className="location-input" type="text" defaultValue={`${city}, ${countryCode}`}/>
-      {/* ref="newLocation" */}
+      <form onSubmit={(e) => handleSubmitLocation(e)}>
+        <input 
+          className="location-input" 
+          type="text" 
+          // defaultValue={`${city}, ${countryCode}`}
+          value={city}
+          onChange={(e) => handleChangeLocation(e)}
+        />
+      </form>
 		</div>
 	);
 }

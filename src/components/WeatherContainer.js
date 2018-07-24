@@ -14,7 +14,9 @@ class WeatherContainer extends React.Component {
 			// 👇 false: Fahrenheit, true: Celsius
 			unit: false,
 			handleTempUnit: this.handleTempUnit,
-			convertToC: this.convertToC
+      convertToC: this.convertToC,
+      handleChangeLocation: this.handleChangeLocation,
+      handleSubmitLocation: this.handleSubmitLocation
 		};
 	}
 
@@ -60,7 +62,22 @@ class WeatherContainer extends React.Component {
 	    this.saveState(newState);
 	    return { ...newState };
 	  })
-	};
+  };
+  
+  handleChangeLocation = e => {
+    // e.preventDefault();
+    this.setState({
+      location: {
+        city: e.target.value,
+        countryCode: ''
+      }
+    })
+  }
+
+  handleSubmitLocation = e => {
+    e.preventDefault();
+    console.log(this.state.location)
+  }
 
 	convertToC = temp => parseInt((temp - 32) / 1.8);
 
