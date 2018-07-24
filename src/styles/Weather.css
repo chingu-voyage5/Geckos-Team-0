@@ -55,6 +55,17 @@ Weather & Main Component
   background-color: transparent;
 }
 
+.location-input {
+  background-color: transparent;
+  border: none;
+  color: white;
+  /* padding: 10px; */
+  font-size: 19px;
+  width: 150px;
+  /* Add dynamic width later */
+  outline: none;
+}
+
 /********************
    Current Weather 
 *********************/
@@ -86,6 +97,7 @@ Weather & Main Component
 
 .current-location {
   font-size: 19px;
+  display: flex;
 }
 
 .current-location span svg {

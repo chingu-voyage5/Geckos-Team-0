@@ -76,12 +76,26 @@ function CurrentWeather(props) {
       <div className="CurrentWeather__Wrapper">
         <div className="CurrentWeather__Top">
           <div className="current-location">
-            <span>
-              {city}, {countryCode}
-              {/* {showForm ? <LocationForm /> : `${city}, ${countryCode}`} */}
-            </span>
+            {
+              editLocation ?
+                <RenderForm 
+                  city={city}
+                  countryCode={countryCode}
+                />
+                :
+                <RenderLocation
+                  editLocation={editLocation}
+                  city={city}
+                  countryCode={countryCode}
+                />
+            }
             <span className="location-icon" onClick={() => handleLocationIcon()}>
               {editLocation ? <FaLocationArrow /> : <FaPencil />}
+              {/* 
+                When FaPencil clicked, select location which is editable and change to FaLocationArrow
+                When clicking outside of the icon, back to FaPencil
+                When FaLocationArrow clicked, run getGeoLocation func and change to FaPencil icon
+               */}
             </span>
           </div>
           <span className="current-weather">
@@ -109,6 +123,32 @@ function CurrentWeather(props) {
       </Store.Consumer>
     </div>
   );
+}
+
+// changeLocation = location => {
+// 	const newLocation = this.refs.location.value;
+// 	this.setState({
+// 		location: newLocation
+// 	});
+// };
+
+function RenderForm(props) {
+  const { city, countryCode } = props;
+	return (
+		<div>
+			<input className="location-input" type="text" defaultValue={`${city}, ${countryCode}`}/>
+      {/* ref="newLocation" */}
+		</div>
+	);
+}
+
+function RenderLocation(props) {
+	const { city, countryCode } = props;
+	return (
+		<span>
+			{city}, {countryCode}
+		</span>
+	);
 }
 
 function LocationForm() {
@@ -143,3 +183,5 @@ function ForecastWeather(props) {
 
 Modal.setAppElement("#root");
 export default WeatherModal;
+
+
