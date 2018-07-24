@@ -152,6 +152,9 @@ Weather & Main Component
 .ForecastWeather__Wrapper {
   margin-top: 8px;
   cursor: pointer;
+  border: 1px solid;
+  padding: 0 4px 5px;
+  border-radius: 2px;
 }
 
 .day {
@@ -200,4 +203,8 @@ Weather & Main Component
 .temp-unit:hover {
   cursor: pointer;
   opacity: 1;
+}
+
+.ForecastWeather__Wrapper:hover {
+  background: rgba(255,255,255,.09);
 }

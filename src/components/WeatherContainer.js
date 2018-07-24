@@ -11,8 +11,8 @@ class WeatherContainer extends React.Component {
 			location: {},
 			currentWeather: {},
 			forecastWeather: {},
-			// 👇 false: Fahrenheit, true: Celsius
       unit: false,
+			// 👆 false: Fahrenheit, true: Celsius
       error: '',
 			handleTempUnit: this.handleTempUnit,
 			convertToC: this.convertToC,
