@@ -95,6 +95,7 @@ class WeatherContainer extends React.Component {
 
 	getWeatherByCity = cityName => {
     const searchText = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="(${cityName})")`;
+
 		this.getWeather(searchText);
   };
   
@@ -104,44 +105,45 @@ class WeatherContainer extends React.Component {
   }
 
 	getWeather = (searchText) => {
-		const endPoint = `https://query.yahooapis.com/v1/public/yql?q=${searchText}&format=json`;
-
+    const endPoint = `https://query.yahooapis.com/v1/public/yql?q=${searchText}&format=json`;
+    
 		fetch(endPoint)
 			.then(response => response.json())
 			.then(json => {
 				console.log(json);
 				// date:"23 Jul 2018"
-        if (json.query.results === null || !json.query.results.channel.location) {
-          this.setState({ error: "not found"})
-          console.log('not found')
-        } else {
-          let data = json.query.results.channel;
-          let { forecast } = data.item;
-          console.log(data.item.condition.date);
+        this.setState({ error: "not found"})
+        console.log('not found')
+        let data = json.query.results.channel;
+        let { forecast } = data.item;
+        console.log(data.item.condition.date);
   
-          this.setState({
-            location: {
-              city: data.location.city,
-              countryCode: data.title.split(", ").pop()
-            },
-            currentWeather: {
-              weatherCode: data.item.condition.code,
-              temperature: data.item.condition.temp,
-              weather: data.item.condition.text
-            },
-            forecastWeather: {
-              day1: forecast[0],
-              day2: forecast[1],
-              day3: forecast[2],
-              day4: forecast[3],
-              day5: forecast[4]
-            }
-          });
-  
-          this.saveState(this.state);
-          console.log(this.state);
-        }
-			});
+        this.setState({
+          location: {
+            city: data.location.city,
+            countryCode: data.title.split(", ").pop()
+          },
+          currentWeather: {
+            weatherCode: data.item.condition.code,
+            temperature: data.item.condition.temp,
+            weather: data.item.condition.text
+          },
+          forecastWeather: {
+            day1: forecast[0],
+            day2: forecast[1],
+            day3: forecast[2],
+            day4: forecast[3],
+            day5: forecast[4]
+          }
+        });
+
+        this.saveState(this.state);
+        console.log(this.state);
+      })
+      .catch(err => {
+        this.setState({ error: 'not found' });
+        console.log(err);
+      });
 	};
 
 	render() {
