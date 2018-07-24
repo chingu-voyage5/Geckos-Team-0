@@ -27,9 +27,9 @@ function WeatherModal(props) {
         {store => {
           const { city, countryCode } = store.location;
           const { weatherCode, temperature, weather } = store.currentWeather;
-          const { day1, day2, day3, day4, day5 } = store.forecastWeather;
           const { unit, convertToC, handleChangeLocation, handleSubmitLocation } = store;
-
+          const { ...forecastWeather } = store.forecastWeather;
+          // console.log(forecastWeather)
           return (
             <Fragment>
               <div className="Modal__Content">
@@ -46,46 +46,26 @@ function WeatherModal(props) {
                   handleChangeLocation={handleChangeLocation}
                   handleSubmitLocation={handleSubmitLocation}
                 />
-                <div className="ForecastWeather__Container">
-                  <div className="ForecastWeather__Row">
-                    <ForecastWeather 
-                      data={day1} 
-                      unit={unit} 
-                      convertToC={convertToC} 
-                      handleDisplay={handleDisplay} 
-                      // changeDisplay={changeDisplay}
-                    />
-
-                  </div>
-                  <ForecastWeather 
-                    data={day2} 
-                    unit={unit} 
-                    convertToC={convertToC} 
-                    handleDisplay={handleDisplay}
-                    changeDisplay={changeDisplay}
-                  />
-                  <ForecastWeather
-                    data={day3}
-                    unit={unit}
-                    convertToC={convertToC}
-                    handleDisplay={handleDisplay}
-                    changeDisplay={changeDisplay}
-                  />
-                  <ForecastWeather
-                    data={day4}
-                    unit={unit}
-                    convertToC={convertToC}
-                    handleDisplay={handleDisplay}
-                    changeDisplay={changeDisplay}
-                  />
-                  <ForecastWeather
-                    data={day5}
-                    unit={unit}
-                    convertToC={convertToC}
-                    handleDisplay={handleDisplay}
-                    changeDisplay={changeDisplay}
-                  />
-                </div>
+                <ul className="ForecastWeather__Container">
+                  {Object.keys(forecastWeather).map((key, index) => {
+                    let data = forecastWeather[key];
+                    return (
+                      <li 
+                        className={`ForecastWeather__Column ${key}`}
+                        onClick={() => { }} 
+                        key={index}
+                      >    
+                        <ForecastWeather 
+                          data={data}
+                          unit={unit}
+                          convertToC={convertToC}
+                          handleDisplay={handleDisplay}
+                        changeDisplay={changeDisplay}
+                        />
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </Fragment>
           );
