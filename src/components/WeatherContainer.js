@@ -12,11 +12,12 @@ class WeatherContainer extends React.Component {
 			currentWeather: {},
 			forecastWeather: {},
 			// 👇 false: Fahrenheit, true: Celsius
-			unit: false,
+      unit: false,
+      error: '',
 			handleTempUnit: this.handleTempUnit,
-      convertToC: this.convertToC,
-      handleChangeLocation: this.handleChangeLocation,
-      handleSubmitLocation: this.handleSubmitLocation
+			convertToC: this.convertToC,
+			handleChangeLocation: this.handleChangeLocation,
+			handleSubmitLocation: this.handleSubmitLocation
 		};
 	}
 
@@ -47,37 +48,38 @@ class WeatherContainer extends React.Component {
 		} catch (err) {
 			console.log(err);
 		}
-  };
+	};
 
-  saveState = state => {
-    localStorage.setItem("state", JSON.stringify(state));
-  };
+	saveState = state => {
+		localStorage.setItem("state", JSON.stringify(state));
+	};
 
 	handleTempUnit = () => {
-	  this.setState(prevState => {
-	    const newState = {
-	      ...prevState,
-	      unit: !this.state.unit
-	    };
-	    this.saveState(newState);
-	    return { ...newState };
-	  })
-  };
-  
-  handleChangeLocation = e => {
-    // e.preventDefault();
-    this.setState({
-      location: {
-        city: e.target.value,
-        countryCode: ''
-      }
-    })
-  }
+		this.setState(prevState => {
+			const newState = {
+				...prevState,
+				unit: !this.state.unit
+			};
+			this.saveState(newState);
+			return { ...newState };
+		});
+	};
 
-  handleSubmitLocation = e => {
-    e.preventDefault();
-    console.log(this.state.location)
-  }
+	handleChangeLocation = e => {
+		// e.preventDefault();
+		this.setState({
+			location: {
+				city: e.target.value,
+				countryCode: ""
+			}
+		});
+	};
+
+	handleSubmitLocation = e => {
+		e.preventDefault();
+    console.log(this.state.location);
+    this.getWeatherByCity(this.state.location.city);
+	};
 
 	convertToC = temp => parseInt((temp - 32) / 1.8);
 
@@ -85,49 +87,63 @@ class WeatherContainer extends React.Component {
 		navigator.geolocation.getCurrentPosition(
 			position => {
 				let { latitude, longitude } = position.coords;
-				this.getWeather(latitude, longitude);
+        this.getWeatherByGeo(latitude, longitude);
 			},
 			error => console.log(error)
 		);
 	};
 
-	getWeather = (lat, lon) => {
-		const searchText = `select * from weather.forecast where woeid in (SELECT woeid FROM geo.places WHERE text="(${lat},${lon})")`;
+	getWeatherByCity = cityName => {
+    const searchText = `select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="(${cityName})")`;
+		this.getWeather(searchText);
+  };
+  
+  getWeatherByGeo = (lat, lon) => {
+    const searchText = `select * from weather.forecast where woeid in (SELECT woeid FROM geo.places WHERE text="(${lat},${lon})")`;
+    this.getWeather(searchText);
+  }
+
+	getWeather = (searchText) => {
 		const endPoint = `https://query.yahooapis.com/v1/public/yql?q=${searchText}&format=json`;
 
 		fetch(endPoint)
 			.then(response => response.json())
 			.then(json => {
-        console.log(json);
-        // date:"23 Jul 2018"
-				let data = json.query.results.channel;
-        let { forecast } = data.item;
-        console.log(data.item.condition.date);
-
-				this.setState({
-					location: {
-						city: data.location.city,
-						countryCode: data.title.split(", ").pop()
-					},
-					currentWeather: {
-						weatherCode: data.item.condition.code,
-						temperature: data.item.condition.temp,
-						weather: data.item.condition.text
-					},
-					forecastWeather: {
-						day1: forecast[0],
-						day2: forecast[1],
-						day3: forecast[2],
-						day4: forecast[3],
-						day5: forecast[4]
-					}
-				});
-
-				this.saveState(this.state);
-				console.log(this.state);
+				console.log(json);
+				// date:"23 Jul 2018"
+        if (json.query.results === null || !json.query.results.channel.location) {
+          this.setState({ error: "not found"})
+          console.log('not found')
+        } else {
+          let data = json.query.results.channel;
+          let { forecast } = data.item;
+          console.log(data.item.condition.date);
+  
+          this.setState({
+            location: {
+              city: data.location.city,
+              countryCode: data.title.split(", ").pop()
+            },
+            currentWeather: {
+              weatherCode: data.item.condition.code,
+              temperature: data.item.condition.temp,
+              weather: data.item.condition.text
+            },
+            forecastWeather: {
+              day1: forecast[0],
+              day2: forecast[1],
+              day3: forecast[2],
+              day4: forecast[3],
+              day5: forecast[4]
+            }
+          });
+  
+          this.saveState(this.state);
+          console.log(this.state);
+        }
 			});
 	};
-	
+
 	render() {
 		return (
 			<Fragment>
