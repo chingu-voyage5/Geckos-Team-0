@@ -88,6 +88,16 @@ Weather & Main Component
   font-size: 19px;
 }
 
+.current-location span svg {
+  font-size: 12px;
+  margin-left: 7px;
+  margin-bottom: 5px;
+}
+
+.location-icon {
+  opacity: 0;
+}
+
 .current-weather {
   opacity: 0.5;
   font-size: 15px;
@@ -166,7 +176,14 @@ Weather & Main Component
 .CurrentWeather__Top:hover {
   cursor: pointer;
 }
-/* 👆 Need to add a location icon so user can change the location when clicked */
+
+.CurrentWeather__Top:hover .location-icon {
+  opacity: 0.5;
+}
+
+.location-icon:hover {
+  opacity: 1!important;
+}
 
 .temp-unit:hover {
   cursor: pointer;

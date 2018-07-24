@@ -85,7 +85,7 @@ class WeatherContainer extends React.Component {
         // date:"23 Jul 2018"
 				let data = json.query.results.channel;
         let { forecast } = data.item;
-        // console.log(data.item.condition.date);
+        console.log(data.item.condition.date);
 
 				this.setState({
 					location: {

@@ -3,14 +3,15 @@ import Store from "../store";
 import "../styles/Weather.css";
 
 import WeatherIcon from "react-icons-weather";
+import { FaPencil, FaLocationArrow } from "react-icons/lib/fa";
 import Modal from "react-modal";
 
 function WeatherModal(props) {
   const {
     isActive,
-    showForm,
+    editLocation,
     handleCloseModal,
-    handleLocationForm,
+    handleLocationIcon,
   } = props;
 
   return (
@@ -37,9 +38,9 @@ function WeatherModal(props) {
                   temperature={temperature}
                   weather={weather}
                   unit={unit}
-                  convertToC={store.convertToC}
-                  showForm={showForm}
-                  handleLocationForm={handleLocationForm}
+                  convertToC={convertToC}
+                  editLocation={editLocation}
+                  handleLocationIcon={handleLocationIcon}
                 />
                 <div className="ForecastWeather__Container">
                   <ForecastWeather data={day1} unit={unit} convertToC={convertToC} />
@@ -66,19 +67,10 @@ function CurrentWeather(props) {
     weather,
     unit,
     convertToC,
-    handleLocationForm,
-    showForm
+    handleLocationIcon,
+    editLocation
   } = props;
 
-  // handleFocus: function(event) {
-  //   event.target.select();
-  // },
-
-  // render: function() {
-  //   return (
-  //     <input type='text' value='Some something' onFocus={this.handleFocus} />
-  //   );
-  // },
   return (
     <div className="CurrentWeather__Container">
       <div className="CurrentWeather__Wrapper">
@@ -88,8 +80,8 @@ function CurrentWeather(props) {
               {city}, {countryCode}
               {/* {showForm ? <LocationForm /> : `${city}, ${countryCode}`} */}
             </span>
-            <span onClick={(e) => console.log(e.currentTarget)}>
-              O
+            <span className="location-icon" onClick={() => handleLocationIcon()}>
+              {editLocation ? <FaLocationArrow /> : <FaPencil />}
             </span>
           </div>
           <span className="current-weather">
