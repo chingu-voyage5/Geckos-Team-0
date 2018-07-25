@@ -37,6 +37,8 @@ function setBackgroundData(currentDate, backgroundArray) {
     localStorage.setItem('backgroundMonth', currentDate.getMonth());
     localStorage.setItem('backgroundDay', currentDate.getDate());
     localStorage.setItem('background', backgroundArray[randomNum].location);
+    localStorage.setItem('backgroundName', backgroundArray[randomNum].name);
+    localStorage.setItem('backgroundAuthor', backgroundArray[randomNum].author);
 }
 
 changeBackground();
