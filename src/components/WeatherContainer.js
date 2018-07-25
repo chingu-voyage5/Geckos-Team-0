@@ -12,7 +12,7 @@ class WeatherContainer extends React.Component {
 			currentWeather: {},
       forecastWeather: {},
       newLocation: {},
-      error: '',
+      message: '',
       unit: false,
 			// 👆 false: Fahrenheit, true: Celsius
 			convertToC: this.convertToC,
@@ -48,6 +48,7 @@ class WeatherContainer extends React.Component {
 
   handleGeoLocation = () => {
     console.log('c')
+    this.setState({ message: "Loading..." });
     this.getGeoLocation();
   }
 
@@ -55,7 +56,7 @@ class WeatherContainer extends React.Component {
 		// Calls the api every hour
 		this.intervalId = setInterval(() => this.getGeoLocation(), 3600000);
 		this.loadState();
-	}
+  }
 
 	loadState = async () => {
 		try {
@@ -112,13 +113,12 @@ class WeatherContainer extends React.Component {
 			.then(json => {
 				console.log(json);
 				// date:"23 Jul 2018"
-        this.setState({ error: "not found"})
-        console.log('not found')
         let data = json.query.results.channel;
         let { forecast } = data.item;
         console.log(data.item.condition.date);
   
         this.setState({
+          message: '',
           location: {
             city: data.location.city,
             countryCode: `, ${data.title.split(", ").pop()}`
@@ -134,14 +134,14 @@ class WeatherContainer extends React.Component {
             day3: forecast[2],
             day4: forecast[3],
             day5: forecast[4]
-          },
+          }
         });
         this.setNewLocation();
         this.saveState(this.state);
         console.log(this.state);
       })
       .catch(err => {
-        this.setState({ error: 'not found' });
+        this.setState({ message: 'not found' });
         console.log(err);
       });
   };

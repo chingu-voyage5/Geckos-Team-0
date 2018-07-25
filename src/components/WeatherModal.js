@@ -90,7 +90,8 @@ function CurrentWeather(props) {
           handleChangeLocation, 
           handleSubmitLocation, 
           handleTempUnit, 
-          handleGeoLocation 
+          handleGeoLocation,
+          message
         } = store;
 
         return (
@@ -112,6 +113,11 @@ function CurrentWeather(props) {
                       city={city}
                       countryCode={countryCode}
                     />
+                  }
+                  {message && 
+                    <span className="message">
+                      {message}
+                    </span>
                   } 
                   {editLocation ? (
                     <span 

@@ -111,6 +111,12 @@ Weather & Main Component
   opacity: 0;
 }
 
+.message {
+  font-size: 14px;
+  margin: 2px 9px;
+  opacity: 0.5;
+}
+
 .current-weather {
   opacity: 0.5;
   font-size: 15px;
