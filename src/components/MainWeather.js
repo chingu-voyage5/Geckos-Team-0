@@ -23,7 +23,6 @@ function MainWeather(props) {
               <Fragment>
                 <div className="Weather--Main__Row">
                   <WeatherIcon name="yahoo" iconId={weatherCode || "32"} />
-                  {/* <Temp temp={temperature} /> */}
                   <div className="temp">
                     <span>
                       {unit ? store.convertToC(temperature) : temperature}°
@@ -31,31 +30,17 @@ function MainWeather(props) {
                   </div>
                 </div>
                 <div className="Weather--Main__Row">
-                  <Location currentCity={city} currentCountry={countryCode} />
+                  <div className="location">
+                    <span>
+                      {city}, {countryCode}
+                    </span>
+                  </div>
                 </div>
               </Fragment>
             );
           }      
         }
       </Store.Consumer>
-    </div>
-  );
-}
-
-// function Temp({ temp }) {
-//   return (
-//     <div className="temp">
-//       <span>{temp}°</span>
-//     </div>
-//   );
-// }
-
-function Location({ currentCity, currentCountry }) {
-  return (
-    <div className="location">
-      <span>
-        {currentCity}, {currentCountry}
-      </span>
     </div>
   );
 }

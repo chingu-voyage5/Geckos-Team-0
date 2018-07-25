@@ -66,7 +66,6 @@ class WeatherContainer extends React.Component {
 	};
 
 	handleChangeLocation = e => {
-		// e.preventDefault();
 		this.setState({
 			location: {
 				city: e.target.value,

@@ -6,170 +6,160 @@ import WeatherIcon from "react-icons-weather";
 import { FaPencil, FaLocationArrow } from "react-icons/lib/fa";
 import Modal from "react-modal";
 
-function WeatherModal(props) {
-  const {
-    isActive,
-    editLocation,
-    handleCloseModal,
-    handleLocationIcon,
-    handleDisplay,
-    changeDisplay
-  } = props;
+class WeatherModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editLocation: false,
+      changeDisplay: false
+    };
+  }
 
-  return (
-    <Modal
-      className="Weather--Modal"
-      overlayClassName="Overlay"
-      isOpen={isActive}
-      onRequestClose={() => handleCloseModal()}
-    >
-      <Store.Consumer>
-        {store => {
-          const { city, countryCode } = store.location;
-          const { weatherCode, temperature, weather } = store.currentWeather;
-          const { unit, convertToC, handleChangeLocation, handleSubmitLocation } = store;
-          const { ...forecastWeather } = store.forecastWeather;
-          // console.log(forecastWeather)
-          return (
-            <Fragment>
-              <div className="Modal__Content">
-                <CurrentWeather
-                  city={city}
-                  countryCode={countryCode}
-                  weatherCode={weatherCode}
-                  temperature={temperature}
-                  weather={weather}
-                  unit={unit}
-                  convertToC={convertToC}
-                  editLocation={editLocation}
-                  handleLocationIcon={handleLocationIcon}
-                  handleChangeLocation={handleChangeLocation}
-                  handleSubmitLocation={handleSubmitLocation}
-                />
-                <ul className="ForecastWeather__Container">
-                  {Object.keys(forecastWeather).map((key, index) => {
-                    let data = forecastWeather[key];
-                    return (
-                      <li 
-                        className={`ForecastWeather__Column ${key}`}
-                        onClick={() => { }} 
-                        key={index}
-                      >    
-                        <ForecastWeather 
-                          data={data}
-                          unit={unit}
-                          convertToC={convertToC}
-                          handleDisplay={handleDisplay}
-                        changeDisplay={changeDisplay}
-                        />
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </Fragment>
-          );
-        }}
-      </Store.Consumer>
-    </Modal>
-  );
+  handleLocationIcon = () => {
+    this.setState({ editLocation: !this.state.editLocation });
+  }
+
+  handleDisplay = () => {
+    this.setState({ changeDisplay: !this.state.changeDisplay });
+  }
+
+  render() {
+    const { isActive, handleCloseModal } = this.props;
+    const { editLocation, changeDisplay } = this.state;
+
+    return (
+      <Modal
+        className="Weather--Modal"
+        overlayClassName="Overlay"
+        isOpen={isActive}
+        onRequestClose={() => handleCloseModal()}
+      >
+        <Store.Consumer>
+          {store => {
+            const { unit, convertToC, forecastWeather } = store;
+
+            return (
+              <Fragment>
+                <div className="Modal__Content">
+                  <CurrentWeather
+                    unit={unit}
+                    convertToC={convertToC}
+                    editLocation={editLocation}
+                    handleLocationIcon={this.handleLocationIcon}
+                  />
+                  <ul className="ForecastWeather__Container">
+                    {Object.keys(forecastWeather).map((key, index) => {
+                      const data = forecastWeather[key];
+
+                      return (
+                        <li
+                          className={`ForecastWeather__Column ${key}`}
+                          onClick={() => { }}
+                          key={index}
+                        >
+                          <ForecastWeather
+                            data={data}
+                            unit={unit}
+                            convertToC={convertToC}
+                            handleDisplay={this.handleDisplay}
+                            changeDisplay={changeDisplay}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </Fragment>
+            );
+          }}
+        </Store.Consumer>
+      </Modal>
+    )
+  }
 }
 
 function CurrentWeather(props) {
-  const {
-    city,
-    countryCode,
-    weatherCode,
-    temperature,
-    weather,
-    unit,
-    convertToC,
-    handleLocationIcon,
-    editLocation,
-    handleChangeLocation,
-    handleSubmitLocation
-  } = props;
+  const { unit, convertToC, handleLocationIcon, editLocation } = props;
 
   return (
-    <div className="CurrentWeather__Container">
-      <div className="CurrentWeather__Wrapper">
-        <div className="CurrentWeather__Top">
-          <div className="current-location">
-            {
-              editLocation ?
-                <RenderForm 
-                  city={city}
-                  countryCode={countryCode}
-                  handleChangeLocation={handleChangeLocation}
-                  handleSubmitLocation={handleSubmitLocation}
-                />
-                :
-                <RenderLocation
-                  editLocation={editLocation}
-                  city={city}
-                  countryCode={countryCode}
-                />
-            }
-            <span className="location-icon" onClick={() => handleLocationIcon()}>
-              {editLocation ? <FaLocationArrow /> : <FaPencil />}
-              {/* 
-                When FaPencil clicked, select location which is editable and change to FaLocationArrow
-                When clicking outside of the icon, back to FaPencil
-                When FaLocationArrow clicked, run getGeoLocation func and change to FaPencil icon
-               */}
+    <Store.Consumer>
+      {store => {
+        const { city, countryCode } = store.location;
+        const { handleChangeLocation, handleSubmitLocation, handleTempUnit } = store;
+        const { weatherCode, temperature, weather } = store.currentWeather;
+
+        return (
+          <div className="CurrentWeather__Container">
+            <div className="CurrentWeather__Wrapper">
+              <div className="CurrentWeather__Top">
+                <div className="current-location">
+                  {editLocation ?
+                    <RenderForm
+                      city={city}
+                      countryCode={countryCode}
+                      handleChangeLocation={handleChangeLocation}
+                      handleSubmitLocation={handleSubmitLocation}
+                    />
+                    :
+                    <RenderLocation
+                      editLocation={editLocation}
+                      city={city}
+                      countryCode={countryCode}
+                    />
+                  }
+                  <span className="location-icon" onClick={() => handleLocationIcon()}>
+                    {editLocation ? <FaLocationArrow /> : <FaPencil />}
+                  </span>
+                </div>
+                <span className="current-weather">
+                  {weather}
+                </span>
+              </div>
+              <div className="CurrentWeather__Bottom">
+                <WeatherIcon name="yahoo" iconId={weatherCode} />
+                <span className="current-temp">
+                  {unit ? convertToC(temperature) : temperature}°
+                </span>
+              </div>
+            </div>
+            <span
+              className="temp-unit"
+              onClick={() => handleTempUnit()}
+            >
+              {unit ? "°C" : "°F"}
             </span>
           </div>
-          <span className="current-weather">
-            {weather}
-          </span>
-        </div>
-        <div className="CurrentWeather__Bottom">
-          <WeatherIcon name="yahoo" iconId={weatherCode} />
-          <span className="current-temp">
-            {unit ? convertToC(temperature) : temperature}°
-          </span>
-        </div>
-      </div>
-      <Store.Consumer>
-        {store => (
-          <span
-            className="temp-unit"
-            onClick={() => store.handleTempUnit()}
-          >
-            {unit ? "°C" : "°F"}
-            {/* {console.log(store.unit)} */}
-          </span>
-        )
-        }
-      </Store.Consumer>
-    </div>
+        );
+      }}
+    </Store.Consumer>
   );
 }
 
 function RenderForm(props) {
   const { city, countryCode, handleChangeLocation, handleSubmitLocation } = props;
-	return (
-		<div>
+
+  return (
+    <div>
       <form onSubmit={(e) => handleSubmitLocation(e)}>
-        <input 
-          className="location-input" 
-          type="text" 
+        <input
+          className="location-input"
+          type="text"
           // defaultValue={`${city}, ${countryCode}`}
           value={city}
           onChange={(e) => handleChangeLocation(e)}
         />
       </form>
-		</div>
-	);
+    </div>
+  );
 }
 
 function RenderLocation(props) {
-	const { city, countryCode } = props;
-	return (
-		<span>
-			{city}, {countryCode}
-		</span>
-	);
+  const { city, countryCode } = props;
+  return (
+    <span>
+      {city}, {countryCode}
+    </span>
+  );
 }
 
 function ForecastWeather(props) {
@@ -177,9 +167,9 @@ function ForecastWeather(props) {
   // console.log("data", data);
   const addClass = changeDisplay ? "selected" : "";
   return (
-    <div 
-      className={`ForecastWeather__Wrapper ${addClass}`} 
-      onClick={() => {handleDisplay()}}
+    <div
+      className={`ForecastWeather__Wrapper ${addClass}`}
+      onClick={() => handleDisplay()}
     >
       <span className="day">
         {data.day}
@@ -199,5 +189,3 @@ function ForecastWeather(props) {
 
 Modal.setAppElement("#root");
 export default WeatherModal;
-
-
