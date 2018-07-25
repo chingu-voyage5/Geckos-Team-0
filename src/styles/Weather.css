@@ -1,5 +1,5 @@
 /***************************
-Weather & Main Component
+  Weather & Main Component
 ****************************/
 * {
   font-family: BlinkMacSystemFont;
@@ -73,7 +73,7 @@ Weather & Main Component
 .CurrentWeather__Container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .CurrentWeather__Wrapper {
@@ -164,20 +164,22 @@ Weather & Main Component
 
 .ForecastWeather__Column {
   list-style: none;
+  margin-top: 8px;
 }
 
 .ForecastWeather__Wrapper {
-  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
-  padding: 0 4px 5px;
+  padding: 6px 5px;
   border-radius: 2px;
 }
 
 .day {
   font-size: 10px;
-  margin-left: 19px;
   text-transform: uppercase;
   opacity: 0.6;
+  text-align: center;
 }
 
 .weather i {
@@ -227,4 +229,5 @@ Weather & Main Component
 
 .selected {
   background: rgba(255,255,255,.09);
+  border-radius: 2px;
 }
