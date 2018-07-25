@@ -7,26 +7,26 @@ function changeBackground() {
     ];
 
     let date = new Date();
-    let month, dayOfMonth, currentName, currentAuthor, currentPath;
+    let month, dayOfMonth, background;
 
     if (date) {
         month = localStorage.getItem('backgroundDay');
         dayOfMonth = localStorage.getItem('backgroundMonth');
 
         if (month !== date.getMonth() && dayOfMonth !== date.getDate() {
-            setBackgroundData(date, backgrounds);
+            background = setBackgroundData(date, backgrounds);
         }
     } else {
-        setBackgroundData(date, backgrounds);
+        background = setBackgroundData(date, backgrounds);
     }
 }
 
-function setBackgroundData(date, backgroundArray) {
+function setBackgroundData(currentDate, backgroundArray) {
     let randomNum = Math.floor(Math.random() * backgroundArray.length);
 
-    localStorage.setItem('backgroundMonth', date.getMonth());
-    localStorage.setItem('backgroundDay', date.getDate());
-    currentName = backgroundArray[randomNum].name;
-    currentAuthor = backgroundArray[randomNum].author;
-    currentPath = backgroundArray[randomNum].path;
+    localStorage.setItem('backgroundMonth', currentDate.getMonth());
+    localStorage.setItem('backgroundDay', currentDate.getDate());
+    currentBackground = backgroundArray[randomNum]
+
+    return currentBackground;
 }
