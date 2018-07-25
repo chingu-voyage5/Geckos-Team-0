@@ -19,7 +19,8 @@ class WeatherModal extends React.Component {
     this.setState({ editLocation: !this.state.editLocation });
   }
 
-  handleDisplay = () => {
+  handleDisplay = (e) => {
+    console.log(e.currentTarget.dataset.key);
     this.setState({ changeDisplay: !this.state.changeDisplay });
   }
 
@@ -50,19 +51,22 @@ class WeatherModal extends React.Component {
                   <ul className="ForecastWeather__Container">
                     {Object.keys(forecastWeather).map((key, index) => {
                       const data = forecastWeather[key];
+                      const addClass = changeDisplay ? "selected" : "";
 
                       return (
                         <li
-                          className={`ForecastWeather__Column ${key}`}
-                          onClick={() => { }}
+                          className={`
+                            ForecastWeather__Column 
+                            ${addClass}
+                            `}
+                          data-key={key}
+                          onClick={(e) => this.handleDisplay(e)}
                           key={index}
                         >
                           <ForecastWeather
                             data={data}
                             unit={unit}
                             convertToC={convertToC}
-                            handleDisplay={this.handleDisplay}
-                            changeDisplay={changeDisplay}
                           />
                         </li>
                       );
@@ -91,7 +95,8 @@ function CurrentWeather(props) {
           handleSubmitLocation, 
           handleTempUnit, 
           handleGeoLocation,
-          message
+          message,
+          // forecastWeather
         } = store;
 
         return (
@@ -189,14 +194,10 @@ function RenderLocation(props) {
 }
 
 function ForecastWeather(props) {
-  const { data, unit, convertToC, handleDisplay, changeDisplay } = props;
-  // console.log("data", data);
-  const addClass = changeDisplay ? "selected" : "";
+  const { data, unit, convertToC } = props;
+  
   return (
-    <div
-      className={`ForecastWeather__Wrapper ${addClass}`}
-      onClick={() => handleDisplay()}
-    >
+    <div className="ForecastWeather__Wrapper">
       <span className="day">
         {data.day}
       </span>
