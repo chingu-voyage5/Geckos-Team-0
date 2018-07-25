@@ -18,7 +18,8 @@ class WeatherContainer extends React.Component {
 			convertToC: this.convertToC,
 			handleTempUnit: this.handleTempUnit,
 			handleChangeLocation: this.handleChangeLocation,
-			handleSubmitLocation: this.handleSubmitLocation
+      handleSubmitLocation: this.handleSubmitLocation,
+      handleGeoLocation: this.handleGeoLocation
 		};
   }
 
@@ -44,6 +45,11 @@ class WeatherContainer extends React.Component {
     e.preventDefault();
     this.getWeatherByCity(this.state.newLocation.city);
   };
+
+  handleGeoLocation = () => {
+    console.log('c')
+    this.getGeoLocation();
+  }
 
 	componentDidMount() {
 		// Calls the api every hour

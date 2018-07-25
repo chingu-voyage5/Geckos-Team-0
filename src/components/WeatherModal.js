@@ -85,8 +85,13 @@ function CurrentWeather(props) {
     <Store.Consumer>
       {store => {
         const { city, countryCode } = store.location;
-        const { handleChangeLocation, handleSubmitLocation, handleTempUnit, newLocation } = store;
         const { weatherCode, temperature, weather } = store.currentWeather;
+        const { 
+          handleChangeLocation, 
+          handleSubmitLocation, 
+          handleTempUnit, 
+          handleGeoLocation 
+        } = store;
 
         return (
           <div className="CurrentWeather__Container">
@@ -100,7 +105,6 @@ function CurrentWeather(props) {
                       handleChangeLocation={handleChangeLocation}
                       handleSubmitLocation={handleSubmitLocation}
                       handleEditLocation={handleEditLocation}
-                      newLocation={newLocation}
                     />
                     :
                     <RenderLocation
@@ -108,10 +112,19 @@ function CurrentWeather(props) {
                       city={city}
                       countryCode={countryCode}
                     />
-                  }
-                  <span className="location-icon" onClick={() => handleEditLocation()}>
-                    {editLocation ? <FaLocationArrow /> : <FaPencil />}
-                  </span>
+                  } 
+                  {editLocation ? (
+                    <span 
+                      className="location-icon" 
+                      onClick={() => {handleGeoLocation(); handleEditLocation()}}
+                    >
+                      <FaLocationArrow />
+                    </span>
+                  ) : (
+                    <span className="location-icon" onClick={() => handleEditLocation()}>
+                      <FaPencil />
+                    </span>
+                  )}
                 </div>
                 <span className="current-weather">
                   {weather}
@@ -144,7 +157,6 @@ function RenderForm(props) {
     handleChangeLocation, 
     handleSubmitLocation, 
     handleEditLocation,
-    newLocation 
   } = props;
 
   return (
