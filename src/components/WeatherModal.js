@@ -97,7 +97,6 @@ function CurrentWeather(props) {
           message,
         } = store;
         const forecastWeather = store.forecastWeather[day];
-        console.log('for', forecastWeather)
         return (
           <div className="CurrentWeather__Container">
             <div className="CurrentWeather__Wrapper">

@@ -47,7 +47,7 @@ class WeatherContainer extends React.Component {
   };
 
   handleGeoLocation = () => {
-    console.log('c')
+    console.log('getting Geo location')
     this.setState({ message: "Loading..." });
     this.getGeoLocation();
   }
@@ -111,11 +111,10 @@ class WeatherContainer extends React.Component {
 		fetch(endPoint)
 			.then(response => response.json())
 			.then(json => {
-				console.log(json);
-				// date:"23 Jul 2018"
+				// console.log(json);
         let data = json.query.results.channel;
         let { forecast } = data.item;
-        console.log(data.item.condition.date);
+        // console.log(data.item.condition.date);
   
         this.setState({
           message: '',
@@ -138,7 +137,7 @@ class WeatherContainer extends React.Component {
         });
         this.setNewLocation();
         this.saveState(this.state);
-        console.log(this.state);
+        // console.log(this.state);
       })
       .catch(err => {
         this.setState({ message: 'not found' });
