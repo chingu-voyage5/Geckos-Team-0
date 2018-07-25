@@ -32,7 +32,7 @@ function MainWeather(props) {
                 <div className="Weather--Main__Row">
                   <div className="location">
                     <span>
-                      {city}, {countryCode}
+                      {city}{countryCode}
                     </span>
                   </div>
                 </div>

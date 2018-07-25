@@ -15,7 +15,7 @@ class WeatherModal extends React.Component {
     };
   }
 
-  handleLocationIcon = () => {
+  handleEditLocation = () => {
     this.setState({ editLocation: !this.state.editLocation });
   }
 
@@ -45,7 +45,7 @@ class WeatherModal extends React.Component {
                     unit={unit}
                     convertToC={convertToC}
                     editLocation={editLocation}
-                    handleLocationIcon={this.handleLocationIcon}
+                    handleEditLocation={this.handleEditLocation}
                   />
                   <ul className="ForecastWeather__Container">
                     {Object.keys(forecastWeather).map((key, index) => {
@@ -79,13 +79,13 @@ class WeatherModal extends React.Component {
 }
 
 function CurrentWeather(props) {
-  const { unit, convertToC, handleLocationIcon, editLocation } = props;
+  const { unit, convertToC, handleEditLocation, editLocation } = props;
 
   return (
     <Store.Consumer>
       {store => {
         const { city, countryCode } = store.location;
-        const { handleChangeLocation, handleSubmitLocation, handleTempUnit } = store;
+        const { handleChangeLocation, handleSubmitLocation, handleTempUnit, newLocation } = store;
         const { weatherCode, temperature, weather } = store.currentWeather;
 
         return (
@@ -99,6 +99,8 @@ function CurrentWeather(props) {
                       countryCode={countryCode}
                       handleChangeLocation={handleChangeLocation}
                       handleSubmitLocation={handleSubmitLocation}
+                      handleEditLocation={handleEditLocation}
+                      newLocation={newLocation}
                     />
                     :
                     <RenderLocation
@@ -107,7 +109,7 @@ function CurrentWeather(props) {
                       countryCode={countryCode}
                     />
                   }
-                  <span className="location-icon" onClick={() => handleLocationIcon()}>
+                  <span className="location-icon" onClick={() => handleEditLocation()}>
                     {editLocation ? <FaLocationArrow /> : <FaPencil />}
                   </span>
                 </div>
@@ -136,16 +138,22 @@ function CurrentWeather(props) {
 }
 
 function RenderForm(props) {
-  const { city, countryCode, handleChangeLocation, handleSubmitLocation } = props;
+  const { 
+    city, 
+    countryCode, 
+    handleChangeLocation, 
+    handleSubmitLocation, 
+    handleEditLocation,
+    newLocation 
+  } = props;
 
   return (
     <div>
-      <form onSubmit={(e) => handleSubmitLocation(e)}>
+      <form onSubmit={(e) => { handleSubmitLocation(e); handleEditLocation()}}>
         <input
           className="location-input"
           type="text"
-          // defaultValue={`${city}, ${countryCode}`}
-          value={city}
+          placeholder={`${city}${countryCode}`}
           onChange={(e) => handleChangeLocation(e)}
         />
       </form>
@@ -157,7 +165,7 @@ function RenderLocation(props) {
   const { city, countryCode } = props;
   return (
     <span>
-      {city}, {countryCode}
+      {city}{countryCode}
     </span>
   );
 }

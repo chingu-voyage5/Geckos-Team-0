@@ -73,6 +73,7 @@ Weather & Main Component
 .CurrentWeather__Container {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 8px;
 }
 
 .CurrentWeather__Wrapper {
@@ -87,12 +88,12 @@ Weather & Main Component
 }
 
 .CurrentWeather__Bottom {
-  margin-top: 13px;
+  margin-top: 5px;
   height: 78px;
 }
 
 .CurrentWeather__Bottom i {
-    font-size: 54px;
+    font-size: 47px;
 }
 
 .current-location {
@@ -156,7 +157,6 @@ Weather & Main Component
 .ForecastWeather__Wrapper {
   margin-top: 8px;
   cursor: pointer;
-  border: 1px solid;
   padding: 0 4px 5px;
   border-radius: 2px;
 }

@@ -10,22 +10,45 @@ class WeatherContainer extends React.Component {
 		this.state = {
 			location: {},
 			currentWeather: {},
-			forecastWeather: {},
+      forecastWeather: {},
+      newLocation: {},
+      error: '',
       unit: false,
 			// 👆 false: Fahrenheit, true: Celsius
-      error: '',
-			handleTempUnit: this.handleTempUnit,
 			convertToC: this.convertToC,
+			handleTempUnit: this.handleTempUnit,
 			handleChangeLocation: this.handleChangeLocation,
 			handleSubmitLocation: this.handleSubmitLocation
 		};
-	}
+  }
+
+  convertToC = temp => parseInt((temp - 32) / 1.8);
+  
+  handleTempUnit = () => {
+    this.setState(prevState => {
+      const newState = {
+        ...prevState,
+        unit: !this.state.unit
+      };
+      this.saveState(newState);
+      return { ...newState };
+    });
+  };
+
+  handleChangeLocation = e => {
+    this.setState({
+      newLocation: { city: e.target.value } });
+  };
+
+  handleSubmitLocation = e => {
+    e.preventDefault();
+    this.getWeatherByCity(this.state.newLocation.city);
+  };
 
 	componentDidMount() {
 		// Calls the api every hour
 		this.intervalId = setInterval(() => this.getGeoLocation(), 3600000);
 		this.loadState();
-		// console.log(this.state)
 	}
 
 	loadState = async () => {
@@ -33,14 +56,14 @@ class WeatherContainer extends React.Component {
 			const state = await localStorage.getItem("state");
 			if (state) {
 				const parsedState = JSON.parse(state);
-				// console.log(parsedState)
-				const { location, currentWeather, forecastWeather, unit } = parsedState;
+				const { location, currentWeather, forecastWeather, unit, newLocation } = parsedState;
 
 				this.setState({
 					location,
 					currentWeather,
 					forecastWeather,
-					unit
+          unit,
+          newLocation
 				});
 			} else {
 				this.getGeoLocation();
@@ -48,39 +71,11 @@ class WeatherContainer extends React.Component {
 		} catch (err) {
 			console.log(err);
 		}
-	};
+  };
 
 	saveState = state => {
 		localStorage.setItem("state", JSON.stringify(state));
 	};
-
-	handleTempUnit = () => {
-		this.setState(prevState => {
-			const newState = {
-				...prevState,
-				unit: !this.state.unit
-			};
-			this.saveState(newState);
-			return { ...newState };
-		});
-	};
-
-	handleChangeLocation = e => {
-		this.setState({
-			location: {
-				city: e.target.value,
-				countryCode: ""
-			}
-		});
-	};
-
-	handleSubmitLocation = e => {
-		e.preventDefault();
-    console.log(this.state.location);
-    this.getWeatherByCity(this.state.location.city);
-	};
-
-	convertToC = temp => parseInt((temp - 32) / 1.8);
 
 	getGeoLocation = () => {
 		navigator.geolocation.getCurrentPosition(
@@ -120,7 +115,7 @@ class WeatherContainer extends React.Component {
         this.setState({
           location: {
             city: data.location.city,
-            countryCode: data.title.split(", ").pop()
+            countryCode: `, ${data.title.split(", ").pop()}`
           },
           currentWeather: {
             weatherCode: data.item.condition.code,
@@ -133,9 +128,9 @@ class WeatherContainer extends React.Component {
             day3: forecast[2],
             day4: forecast[3],
             day5: forecast[4]
-          }
+          },
         });
-
+        this.setNewLocation();
         this.saveState(this.state);
         console.log(this.state);
       })
@@ -143,7 +138,11 @@ class WeatherContainer extends React.Component {
         this.setState({ error: 'not found' });
         console.log(err);
       });
-	};
+  };
+  
+  setNewLocation = () => {
+    this.setState({ newLocation: {...this.state.location} });
+  }
 
 	render() {
 		return (
