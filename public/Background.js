@@ -13,10 +13,12 @@ function changeBackground() {
         month = localStorage.getItem('backgroundMonth');
         dayOfMonth = localStorage.getItem('backgroundDay');
 
-        if (month !== date.getMonth() && dayOfMonth !== date.getDate()) {
+        if (month != date.getMonth() && dayOfMonth != date.getDate()) {
+            console.log('enter 2nd if', month, date.getMonth(), dayOfMonth, date.getDate());
             setBackgroundData(date, backgrounds);
         }
     } else {
+        console.log('enter else');
         setBackgroundData(date, backgrounds);
     }
 
