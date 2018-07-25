@@ -20,7 +20,7 @@ function changeBackground() {
         setBackgroundData(date, backgrounds);
     }
 
-    background = `"url(${localStorage.getItem('background')})"`;
+    background = "url(" + localStorage.getItem('background') + ")";
 
     document.body.style.backgroundImage = background;    
     console.log('test: ' + background);
