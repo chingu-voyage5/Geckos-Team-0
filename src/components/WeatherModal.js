@@ -3,124 +3,254 @@ import Store from "../store";
 import "../styles/Weather.css";
 
 import WeatherIcon from "react-icons-weather";
+import { FaPencil, FaLocationArrow } from "react-icons/lib/fa";
 import Modal from "react-modal";
 
-function WeatherModal(props) {
-  const {
-    isActive,
-    showForm,
-    handleCloseModal,
-    handleLocationForm,
-  } = props;
+class WeatherModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editLocation: false,
+      changeDisplay: false,
+      day: null
+    };
+  }
 
-  return (
-    <Modal
-      className="Weather--Modal"
-      overlayClassName="Overlay"
-      isOpen={isActive}
-      onRequestClose={() => handleCloseModal()}
-    >
-      <Store.Consumer>
-        {store => {
-          const { city, countryCode } = store.location;
-          const { weatherCode, temperature, weather } = store.currentWeather;
-          const { day1, day2, day3, day4, day5 } = store.forecastWeather;
-          const { unit, convertToC } = store;
+  handleEditLocation = () => {
+    this.setState({ editLocation: !this.state.editLocation });
+  }
 
-          return (
-            <Fragment>
-              <div className="Modal__Content">
-                <CurrentWeather
-                  city={city}
-                  countryCode={countryCode}
-                  weatherCode={weatherCode}
-                  temperature={temperature}
-                  weather={weather}
-                  unit={unit}
-                  convertToC={store.convertToC}
-                  showForm={showForm}
-                  handleLocationForm={handleLocationForm}
-                />
-                <div className="ForecastWeather__Container">
-                  <ForecastWeather data={day1} unit={unit} convertToC={convertToC} />
-                  <ForecastWeather data={day2} unit={unit} convertToC={convertToC} />
-                  <ForecastWeather data={day3} unit={unit} convertToC={convertToC} />
-                  <ForecastWeather data={day4} unit={unit} convertToC={convertToC} />
-                  <ForecastWeather data={day5} unit={unit} convertToC={convertToC} />
+  handleDisplay = (e) => {
+    
+    console.log(e.currentTarget.dataset.key);
+    const day = e.currentTarget.dataset.key;
+    this.setState({ 
+      changeDisplay: true,
+      day
+    });
+    console.log(this.state)
+  }
+
+  render() {
+    const { isActive, handleCloseModal } = this.props;
+    const { editLocation, changeDisplay, day } = this.state;
+
+    return (
+      <Modal
+        className="Weather--Modal"
+        overlayClassName="Overlay"
+        isOpen={isActive}
+        onRequestClose={() => handleCloseModal()}
+      >
+        <Store.Consumer>
+          {store => {
+            const { unit, convertToC, forecastWeather } = store;
+
+            return (
+              <Fragment>
+                <div className="Modal__Content">
+                  <CurrentWeather
+                    unit={unit}
+                    convertToC={convertToC}
+                    editLocation={editLocation}
+                    handleEditLocation={this.handleEditLocation}
+                    changeDisplay={changeDisplay}
+                    day={day}
+                  />
+                  <ul className="ForecastWeather__Container">
+                    {Object.keys(forecastWeather).map((key, index) => {
+                      const data = forecastWeather[key];
+                      // const addClass = changeDisplay ? "selected" : "";
+
+                      return (
+                        <li
+                          className={`
+                            ForecastWeather__Column 
+                            `}
+                            // ${addClass}
+                          data-key={key}
+                          onClick={(e) => this.handleDisplay(e)}
+                          key={index}
+                        >
+                          <ForecastWeather
+                            data={data}
+                            unit={unit}
+                            convertToC={convertToC}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
-              </div>
-            </Fragment>
-          );
-        }}
-      </Store.Consumer>
-    </Modal>
-  );
+              </Fragment>
+            );
+          }}
+        </Store.Consumer>
+      </Modal>
+    )
+  }
 }
 
 function CurrentWeather(props) {
-  const {
-    city,
-    countryCode,
-    weatherCode,
-    temperature,
-    weather,
-    unit,
-    convertToC,
-    handleLocationForm,
-    showForm
+  const { unit, convertToC, handleEditLocation, editLocation, changeDisplay, day } = props;
+
+  return (
+    <Store.Consumer>
+      {store => {
+        const { city, countryCode } = store.location;
+        // const { weatherCode, temperature, weather } = store.currentWeather;
+        const { 
+          currentWeather,
+          handleChangeLocation, 
+          handleSubmitLocation, 
+          handleTempUnit, 
+          handleGeoLocation,
+          message,
+        } = store;
+        const forecastWeather = store.forecastWeather[day];
+        console.log('for', forecastWeather)
+        return (
+          <div className="CurrentWeather__Container">
+            <div className="CurrentWeather__Wrapper">
+              <div className="CurrentWeather__Top">
+                <div className="current-location">
+                  {editLocation ?
+                    <RenderForm
+                      city={city}
+                      countryCode={countryCode}
+                      handleChangeLocation={handleChangeLocation}
+                      handleSubmitLocation={handleSubmitLocation}
+                      handleEditLocation={handleEditLocation}
+                    />
+                    :
+                    <RenderLocation
+                      editLocation={editLocation}
+                      city={city}
+                      countryCode={countryCode}
+                    />
+                  }
+                  {message && 
+                    <span className="message">
+                      {message}
+                    </span>
+                  } 
+                  {editLocation ? (
+                    <span 
+                      className="location-icon" 
+                      onClick={() => {handleGeoLocation(); handleEditLocation()}}
+                    >
+                      <FaLocationArrow />
+                    </span>
+                  ) : (
+                    <span className="location-icon" onClick={() => handleEditLocation()}>
+                      <FaPencil />
+                    </span>
+                  )}
+                </div>
+              </div>
+              {forecastWeather && (day !== "day1") ? 
+                <RenderForecastData 
+                  forecastWeather={forecastWeather} 
+                  unit={unit} 
+                  convertToC={convertToC} 
+                />
+              : 
+                <RenderCurrentData 
+                  currentWeather={currentWeather} 
+                  unit={unit} 
+                  convertToC={convertToC} 
+                />
+              }
+            </div>
+            <span
+              className="temp-unit"
+              onClick={() => handleTempUnit()}
+            >
+              {unit ? "°C" : "°F"}
+            </span>
+          </div>
+        );
+      }}
+    </Store.Consumer>
+  );
+}
+
+function RenderForecastData(props) {
+  const { text, code, high, low } = props.forecastWeather;
+  const { unit, convertToC } = props;
+
+  return (
+    <Fragment>
+      <span className="current-weather">
+        {text}
+      </span>
+      <div className="CurrentWeather__Bottom">
+        <WeatherIcon name="yahoo" iconId={code} />
+        <span className="current-temp-high">
+          {unit ? convertToC(high) : high}°
+        </span>
+        <span className="current-temp-low">
+          {unit ? convertToC(low) : low}°
+        </span>
+      </div>
+    </Fragment>
+  );
+}
+
+function RenderCurrentData(props) {
+  const { weatherCode, temperature, weather } = props.currentWeather;
+  const { unit, convertToC } = props;
+
+  return (
+    <Fragment>
+      <span className="current-weather">
+        {weather}
+      </span>
+      <div className="CurrentWeather__Bottom">
+        <WeatherIcon name="yahoo" iconId={weatherCode} />
+        <span className="current-temp">
+          {unit ? convertToC(temperature) : temperature}°
+        </span>
+      </div>
+    </Fragment>
+  );
+}
+
+function RenderForm(props) {
+  const { 
+    city, 
+    countryCode, 
+    handleChangeLocation, 
+    handleSubmitLocation, 
+    handleEditLocation,
   } = props;
 
   return (
-    <div className="CurrentWeather__Container">
-      <div className="CurrentWeather__Wrapper">
-        <div className="CurrentWeather__Top">
-          <div className="current-location">
-            <span>
-              {showForm ? <LocationForm /> : `${city}, ${countryCode}`}
-            </span>
-            <span onClick={handleLocationForm}>
-              O
-            </span>
-          </div>
-          <span className="current-weather">
-            {weather}
-          </span>
-        </div>
-        <div className="CurrentWeather__Bottom">
-          <WeatherIcon name="yahoo" iconId={weatherCode} />
-          <span className="current-temp">
-            {unit ? convertToC(temperature) : temperature}°
-          </span>
-        </div>
-      </div>
-      <Store.Consumer>
-        {store => (
-          <span
-            className="temp-unit"
-            onClick={() => store.handleTempUnit()}
-          >
-            {unit ? "°C" : "°F"}
-            {/* {console.log(store.unit)} */}
-          </span>
-        )
-        }
-      </Store.Consumer>
+    <div>
+      <form onSubmit={(e) => { handleSubmitLocation(e); handleEditLocation()}}>
+        <input
+          className="location-input"
+          type="text"
+          placeholder={`${city}${countryCode}`}
+          onChange={(e) => handleChangeLocation(e)}
+        />
+      </form>
     </div>
   );
 }
 
-function LocationForm() {
+function RenderLocation(props) {
+  const { city, countryCode } = props;
   return (
-    <form onSubmit={(e) => { e.preventDefault; console.log(e.target.value) }}>
-      <input type="text" name="current-city" />
-    </form>
+    <span>
+      {city}{countryCode}
+    </span>
   );
 }
 
 function ForecastWeather(props) {
-  const { data, unit, convertToC, handleClick } = props;
-  // console.log("data", data);
-
+  const { data, unit, convertToC } = props;
+  
   return (
     <div className="ForecastWeather__Wrapper">
       <span className="day">

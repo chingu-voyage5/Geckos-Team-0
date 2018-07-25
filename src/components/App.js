@@ -3,7 +3,6 @@ import "../styles/App.css";
 
 import Time from './Time';
 import Name from './Name';
-import WeatherContainer from "./WeatherContainer";
 import Focus from "./Focus";
 import ToDo from "./ToDo.js";
 import Links from "./Links";
@@ -11,6 +10,7 @@ import Search from "./Search";
 import Quotes from "./Quotes";
 import Settings from "./Settings";
 import WallpaperInfo from "./WallpaperInfo";
+import WeatherContainer from "./WeatherContainer";
 
 class App extends Component {
 	render() {

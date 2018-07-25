@@ -9,7 +9,6 @@ class Weather extends React.Component {
     super(props);
     this.state = {
       showModal: false,
-      showForm: false,
     };
   }
 
@@ -20,22 +19,15 @@ class Weather extends React.Component {
 	handleCloseModal = () => {
 		this.setState({ showModal: false });
   }; 
-  
-  handleLocationForm = () => {
-    this.setState({ showForm: !this.state.showForm })
-  }
 
 	render() {
-    const { showModal, showForm } = this.state;
 
 		return (
 			<div id="Weather">
 				<MainWeather handleOpenModal={this.handleOpenModal} />
 				<WeatherModal
-					isActive={showModal}
-          showForm={showForm}
+					isActive={this.state.showModal}
           handleCloseModal={this.handleCloseModal}
-          handleLocationForm={this.handleLocationForm}
 				/>
 			</div>
 		);
