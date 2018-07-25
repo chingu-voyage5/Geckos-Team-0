@@ -73,7 +73,7 @@ Weather & Main Component
 .CurrentWeather__Container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .CurrentWeather__Wrapper {
@@ -88,7 +88,7 @@ Weather & Main Component
 }
 
 .CurrentWeather__Bottom {
-  margin-top: 5px;
+  margin-top: 7px;
   height: 78px;
 }
 
@@ -132,9 +132,15 @@ Weather & Main Component
   font-size: 4em;
 }
 
-.current-temp {
+.current-temp, .current-temp-high {
   margin-left: 11px;
   font-size: 61px;
+}
+
+.current-temp-low {
+  font-size: 37px;
+  opacity: 0.5;
+  margin-left: 2px;
 }
 
 .temp-unit {
