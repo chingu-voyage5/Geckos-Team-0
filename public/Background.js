@@ -1,4 +1,5 @@
 function changeBackground() {
+    // Array of backgrounds
     let backgrounds = [
         { name: 'White Sand Beach', author: 'Monica Silvestre', location: './img/white_beach_monica_silvestre.jpeg' },
         { name: 'Toronto', author: 'Next Voyage', location: './img/toronto_by_next_voyage.jpeg' },
@@ -6,28 +7,30 @@ function changeBackground() {
         { name: 'Boats', author: 'Callebe Miranda', location: './img/boats_by_callebe_miranda.jpeg' }
     ];
 
+    // Get current date
     let date = new Date();
     let month, dayOfMonth, background;
 
+    // Check if there is a date already in localStorage
     if (localStorage.getItem('backgroundMonth')) {
+        // Grab the month and day from localStorage
         month = localStorage.getItem('backgroundMonth');
         dayOfMonth = localStorage.getItem('backgroundDay');
 
+        // Check if the current day is equal to stored date
         if (month != date.getMonth() && dayOfMonth != date.getDate()) {
-            console.log('enter 2nd if', month, date.getMonth(), dayOfMonth, date.getDate());
             setBackgroundData(date, backgrounds);
         }
     } else {
-        console.log('enter else');
         setBackgroundData(date, backgrounds);
     }
 
     background = "url(" + localStorage.getItem('background') + ")";
 
     document.body.style.backgroundImage = background;    
-    console.log('test: ' + background);
 }
 
+// Function to set the new month, day, and background path
 function setBackgroundData(currentDate, backgroundArray) {
     let randomNum = Math.floor(Math.random() * backgroundArray.length);
 
