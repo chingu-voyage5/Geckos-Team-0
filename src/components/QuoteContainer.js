@@ -8,7 +8,6 @@ class QuoteContainer extends React.Component {
 		this.state = { 
       quoteText: "", 
       quoteAuthor: "",
-      isClicked: false
     };
 	}
 
@@ -81,30 +80,11 @@ class QuoteContainer extends React.Component {
     localStorage.setItem("quoteObj", JSON.stringify(quoteState));
   };
 
-  toggleHeart = () => {
-    this.setState({ isClicked: !this.state.isClicked });
-  }
-
-  shareOnTwitter =() => {
-    const href = "https://twitter.com/intent/tweet?";
-    window.open(
-      href, 
-      "Twitter", 
-      "height=420, width=550, top=190px, left=365px"
-    );
-  }
-
 	render() {
-    const { quoteText, quoteAuthor, isClicked } = this.state;
+    const { quoteText, quoteAuthor } = this.state;
 
 		return (
-      <Quote 
-        quote={quoteText} 
-        author={quoteAuthor} 
-        isClicked={isClicked} 
-        toggleHeart={this.toggleHeart} 
-        shareOnTwitter={this.shareOnTwitter}
-      />
+      <Quote quote={quoteText} author={quoteAuthor} />
     );
 	}
 }

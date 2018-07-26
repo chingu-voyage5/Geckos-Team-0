@@ -5,43 +5,66 @@ import { TiHeartOutline, TiHeartFullOutline } from "react-icons/lib/ti";
 import FaTwitter from "react-icons/lib/fa/twitter";
 import GoQuote from "react-icons/lib/go/quote";
 
-function Quote({ quote, author, isClicked, toggleHeart, shareOnTwitter }) {
-	return (
-		<div id="Quotes">
-			<div className="Quote__Container">
-				<p>
-					<span>
-						<GoQuote />
-					</span>
-					{quote}
-				</p>
-			</div>
-			<div className="Action__Container">
-				<Actions
-					author={author}
-					isClicked={isClicked}
-          toggleHeart={toggleHeart}
-          shareOnTwitter={shareOnTwitter}
-				/>
-			</div>
-		</div>
-	);
+class Quote extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isClicked: false }
+  }
+  
+  toggleHeart = () => {
+    this.setState({ isClicked: !this.state.isClicked });
+  }
+
+  shareOnTwitter = () => {
+    const quoteLine = `"${this.props.quote.trim()}" — ${this.props.author}`;
+    const href = `https://twitter.com/intent/tweet?text=${quoteLine}`;
+    window.open(
+      href,
+      "Twitter",
+      "height=420, width=550, top=190px, left=365px"
+    );
+  }
+
+  render() {
+    const { quote, author } = this.props;
+
+    return (
+      <div id="Quote">
+        <div className="Quote__Container">
+          <p>
+            <span>
+              <GoQuote />
+            </span>
+            {quote}
+          </p>
+        </div>
+        <div className="Action__Container">
+          <Actions
+            author={author}
+            isClicked={this.state.isClicked}
+            toggleHeart={this.toggleHeart}
+            shareOnTwitter={this.shareOnTwitter}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
 function Actions({ isClicked, author, toggleHeart, shareOnTwitter }) {
 	return (
-		<div id="Actions">
-			<span className="Actions__Name">{author}</span>
-			<span className="Actions__Heart" onClick={() => toggleHeart()}>
+		<div className="Actions">
+      <span id="quote-author">
+        {author}
+      </span>
+			<span id="quote-heart" onClick={() => toggleHeart()}>
 				{isClicked ? <TiHeartFullOutline /> : <TiHeartOutline />}
 			</span>
-      <span className="Actions__Twitter" onClick={() => shareOnTwitter()}>
+      <span id="quote-twitter" onClick={() => shareOnTwitter()}>
 				<FaTwitter />
 			</span>
 		</div>
 	);
 }
-
-
 
 export default Quote;
