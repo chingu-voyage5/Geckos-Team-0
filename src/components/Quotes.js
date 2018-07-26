@@ -12,8 +12,26 @@ class Quotes extends React.Component {
 	}
 
 	componentDidMount() {
-		this.getQuote();
-	}
+    this.loadQuote();
+		// this.getQuote();
+  }
+  
+  loadQuote = async () => {
+    try {
+      const quoteObj = await localStorage.getItem("quoteObj");
+      if (quoteObj) {
+        const parsedQuote = JSON.parse(quoteObj);
+        const { quote, author } = parsedQuote;
+
+        this.setState({ quote, author });
+        console.log("loading from local storage", this.state);
+      } else {
+        this.getQuote();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 	getQuote = () => {
 		const endPoint = "https://talaikis.com/api/quotes/random/";
@@ -24,17 +42,17 @@ class Quotes extends React.Component {
 				console.log(json);
 				const { quote, author } = json;
         this.setState({ quote, author });
-        console.log(this.state);
-				// this.saveQuote(this.state);
+        this.saveQuote(this.state);
+        console.log("loading from state", this.state)
 			})
 			.catch(err => {
 				console.log(err);
 			});
 	};
 
-	// saveQuote = quoteState => {
-  //   localStorage.setItem("quote", JSON.stringify(quoteState));
-  // }
+	saveQuote = quoteState => {
+    localStorage.setItem("quoteObj", JSON.stringify(quoteState));
+  };
 
 	render() {
 		return (
