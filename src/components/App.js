@@ -7,7 +7,7 @@ import Focus from "./Focus";
 import ToDo from "./ToDo.js";
 import Links from "./Links";
 import Search from "./Search";
-import Quotes from "./Quotes";
+import QuoteContainer from "./QuoteContainer";
 import Settings from "./Settings";
 import WallpaperInfo from "./WallpaperInfo";
 import WeatherContainer from "./WeatherContainer";
@@ -33,7 +33,7 @@ class App extends Component {
 						<Settings />
 						<WallpaperInfo />
 					</div>
-					<Quotes />
+          <QuoteContainer />
 					<ToDo />
 				</div>
 			</div>
