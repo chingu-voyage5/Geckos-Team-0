@@ -2,7 +2,7 @@
    Quotes Component
 *********************/
 
-#Quotes {
+#Quote {
 	display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,22 +49,22 @@
   Actions Component
 *********************/
 
-#Actions {
+.Actions {
 	display: flex;
   align-items: center;
 }
 
-.Actions__Name {
+#quote-author {
 	font-size: 14px;
-  opacity: 0.6;
+  /* opacity: 0.6; */
 }
 
-.Actions__Heart {
+#quote-heart {
   font-size: 23px;
   padding: 0 2px;
 }
 
-.Actions__Twitter {
+#quote-twitter {
 	font-size: 20px;
 }
 
@@ -72,11 +72,11 @@
     Hover Effects 
 *********************/
 
-#Quotes:hover .Quote__Container {
+#Quote:hover .Quote__Container {
   bottom: 35px;
 }
 
-#Quotes:hover .Action__Container {
+#Quote:hover .Action__Container {
   opacity: 1;
   bottom: 10px;
 }
