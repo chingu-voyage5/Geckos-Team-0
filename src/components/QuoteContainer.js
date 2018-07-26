@@ -85,6 +85,15 @@ class QuoteContainer extends React.Component {
     this.setState({ isClicked: !this.state.isClicked });
   }
 
+  shareOnTwitter =() => {
+    const href = "https://twitter.com/intent/tweet?";
+    window.open(
+      href, 
+      "Twitter", 
+      "height=420, width=550, top=190px, left=365px"
+    );
+  }
+
 	render() {
     const { quoteText, quoteAuthor, isClicked } = this.state;
 
@@ -94,6 +103,7 @@ class QuoteContainer extends React.Component {
         author={quoteAuthor} 
         isClicked={isClicked} 
         toggleHeart={this.toggleHeart} 
+        shareOnTwitter={this.shareOnTwitter}
       />
     );
 	}
