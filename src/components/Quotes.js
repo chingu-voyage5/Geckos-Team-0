@@ -6,13 +6,45 @@ import FaTwitter from "react-icons/lib/fa/twitter";
 import GoQuote from "react-icons/lib/go/quote";
 
 class Quotes extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { quote: "", author: "" };
+	}
+
+	componentDidMount() {
+		this.getQuote();
+	}
+
+	getQuote = () => {
+		const endPoint = "https://talaikis.com/api/quotes/random/";
+
+		fetch(endPoint)
+			.then(response => response.json())
+			.then(json => {
+				console.log(json);
+				const { quote, author } = json;
+        this.setState({ quote, author });
+        console.log(this.state);
+				// this.saveQuote(this.state);
+			})
+			.catch(err => {
+				console.log(err);
+			});
+	};
+
+	// saveQuote = quoteState => {
+  //   localStorage.setItem("quote", JSON.stringify(quoteState));
+  // }
+
 	render() {
 		return (
 			<div id="Quotes">
 				<div className="Quote__Container">
 					<p>
-            <span><GoQuote /></span>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </p>
+						<span>
+							<GoQuote />
+						</span>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+					</p>
 				</div>
 				<div className="Action__Container">
 					<Actions />
