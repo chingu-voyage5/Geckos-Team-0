@@ -55,17 +55,19 @@ class Quotes extends React.Component {
   };
 
 	render() {
+    const { quote, author } = this.state;
+
 		return (
 			<div id="Quotes">
 				<div className="Quote__Container">
 					<p>
 						<span>
 							<GoQuote />
-						</span>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						</span>{quote}
 					</p>
 				</div>
 				<div className="Action__Container">
-					<Actions />
+					<Actions author={author} />
 				</div>
 			</div>
 		);
@@ -73,8 +75,8 @@ class Quotes extends React.Component {
 }
 
 class Actions extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = { isFull: false };
 
 		this.toggleHeart = this.toggleHeart.bind(this);
@@ -89,7 +91,9 @@ class Actions extends React.Component {
 
 		return (
 			<div id="Actions">
-				<span className="Actions__Name">Author Name</span>
+        <span className="Actions__Name">
+          {this.props.author}
+        </span>
         <span className="Actions__Heart" onClick={this.toggleHeart}>
 					{isFull ? <TiHeartFullOutline /> : <TiHeartOutline />}
 				</span>
