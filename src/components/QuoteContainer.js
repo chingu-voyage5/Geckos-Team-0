@@ -31,14 +31,12 @@ class QuoteContainer extends React.Component {
       timeLeft = setTime + 86400000 - currentTime;
     }
     // Call the function 3 hours later from now (if timeLeft = 3h)
-    console.log("timeLeft", timeLeft)
+    // console.log("timeLeft", timeLeft)
     setTimeout(() => {
       // Repeat every 24h
-      console.log('hello')
-      this.getQuote();
       setInterval(() => {
-        this.callAtMidnight();
-      }, 86400000)
+				this.getQuote();
+			}, 86400000);
     }, timeLeft); 
   };
 

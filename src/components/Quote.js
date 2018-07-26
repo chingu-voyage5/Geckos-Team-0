@@ -38,7 +38,7 @@ function Actions(props) {
       >
         {isClicked ? <TiHeartFullOutline /> : <TiHeartOutline />}
       </span>
-      <span className="Actions__Twitter">
+      <span className="Actions__Twitter" onClick={() => {}}>
         <FaTwitter />
       </span>
     </div>
