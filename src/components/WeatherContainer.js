@@ -23,8 +23,8 @@ class WeatherContainer extends React.Component {
 		};
   }
 
-  convertToC = temp => parseInt((temp - 32) / 1.8);
-  
+  convertToC = temp => Math.round((temp - 32) * 5 / 9);
+
   handleTempUnit = () => {
     this.setState(prevState => {
       const newState = {
@@ -53,17 +53,34 @@ class WeatherContainer extends React.Component {
   }
 
 	componentDidMount() {
-		// Calls the api every hour
-		this.intervalId = setInterval(() => this.getGeoLocation(), 3600000);
-		this.loadState();
+    /* 
+      1. old weather can be loaded from local storage if user leaves the tab open 
+      // no! as long as the tab is opened, it will keep refreshing the weather 
+      because of setInterval 
+      first it opened at 1:30pm, setInterval gets called at 2:30pm and so on 
+
+      2. User opens tab at 1:30 am then close it. 
+      local storage has 1:30 am weather this will be loaded when user open the tab at 10:00am 
+      so when the tab opened, I should run getGeoLocation function ( in componentDidMount)
+      
+      => set if date..
+      don't need to update every hour. update by api updated time ( condition.date )
+      
+    */
+		// Calls the api every hour 
+    setInterval(() => {
+      console.log("from componentDidMount: ", new Date())
+      this.getGeoLocation()
+    }, 3600000);
+		this.loadWeather();
   }
 
-	loadState = async () => {
+	loadWeather = async () => {
 		try {
-			const state = await localStorage.getItem("state");
-			if (state) {
-				const parsedState = JSON.parse(state);
-				const { location, currentWeather, forecastWeather, unit, newLocation } = parsedState;
+			const weatherObj = await localStorage.getItem("weatherObj");
+      if (weatherObj) {
+        const parsedWeather = JSON.parse(weatherObj);
+        const { location, currentWeather, forecastWeather, unit, newLocation } = parsedWeather;
 
 				this.setState({
 					location,
@@ -80,8 +97,8 @@ class WeatherContainer extends React.Component {
 		}
   };
 
-	saveState = state => {
-		localStorage.setItem("state", JSON.stringify(state));
+  saveState = weatherState => {
+    localStorage.setItem("weatherObj", JSON.stringify(weatherState));
 	};
 
 	getGeoLocation = () => {
@@ -114,7 +131,7 @@ class WeatherContainer extends React.Component {
 				// console.log(json);
         let data = json.query.results.channel;
         let { forecast } = data.item;
-        // console.log(data.item.condition.date);
+        console.log(data.item.condition.date, new Date());
   
         this.setState({
           message: '',
