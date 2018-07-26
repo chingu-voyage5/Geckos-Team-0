@@ -6,25 +6,24 @@ class QuoteContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-      quote: "", 
-      author: "",
+      quoteText: "", 
+      quoteAuthor: "",
       isClicked: false
     };
 	}
 
 	componentDidMount() {
     this.loadQuote();
-		// this.getQuote();
   }
-  
+
   loadQuote = async () => {
     try {
       const quoteObj = await localStorage.getItem("quoteObj");
       if (quoteObj) {
         const parsedQuote = JSON.parse(quoteObj);
-        const { quote, author } = parsedQuote;
+        const { quoteText, quoteAuthor } = parsedQuote;
 
-        this.setState({ quote, author });
+        this.setState({ quoteText, quoteAuthor });
         console.log("loading from local storage", this.state);
       } else {
         this.getQuote();
@@ -35,14 +34,16 @@ class QuoteContainer extends React.Component {
   };
 
 	getQuote = () => {
-		const endPoint = "https://talaikis.com/api/quotes/random/";
+    // 👇 Enables cross-origin requests. More info: https://cors-anywhere.herokuapp.com/
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+    const endPoint = `https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en`;
 
-		fetch(endPoint)
+    fetch(proxyUrl + endPoint)
 			.then(response => response.json())
 			.then(json => {
 				console.log(json);
-				const { quote, author } = json;
-        this.setState({ quote, author });
+        const { quoteText, quoteAuthor } = json;
+        this.setState({ quoteText, quoteAuthor });
         this.saveQuote(this.state);
         console.log("loading from state", this.state)
 			})
@@ -60,11 +61,17 @@ class QuoteContainer extends React.Component {
   }
 
 	render() {
-    const { quote, author, isClicked } = this.state;
+    const { quoteText, quoteAuthor, isClicked } = this.state;
 
-		return <Quote quote={quote} author={author} isClicked={isClicked} toggleHeart={this.toggleHeart} />;
+		return (
+      <Quote 
+        quote={quoteText} 
+        author={quoteAuthor} 
+        isClicked={isClicked} 
+        toggleHeart={this.toggleHeart} 
+      />
+    );
 	}
 }
-
 
 export default QuoteContainer;
