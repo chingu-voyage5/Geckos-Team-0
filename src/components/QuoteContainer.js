@@ -16,15 +16,11 @@ class QuoteContainer extends React.Component {
     this.loadQuote();
     this.callAtMidnight();
   }
-  /* 
-    it should be updated every midnight 
-    When user refresh or open a new tab, - componentDidMount
 
-  */
   // Schedule to get a new quote every midnight
   callAtMidnight = () => {
     const currentTime = new Date().getTime();
-    const setTime = new Date().setHours(13, 5, 0, 0); // set to midnight
+    const setTime = new Date().setHours(24, 0, 0, 0); // set to midnight
     let timeLeft;
 
     // It's before midnight,
@@ -40,12 +36,13 @@ class QuoteContainer extends React.Component {
       // Repeat every 24h
       console.log('hello')
       this.getQuote();
-      // setInterval(() => {
-        // this.callAtMidnight();
-      // }, 86400000)
+      setInterval(() => {
+        this.callAtMidnight();
+      }, 86400000)
     }, timeLeft); 
   };
 
+  // If there is no quote stored, call getQuote function.
   loadQuote = async () => {
     try {
       const quoteObj = await localStorage.getItem("quoteObj");
