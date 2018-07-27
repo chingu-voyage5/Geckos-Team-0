@@ -11,8 +11,8 @@ class WeatherModal extends React.Component {
     super(props);
     this.state = {
       editLocation: false,
-      changeDisplay: false,
-      day: null
+      day: null,
+      selected: null
     };
   }
 
@@ -21,19 +21,13 @@ class WeatherModal extends React.Component {
   }
 
   handleDisplay = (e) => {
-    
-    console.log(e.currentTarget.dataset.key);
     const day = e.currentTarget.dataset.key;
-    this.setState({ 
-      changeDisplay: true,
-      day
-    });
-    console.log(this.state)
+    this.setState({ selected: day, day });
   }
 
   render() {
     const { isActive, handleCloseModal } = this.props;
-    const { editLocation, changeDisplay, day } = this.state;
+    const { editLocation, day } = this.state;
 
     return (
       <Modal
@@ -54,20 +48,16 @@ class WeatherModal extends React.Component {
                     convertToC={convertToC}
                     editLocation={editLocation}
                     handleEditLocation={this.handleEditLocation}
-                    changeDisplay={changeDisplay}
                     day={day}
                   />
                   <ul className="ForecastWeather__Container">
                     {Object.keys(forecastWeather).map((key, index) => {
                       const data = forecastWeather[key];
-                      // const addClass = changeDisplay ? "selected" : "";
+                      const addClass = this.state.selected === key ? "selected" : "";
 
                       return (
                         <li
-                          className={`
-                            ForecastWeather__Column 
-                            `}
-                            // ${addClass}
+                          className={`ForecastWeather__Column ${addClass}`}
                           data-key={key}
                           onClick={(e) => this.handleDisplay(e)}
                           key={index}
@@ -92,13 +82,12 @@ class WeatherModal extends React.Component {
 }
 
 function CurrentWeather(props) {
-  const { unit, convertToC, handleEditLocation, editLocation, changeDisplay, day } = props;
+  const { unit, convertToC, handleEditLocation, editLocation, day } = props;
 
   return (
     <Store.Consumer>
       {store => {
         const { city, countryCode } = store.location;
-        // const { weatherCode, temperature, weather } = store.currentWeather;
         const { 
           currentWeather,
           handleChangeLocation, 
@@ -108,7 +97,6 @@ function CurrentWeather(props) {
           message,
         } = store;
         const forecastWeather = store.forecastWeather[day];
-        console.log('for', forecastWeather)
         return (
           <div className="CurrentWeather__Container">
             <div className="CurrentWeather__Wrapper">
