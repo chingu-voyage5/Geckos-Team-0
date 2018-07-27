@@ -21,7 +21,7 @@ class Search extends React.Component {
 
   render() {
     const { showForm } = this.state;
-    const addClass = showForm ? "add-line" : "";
+    const addClass = showForm && "add-line";
 
     return <div id="Search">
 				<div className={`Search__Wrapper ${addClass}`}>
@@ -34,16 +34,14 @@ class Search extends React.Component {
   }
 }
 
-class SearchForm extends React.Component {
-  render() {
-    return (
-      <div id="Search__Form">
-        <form action="https://www.google.com/search?">
-          <input type="text" name="q"/>
-        </form>
-      </div>
-    );
-  }
+function SearchForm() {
+  return (
+    <div id="Search__Form">
+      <form action="https://www.google.com/search?">
+        <input type="text" name="q"/>
+      </form>
+    </div>
+  );
 }
 
 export default Search;
