@@ -2,21 +2,24 @@ import React from "react";
 import "../styles/Links.css";
 import Modal from "react-modal";
 import { FaChrome, FaTh } from "react-icons/lib/fa";
+
 import NewLink from "./NewLink";
+
+// import LinkTodo from "./LinkTodo";
 
 
 class Links extends React.Component {
-	
+
 	constructor() {
 		super();
 		this.state = {
 			showModal: false,
-			newLink:""
+			newLink: ""
 		};
 		this.handleOpenModal = this.handleOpenModal.bind(this);
-		this.handleCloseModal = this.handleCloseModal.bind(this);	
-	
-		
+		this.handleCloseModal = this.handleCloseModal.bind(this);
+
+
 	}
 	handleOpenModal() {
 		this.setState({ showModal: true });
@@ -28,31 +31,36 @@ class Links extends React.Component {
 
 
 
-	
+
 	render() {
 		return <div id="Links">
-				<span onClick={this.handleOpenModal}>Links</span>
-				<Modal className="Links__Modal" overlayClassName="Overlay" isOpen={this.state.showModal} onRequestClose={this.handleCloseModal}>
-					{/* Modal Content */}
-					<div className="Links__Modal__Content">
-						<ul>
-							<li className="Links__List">
-								<a href="http://www.google.com/ig" target="_blank">
-									<FaChrome />
-									Chrome Tab
+			<span onClick={this.handleOpenModal}>Links</span>
+			<Modal className="Links__Modal" overlayClassName="Overlay" isOpen={this.state.showModal} onRequestClose={this.handleCloseModal}>
+				{/* Modal Content */}
+				<div className="Links__Modal__Content">
+					<ul>
+						<li className="Links__List">
+							<a href="http://www.google.com/ig" target="_blank">
+								<FaChrome />
+								Chrome Tab
 								</a>
-							</li>
-							<li className="Links__List">
-								<a href="http://www.google.com/search_app" target="_blank">
-									<FaTh />
-									Apps
+						</li>
+						<li className="Links__List">
+							<a href="http://www.google.com/search_app" target="_blank">
+								<FaTh />
+								Apps
 								</a>
-							</li>
-						</ul>
-						<NewLink />
-					</div>
-				</Modal>
-			</div>;
+						</li>
+
+
+						<li className="Links__List">
+							<NewLink />
+						</li>
+					</ul>
+
+				</div>
+			</Modal>
+		</div>;
 	}
 }
 
