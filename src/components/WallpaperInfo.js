@@ -50,11 +50,9 @@ class WallpaperInfo extends React.Component {
           </span>
         </div>
 				<div className="source">
-          <a className="wiki-link" href="#"> 
-            <span className="name">
-              Photo by, {wallpaperAuthor}
-            </span>
-          </a>
+          <span className="name">
+            Photo by, {wallpaperAuthor}
+          </span>
 					<span className="icon" onClick={this.toggleHeart}>
 						{isClicked ? <TiHeartFullOutline /> : <TiHeartOutline />}
 					</span>
