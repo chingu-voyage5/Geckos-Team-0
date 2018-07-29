@@ -64,7 +64,7 @@
   bottom: 35px
 }
 
-.icon:hover, .name:hover {
+.icon:hover {
   cursor: pointer;
   opacity: 1;
 }
