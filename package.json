@@ -1,6 +1,5 @@
 {
   "name": "momentum-clone",
-  "homepage": "https://chingu-voyage5.github.io/Geckos-Team-0",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,5 +19,6 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-  }
+  },
+  "homepage": "https://chingu-voyage5.github.io/Geckos-Team-0"
 }
