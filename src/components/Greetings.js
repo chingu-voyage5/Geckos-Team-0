@@ -1,5 +1,4 @@
 import React from 'react';
-import './Time';
 import '../styles/Greetings.css';
 
 
@@ -11,6 +10,7 @@ class Greetings extends React.Component {
     
     }
     
+
 
   render(){
       return(

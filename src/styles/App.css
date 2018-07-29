@@ -6,6 +6,8 @@
 
 body, html , #root{
   height: 100vh;
+  color: #fff;
+  text-shadow: 1px 1px #bbb;
 }
 
 body {
