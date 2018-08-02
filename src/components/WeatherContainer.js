@@ -53,31 +53,21 @@ class WeatherContainer extends React.Component {
   }
 
 	componentDidMount() {
-    /* 
-      1. old weather can be loaded from local storage if user leaves the tab open 
-      // no! as long as the tab is opened, it will keep refreshing the weather 
-      because of setInterval 
-      first it opened at 1:30pm, setInterval gets called at 2:30pm and so on 
-
-      2. User opens tab at 1:30 am then close it. 
-      local storage has 1:30 am weather this will be loaded when user open the tab at 10:00am 
-      so when the tab opened, I should run getGeoLocation function ( in componentDidMount)
-      
-      => set if date..
-      don't need to update every hour. update by api updated time ( condition.date )
-      
-      so the problem is when the tab gets opened for the first time.  --> no it will call getGeoLocation 
-      function since there will be no saved weather in localStorage
-      channel.lastBuildDate
-      condition.date: "Thu, 02 Aug 2018 12:00 AM CDT"
-    */
-		// Calls the api every hour 
-    setInterval(() => {
-      console.log("from componentDidMount: ", new Date())
-      this.getGeoLocation()
-    }, 3600000);
 		this.loadWeather();
+    this.callEveryHour();
   }
+
+  callEveryHour = () => {
+    const currentMinutes = (new Date()).getMinutes(); 
+    const timeLeft = (60 - currentMinutes) * 60000;
+
+    setTimeout(() => {
+      this.getGeoLocation();
+      setInterval(() => {
+        this.getGeoLocation();
+			}, 3600000);
+    }, timeLeft);
+  };
 
 	loadWeather = async () => {
 		try {
