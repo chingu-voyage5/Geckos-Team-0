@@ -59,8 +59,7 @@ class WeatherModal extends React.Component {
 									<ul className="ForecastWeather__Container">
 										{Object.keys(forecastWeather).map((key, index) => {
 											const data = forecastWeather[key];
-											const addClass =
-												selected === key ? "selected" : "";
+                      const addClass = selected === key && "selected";
 
 											return (
 												<li
@@ -110,11 +109,9 @@ function CurrentWeather(props) {
                       handleEditLocation={handleEditLocation}
                     />
                     :
-                    <RenderLocation
-                      editLocation={editLocation}
-                      city={city}
-                      countryCode={countryCode}
-                    />
+                    <span>
+                      {city}{countryCode}
+                    </span>
                   }
                   {message && 
                     <span className="message">
@@ -162,6 +159,28 @@ function CurrentWeather(props) {
   );
 }
 
+function RenderForm({ city, countryCode, handleEditLocation }) {
+  return (
+    <Store.Consumer>
+      {store => {
+        const { handleChangeLocation, handleSubmitLocation } = store;
+        return (
+          <div>
+            <form onSubmit={(e) => { handleSubmitLocation(e); handleEditLocation() }}>
+              <input
+                className="location-input"
+                type="text"
+                placeholder={`${city}${countryCode}`}
+                onChange={(e) => handleChangeLocation(e)}
+              />
+            </form>
+          </div>
+        );
+      }}
+    </Store.Consumer>
+  );
+}
+
 function RenderForecastData({ unit, convertToC, forecastWeather }) {
   const { text, code, high, low } = forecastWeather;
 
@@ -199,35 +218,7 @@ function RenderCurrentData({ currentWeather, unit, convertToC }) {
 	);
 }
 
-function RenderForm({ city, countryCode, handleEditLocation }) {
-  return (
-    <Store.Consumer>
-      {store => {
-        const { handleChangeLocation, handleSubmitLocation } = store;
-        return (
-          <div>
-            <form onSubmit={(e) => { handleSubmitLocation(e); handleEditLocation()}}>
-              <input
-                className="location-input"
-                type="text"
-                placeholder={`${city}${countryCode}`}
-                onChange={(e) => handleChangeLocation(e)}
-              />
-            </form>
-          </div>
-        );
-      }}
-    </Store.Consumer>
-  );
-}
 
-function RenderLocation({ city, countryCode }) {
-  return (
-    <span>
-      {city}{countryCode}
-    </span>
-  );
-}
 
 function ForecastWeather({ data, unit, convertToC }) { 
   return (
