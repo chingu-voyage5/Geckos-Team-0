@@ -7,6 +7,7 @@ class WeatherContainer extends React.Component {
 	constructor() {
     super();
 		this.state = {
+      buildTime: null,
 			location: {},
 			currentWeather: {},
       forecastWeather: {},
@@ -65,6 +66,10 @@ class WeatherContainer extends React.Component {
       => set if date..
       don't need to update every hour. update by api updated time ( condition.date )
       
+      so the problem is when the tab gets opened for the first time.  --> no it will call getGeoLocation 
+      function since there will be no saved weather in localStorage
+      channel.lastBuildDate
+      condition.date: "Thu, 02 Aug 2018 12:00 AM CDT"
     */
 		// Calls the api every hour 
     setInterval(() => {
@@ -76,20 +81,31 @@ class WeatherContainer extends React.Component {
 
 	loadWeather = async () => {
 		try {
-			const weatherObj = await localStorage.getItem("weatherObj");
-      if (weatherObj) {
-        const parsedWeather = JSON.parse(weatherObj);
-        const { location, currentWeather, forecastWeather, unit, newLocation } = parsedWeather;
+      const weatherObj = await localStorage.getItem("weatherObj");
+      const parsedWeather = JSON.parse(weatherObj);
+      const timeNow = this.changeTimeFormat(new Date());
+
+      if (weatherObj && parsedWeather.buildTime === timeNow ) {
+        const { 
+          buildTime, 
+          location, 
+          currentWeather, 
+          forecastWeather, 
+          unit, 
+          newLocation
+        } = parsedWeather;
 
 				this.setState({
+          buildTime,
 					location,
 					currentWeather,
 					forecastWeather,
           unit,
           newLocation
-				});
+        });
+        console.log('Loading from state', this.state.buildTime);
 			} else {
-				this.getGeoLocation();
+        this.getGeoLocation();
 			}
 		} catch (err) {
 			console.log(err);
@@ -128,11 +144,12 @@ class WeatherContainer extends React.Component {
 			.then(response => response.json())
 			.then(json => {
 				// console.log(json);
-        let data = json.query.results.channel;
-        let { forecast } = data.item;
-        console.log(data.item.condition.date, new Date());
+        const data = json.query.results.channel;
+        const { forecast } = data.item;
+        const buildTime = this.changeTimeFormat(new Date());
   
         this.setState({
+          buildTime,
           message: '',
           location: {
             city: data.location.city,
@@ -153,7 +170,7 @@ class WeatherContainer extends React.Component {
         });
         this.setNewLocation();
         this.saveState(this.state);
-        // console.log(this.state);
+        console.log("Loading from new api call", this.state.buildTime);
       })
       .catch(err => {
         this.setState({ message: 'not found' });
@@ -163,6 +180,11 @@ class WeatherContainer extends React.Component {
   
   setNewLocation = () => {
     this.setState({ newLocation: {...this.state.location} });
+  }
+
+  changeTimeFormat = time => {
+    // formatted YYYY-M-D-H or YYYY-MM-DD-HH
+    return `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}-${time.getHours()}`;
   }
 
 	render() {
