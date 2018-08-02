@@ -27,22 +27,20 @@
 #link-list {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
+    /* align-items: flex-start; */
 }
 
 .link-id {
     display: flex;
+    /* order:0; */
 }
 
-/* This will render the 'X' */
-
-/* .icon-link{
-    display:none;
-} */
-
-.icon-link {
+.link-icon {
     display: flex;
-    margin-left: 40px;
+    /* order:1; */
     margin-top: 10px;
+    margin-left: 45%;
 }
 
 .icon {

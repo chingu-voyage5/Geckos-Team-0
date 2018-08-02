@@ -130,7 +130,7 @@ class NewLink extends React.Component {
                             <a id="link-id" href={this.state.linkUrl} target="_blank">
                                 {this.state.linkName}
                             </a>
-                            <MdCancel className="icon-link" onClick={this.deleteLinkList} />
+                            <MdCancel className="link-icon" onClick={this.deleteLinkList} />
                         </div>
                     )}
             </div>
