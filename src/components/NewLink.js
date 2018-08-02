@@ -41,7 +41,7 @@ class NewLink extends React.Component {
     deleteLink = e => {
         this.setState({
             isHidden: !this.state.isHidden,
-            value: 'New Link',
+            value: 'New Link'
         });
     };
 
