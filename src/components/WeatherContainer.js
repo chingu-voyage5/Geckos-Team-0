@@ -4,9 +4,8 @@ import Store from "../store";
 import "../styles/Weather.css";
 
 class WeatherContainer extends React.Component {
-	constructor(props) {
-		super(props);
-
+	constructor() {
+    super();
 		this.state = {
 			location: {},
 			currentWeather: {},
