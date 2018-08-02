@@ -12,7 +12,7 @@ class WeatherModal extends React.Component {
 		super(props);
 		this.state = {
 			editLocation: false,
-			day: null,
+			day: '',
 			selected: null
 		};
 	}
@@ -88,7 +88,7 @@ class WeatherModal extends React.Component {
 }
 
 function CurrentWeather(props) {
-  const { unit, convertToC, day, editLocation, handleEditLocation } = props;
+  const { day, unit, convertToC, editLocation, handleEditLocation } = props;
 
   return (
     <Store.Consumer>
@@ -218,26 +218,72 @@ function RenderCurrentData({ currentWeather, unit, convertToC }) {
 	);
 }
 
-
-
 function ForecastWeather({ data, unit, convertToC }) { 
+  const { code, high, low } = data;
   return (
     <div className="ForecastWeather__Wrapper">
       <span className="day">
         {data.day}
       </span>
       <div className="weather">
-        <WeatherIcon name="yahoo" iconId={data.code} />
+        <WeatherIcon name="yahoo" iconId={code} />
         <span className="temp-high">
-          {unit ? convertToC(data.high) : data.high}°
+          {unit ? convertToC(high) : high}°
         </span>
         <span className="temp-low">
-          {unit ? convertToC(data.low) : data.low}°
+          {unit ? convertToC(low) : low}°
         </span>
       </div>
     </div>
   );
 }
+
+// PropTypes for the functional components
+
+CurrentWeather.propTypes = {
+  day: PropTypes.string.isRequired,
+  unit: PropTypes.bool.isRequired,
+  convertToC: PropTypes.func.isRequired,
+  editLocation: PropTypes.bool.isRequired,
+  handleEditLocation: PropTypes.func.isRequired
+};
+
+RenderForm.propTypes = {
+  city: PropTypes.string.isRequired,
+  countryCode: PropTypes.string.isRequired,
+  handleEditLocation: PropTypes.func.isRequired
+};
+
+RenderForecastData.propTypes = {
+	unit: PropTypes.bool.isRequired,
+	convertToC: PropTypes.func.isRequired,
+	forecastWeather: PropTypes.shape({
+		text: PropTypes.string.isRequired,
+		code: PropTypes.string.isRequired,
+		high: PropTypes.string.isRequired,
+    low: PropTypes.string.isRequired
+	})
+};
+
+RenderCurrentData.propTypes = {
+	unit: PropTypes.bool.isRequired,
+	convertToC: PropTypes.func.isRequired,
+	currentWeather: PropTypes.shape({
+		weatherCode: PropTypes.string.isRequired,
+		temperature: PropTypes.string.isRequired,
+		weather: PropTypes.string.isRequired
+	})
+};
+
+ForecastWeather.propTypes = {
+	unit: PropTypes.bool.isRequired,
+	convertToC: PropTypes.func.isRequired,
+	data: PropTypes.shape({
+		code: PropTypes.string.isRequired,
+		high: PropTypes.string.isRequired,
+		low: PropTypes.string.isRequired
+	})
+};
 
 Modal.setAppElement("#root");
 export default WeatherModal;
