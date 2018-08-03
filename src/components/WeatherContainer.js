@@ -78,6 +78,7 @@ class WeatherContainer extends React.Component {
       const parsedWeather = JSON.parse(weatherObj);
       const timeNow = this.changeTimeFormat(new Date());
 
+      // If weather has saved from last time, set the data to its state
       if (weatherObj) {
         const {
           buildTime,
@@ -97,11 +98,12 @@ class WeatherContainer extends React.Component {
           newLocation
         });
         console.log("Loading state - from localStorage", new Date());
-        
+        // if the saved weather is older, then get latest weather with a location which is set before. 
         if (buildTime !== timeNow) {
           this.getWeatherByCity(location.city);
           console.log("Loading state - getWeatherByCity", this.state, new Date());
         }
+      // if it's first time (there is no saved weather), get location and weather
       } else {
         this.getGeoLocation();
         console.log('Loading state - getGeoLocation', new Date())
