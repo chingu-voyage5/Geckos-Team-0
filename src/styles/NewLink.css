@@ -27,22 +27,24 @@
 #link-list {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 .link-id {
     display: flex;
 }
 
-/* This will render the 'X' */
+#link-list:hover>.link-icon {
+    display: block;
+}
 
-/* .icon-link{
-    display:none;
-} */
-
-.icon-link {
+.link-icon {
     display: flex;
-    margin-left: 40px;
+    /* order:1; */
     margin-top: 10px;
+    margin-left: 45%;
+    /* opacity:0; */
+    display: none;
 }
 
 .icon {
