@@ -47,7 +47,6 @@ class WeatherContainer extends React.Component {
   };
 
   handleGeoLocation = () => {
-    console.log('getting Geo location')
     this.setState({ message: "Loading..." });
     this.getGeoLocation();
   }
@@ -60,11 +59,15 @@ class WeatherContainer extends React.Component {
   callEveryHour = () => {
     const currentMinutes = (new Date()).getMinutes(); 
     const timeLeft = (60 - currentMinutes) * 60000;
+    const cityName = this.state.location.city;
 
+    console.log("callEveryHour", new Date());
     setTimeout(() => {
-      this.getGeoLocation();
+      console.log("callEveryHour - setTimeout - getWeatherByCity", new Date());
+      this.getWeatherByCity(cityName);
       setInterval(() => {
-        this.getGeoLocation();
+        console.log("callEveryHour - setInterval - getWeatherByCity", new Date());
+        this.getWeatherByCity(cityName);
 			}, 3600000);
     }, timeLeft);
   };
@@ -75,28 +78,34 @@ class WeatherContainer extends React.Component {
       const parsedWeather = JSON.parse(weatherObj);
       const timeNow = this.changeTimeFormat(new Date());
 
-      if (weatherObj && parsedWeather.buildTime === timeNow ) {
-        const { 
-          buildTime, 
-          location, 
-          currentWeather, 
-          forecastWeather, 
-          unit, 
+      if (weatherObj) {
+        const {
+          buildTime,
+          location,
+          currentWeather,
+          forecastWeather,
+          unit,
           newLocation
         } = parsedWeather;
 
-				this.setState({
+        this.setState({
           buildTime,
-					location,
-					currentWeather,
-					forecastWeather,
+          location,
+          currentWeather,
+          forecastWeather,
           unit,
           newLocation
         });
-        console.log('Loading from state', this.state.buildTime);
-			} else {
+        console.log("Loading state - from localStorage", new Date());
+        
+        if (buildTime !== timeNow) {
+          this.getWeatherByCity(location.city);
+          console.log("Loading state - getWeatherByCity", this.state, new Date());
+        }
+      } else {
         this.getGeoLocation();
-			}
+        console.log('Loading state - getGeoLocation', new Date())
+      }
 		} catch (err) {
 			console.log(err);
 		}
