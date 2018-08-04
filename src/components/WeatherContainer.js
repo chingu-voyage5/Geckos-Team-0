@@ -7,19 +7,19 @@ class WeatherContainer extends React.Component {
 	constructor() {
     super();
 		this.state = {
-      buildTime: null,
-			location: {},
-			currentWeather: {},
-      forecastWeather: {},
-      newLocation: {},
-      message: '',
       unit: false,
 			// 👆 false: Fahrenheit, true: Celsius
+      message: '',
+			location: {},
+      buildTime: null,
+      newLocation: {},
+			currentWeather: {},
+      forecastWeather: {},
 			convertToC: this.convertToC,
 			handleTempUnit: this.handleTempUnit,
+      handleGeoLocation: this.handleGeoLocation,
 			handleChangeLocation: this.handleChangeLocation,
-      handleSubmitLocation: this.handleSubmitLocation,
-      handleGeoLocation: this.handleGeoLocation
+      handleSubmitLocation: this.handleSubmitLocation
 		};
   }
 
@@ -52,25 +52,9 @@ class WeatherContainer extends React.Component {
   }
 
 	componentDidMount() {
-		this.loadWeather();
+    this.loadWeather();
     this.callEveryHour();
   }
-
-  callEveryHour = () => {
-    const currentMinutes = (new Date()).getMinutes(); 
-    const timeLeft = (60 - currentMinutes) * 60000;
-    const cityName = this.state.location.city;
-
-    console.log("callEveryHour", new Date());
-    setTimeout(() => {
-      console.log("callEveryHour - setTimeout - getWeatherByCity", new Date());
-      this.getWeatherByCity(cityName);
-      setInterval(() => {
-        console.log("callEveryHour - setInterval - getWeatherByCity", new Date());
-        this.getWeatherByCity(cityName);
-			}, 3600000);
-    }, timeLeft);
-  };
 
 	loadWeather = async () => {
 		try {
@@ -81,21 +65,16 @@ class WeatherContainer extends React.Component {
       // If weather has saved from last time, set the data to its state
       if (weatherObj) {
         const {
-          buildTime,
-          location,
-          currentWeather,
-          forecastWeather,
-          unit,
-          newLocation
+          unit, location, buildTime, newLocation, currentWeather, forecastWeather 
         } = parsedWeather;
 
         this.setState({
-          buildTime,
-          location,
-          currentWeather,
-          forecastWeather,
           unit,
-          newLocation
+          location,
+          buildTime,
+          newLocation,
+          currentWeather,
+          forecastWeather
         });
         console.log("Loading state - from localStorage", new Date());
         // if the saved weather is older, then get latest weather with a location which is set before. 
@@ -111,6 +90,25 @@ class WeatherContainer extends React.Component {
 		} catch (err) {
 			console.log(err);
 		}
+  };
+
+  callEveryHour = () => {
+    const currentMinutes = (new Date()).getMinutes();
+    const timeLeft = (60 - currentMinutes) * 60000;
+    // const cityName = this.state.location.city;
+    // console.log('cityName', cityName)
+
+    // console.log("callEveryHour", new Date());
+    setTimeout(() => {
+      // console.log("callEveryHour - setTimeout - getWeatherByCity", new Date());
+      // this.getWeatherByCity(cityName);
+      this.getGeoLocation()
+      setInterval(() => {
+        // console.log("callEveryHour - setInterval - getWeatherByCity", new Date());
+        // this.getWeatherByCity(cityName);
+        this.getGeoLocation()
+      }, 3600000);
+    }, timeLeft);
   };
 
   saveState = weatherState => {
@@ -171,7 +169,7 @@ class WeatherContainer extends React.Component {
         });
         this.setNewLocation();
         this.saveState(this.state);
-        console.log("Loading from new api call", this.state.buildTime);
+        console.log("Loading from new api call", this.state.buildTime, new Date());
       })
       .catch(err => {
         this.setState({ message: 'not found' });
@@ -180,7 +178,7 @@ class WeatherContainer extends React.Component {
   };
   
   setNewLocation = () => {
-    this.setState({ newLocation: {...this.state.location} });
+    this.setState({ newLocation: { ...this.state.location } });
   }
 
   changeTimeFormat = time => {

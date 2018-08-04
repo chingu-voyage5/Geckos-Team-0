@@ -11,9 +11,9 @@ class WeatherModal extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			editLocation: false,
-			day: '',
-			selected: null
+      day: '',
+			selected: null,
+			editLocation: false
 		};
 	}
 
