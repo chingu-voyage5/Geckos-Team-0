@@ -1,11 +1,11 @@
 import React, {Fragment} from "react"; 
 import Store from "../store";
+import PropTypes from "prop-types";
 import "../styles/Weather.css";
 
 import WeatherIcon from "react-icons-weather";
 
-function MainWeather(props) {
-  const { handleOpenModal } = props;
+function MainWeather({ handleOpenModal }) {
 
   return (
     <div
@@ -44,5 +44,9 @@ function MainWeather(props) {
     </div>
   );
 }
+
+MainWeather.propTypes = {
+	handleOpenModal: PropTypes.func.isRequired,
+};
 
 export default MainWeather;

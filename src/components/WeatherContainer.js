@@ -4,22 +4,22 @@ import Store from "../store";
 import "../styles/Weather.css";
 
 class WeatherContainer extends React.Component {
-	constructor(props) {
-		super(props);
-
+	constructor() {
+    super();
 		this.state = {
-			location: {},
-			currentWeather: {},
-      forecastWeather: {},
-      newLocation: {},
-      message: '',
       unit: false,
 			// 👆 false: Fahrenheit, true: Celsius
+      message: '',
+			location: {},
+      buildTime: null,
+      newLocation: {},
+			currentWeather: {},
+      forecastWeather: {},
 			convertToC: this.convertToC,
 			handleTempUnit: this.handleTempUnit,
+      handleGeoLocation: this.handleGeoLocation,
 			handleChangeLocation: this.handleChangeLocation,
-      handleSubmitLocation: this.handleSubmitLocation,
-      handleGeoLocation: this.handleGeoLocation
+      handleSubmitLocation: this.handleSubmitLocation
 		};
   }
 
@@ -47,54 +47,68 @@ class WeatherContainer extends React.Component {
   };
 
   handleGeoLocation = () => {
-    console.log('getting Geo location')
     this.setState({ message: "Loading..." });
     this.getGeoLocation();
   }
 
 	componentDidMount() {
-    /* 
-      1. old weather can be loaded from local storage if user leaves the tab open 
-      // no! as long as the tab is opened, it will keep refreshing the weather 
-      because of setInterval 
-      first it opened at 1:30pm, setInterval gets called at 2:30pm and so on 
-
-      2. User opens tab at 1:30 am then close it. 
-      local storage has 1:30 am weather this will be loaded when user open the tab at 10:00am 
-      so when the tab opened, I should run getGeoLocation function ( in componentDidMount)
-      
-      => set if date..
-      don't need to update every hour. update by api updated time ( condition.date )
-      
-    */
-		// Calls the api every hour 
-    setInterval(() => {
-      console.log("from componentDidMount: ", new Date())
-      this.getGeoLocation()
-    }, 3600000);
-		this.loadWeather();
+    this.loadWeather();
+    this.callEveryHour();
   }
 
 	loadWeather = async () => {
 		try {
-			const weatherObj = await localStorage.getItem("weatherObj");
-      if (weatherObj) {
-        const parsedWeather = JSON.parse(weatherObj);
-        const { location, currentWeather, forecastWeather, unit, newLocation } = parsedWeather;
+      const weatherObj = await localStorage.getItem("weatherObj");
+      const parsedWeather = JSON.parse(weatherObj);
+      const timeNow = this.changeTimeFormat(new Date());
 
-				this.setState({
-					location,
-					currentWeather,
-					forecastWeather,
+      // If weather has saved from last time, set the data to its state
+      if (weatherObj) {
+        const {
+          unit, location, buildTime, newLocation, currentWeather, forecastWeather 
+        } = parsedWeather;
+
+        this.setState({
           unit,
-          newLocation
-				});
-			} else {
-				this.getGeoLocation();
-			}
+          location,
+          buildTime,
+          newLocation,
+          currentWeather,
+          forecastWeather
+        });
+        console.log("Loading state - from localStorage", new Date());
+        // if the saved weather is older, then get latest weather with a location which is set before. 
+        if (buildTime !== timeNow) {
+          this.getWeatherByCity(location.city);
+          console.log("Loading state - getWeatherByCity", this.state, new Date());
+        }
+      // if it's first time (there is no saved weather), get location and weather
+      } else {
+        this.getGeoLocation();
+        console.log('Loading state - getGeoLocation', new Date())
+      }
 		} catch (err) {
 			console.log(err);
 		}
+  };
+
+  callEveryHour = () => {
+    const currentMinutes = (new Date()).getMinutes();
+    const timeLeft = (60 - currentMinutes) * 60000;
+    // const cityName = this.state.location.city;
+    // console.log('cityName', cityName)
+
+    // console.log("callEveryHour", new Date());
+    setTimeout(() => {
+      // console.log("callEveryHour - setTimeout - getWeatherByCity", new Date());
+      // this.getWeatherByCity(cityName);
+      this.getGeoLocation()
+      setInterval(() => {
+        // console.log("callEveryHour - setInterval - getWeatherByCity", new Date());
+        // this.getWeatherByCity(cityName);
+        this.getGeoLocation()
+      }, 3600000);
+    }, timeLeft);
   };
 
   saveState = weatherState => {
@@ -129,11 +143,12 @@ class WeatherContainer extends React.Component {
 			.then(response => response.json())
 			.then(json => {
 				// console.log(json);
-        let data = json.query.results.channel;
-        let { forecast } = data.item;
-        console.log(data.item.condition.date, new Date());
+        const data = json.query.results.channel;
+        const { forecast } = data.item;
+        const buildTime = this.changeTimeFormat(new Date());
   
         this.setState({
+          buildTime,
           message: '',
           location: {
             city: data.location.city,
@@ -154,7 +169,7 @@ class WeatherContainer extends React.Component {
         });
         this.setNewLocation();
         this.saveState(this.state);
-        // console.log(this.state);
+        console.log("Loading from new api call", this.state.buildTime, new Date());
       })
       .catch(err => {
         this.setState({ message: 'not found' });
@@ -163,7 +178,12 @@ class WeatherContainer extends React.Component {
   };
   
   setNewLocation = () => {
-    this.setState({ newLocation: {...this.state.location} });
+    this.setState({ newLocation: { ...this.state.location } });
+  }
+
+  changeTimeFormat = time => {
+    // formatted YYYY-M-D-H or YYYY-MM-DD-HH
+    return `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}-${time.getHours()}`;
   }
 
 	render() {
