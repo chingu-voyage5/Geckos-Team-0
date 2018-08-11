@@ -5,60 +5,57 @@ import { TiHeartOutline, TiHeartFullOutline } from "react-icons/lib/ti";
 
 class WallpaperInfo extends React.Component {
     constructor() {
-		super();
-		this.state = { 
-			isClicked: false,
-			wallpaperName: "",
-			wallpaperAuthor: ""
-		};
+        super();
+        this.state = { 
+            isClicked: false,
+            wallpaperName: "",
+            wallpaperAuthor: ""
+        };
 
-		this.toggleHeart = this.toggleHeart.bind(this);
+        this.toggleHeart = this.toggleHeart.bind(this);
     }
 
     componentDidMount() {
-      	this.getWallpaperInfo();
+        this.getWallpaperInfo();
     }
     
     getWallpaperInfo = async () => {
-		try {
-			const wallpaperName = await localStorage.getItem("backgroundName");
-			const wallpaperAuthor = await localStorage.getItem("backgroundAuthor");
-			
-			if (wallpaperName && wallpaperAuthor) {
-				this.setState({
-					wallpaperName,
-					wallpaperAuthor
-				});
-			}
-		} catch (err) {
-			console.log(err)
-		}
+        try {
+            const wallpaperName = await localStorage.getItem("backgroundName");
+            const wallpaperAuthor = await localStorage.getItem("backgroundAuthor");
+            
+            if (wallpaperName && wallpaperAuthor) {
+                this.setState({ wallpaperName, wallpaperAuthor });
+            }
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     toggleHeart() {
-      	this.setState({ isClicked: !this.state.isClicked });
+        this.setState({ isClicked: !this.state.isClicked });
     }
     
     render() {
-		const { isClicked, wallpaperName, wallpaperAuthor } = this.state;
+        const { isClicked, wallpaperName, wallpaperAuthor } = this.state;
 
-		return (
-			<div id="WallpaperInfo">
-				<div className="place">
-					<span>
-						{wallpaperName}
-					</span>
-				</div>
-				<div className="source">
-					<span className="name">
-						Photo by, {wallpaperAuthor}
-					</span>
-					<span className="icon" onClick={this.toggleHeart}>
-						{isClicked ? <TiHeartFullOutline /> : <TiHeartOutline />}
-					</span>
-				</div>
-			</div>
-		);
+        return (
+            <div id="WallpaperInfo">
+                <div className="place">
+                    <span>
+                        {wallpaperName}
+                    </span>
+                </div>
+                <div className="source">
+                    <span className="name">
+                        Photo by, {wallpaperAuthor}
+                    </span>
+                    <span className="icon" onClick={this.toggleHeart}>
+                        {isClicked ? <TiHeartFullOutline /> : <TiHeartOutline />}
+                    </span>
+                </div>
+            </div>
+        );
     }
 }
 

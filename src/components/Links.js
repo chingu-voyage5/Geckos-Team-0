@@ -18,9 +18,8 @@ class Links extends React.Component {
 		};
 		this.handleOpenModal = this.handleOpenModal.bind(this);
 		this.handleCloseModal = this.handleCloseModal.bind(this);
-
-
-	}
+    }
+    
 	handleOpenModal() {
 		this.setState({ showModal: true });
 	}
@@ -29,38 +28,35 @@ class Links extends React.Component {
 		this.setState({ showModal: false });
 	}
 
-
-
-
 	render() {
-		return <div id="Links">
-			<span onClick={this.handleOpenModal}>Links</span>
-			<Modal className="Links__Modal" overlayClassName="Overlay" isOpen={this.state.showModal} onRequestClose={this.handleCloseModal}>
-				{/* Modal Content */}
-				<div className="Links__Modal__Content">
-					<ul>
-						<li className="Links__List">
-							<a href="http://www.google.com/ig" target="_blank">
-								<FaChrome />
-								Chrome Tab
-								</a>
-						</li>
-						<li className="Links__List">
-							<a href="http://www.google.com/search_app" target="_blank">
-								<FaTh />
-								Apps
-								</a>
-						</li>
+		return (
+            <div id="Links">
+                <span onClick={this.handleOpenModal}>Links</span>
+                <Modal className="Links__Modal" overlayClassName="Overlay" isOpen={this.state.showModal} onRequestClose={this.handleCloseModal}>
+                    {/* Modal Content */}
+                    <div className="Links__Modal__Content">
+                        <ul>
+                            <li className="Links__List">
+                                <a href="http://www.google.com/ig" target="_blank">
+                                    <FaChrome />
+                                    Chrome Tab
+                                </a>
+                            </li>
+                            <li className="Links__List">
+                                <a href="http://www.google.com/search_app" target="_blank">
+                                    <FaTh />
+                                    Apps
+                                </a>
+                            </li>
 
-
-						<li className="Links__List">
-							<NewLink />
-						</li>
-					</ul>
-
-				</div>
-			</Modal>
-		</div>;
+                            <li className="Links__List">
+                                <NewLink />
+                            </li>
+                        </ul>
+                    </div>
+                </Modal>
+            </div>
+        );
 	}
 }
 
