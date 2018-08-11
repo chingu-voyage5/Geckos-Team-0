@@ -21,7 +21,7 @@ function MainWeather({ handleOpenModal }) {
                                 <WeatherIcon name="yahoo" iconId={weatherCode || "32"} />
                                 <div className="temp">
                                     <span>
-                                    {unit ? store.convertToC(temperature) : temperature}°
+                                        {unit ? store.convertToC(temperature) : temperature}°
                                     </span>
                                 </div>
                             </div>
