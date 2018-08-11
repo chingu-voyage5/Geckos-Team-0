@@ -16,14 +16,13 @@ class Focus extends React.Component {
     // Loads focus item when the app starts
     componentDidMount() {
         try {
-          const value = localStorage.getItem('focus');
+            const value = localStorage.getItem('focus');
           
-      
-          if (value) {
-            this.setState({
-                focus: value
-            });
-          }
+            if (value) {
+                this.setState({
+                    focus: value
+                });
+            }
         } catch (e) {
           // Do nothing
         }

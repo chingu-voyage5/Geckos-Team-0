@@ -6,47 +6,47 @@ import Greetings from './Greetings'
 
 
 export default class Name extends React.Component {
-			constructor(props) {
-				super(props);
-				this.state = { html: '' };
-				this.handleChange = this.handleChange.bind(this);
-			}
+	constructor(props) {
+		super(props);
+		this.state = { html: '' };
+		this.handleChange = this.handleChange.bind(this);
+	}
 
-			handleChange(event) {
-				this.setState({ html: event.target.value });
-				// console.log(this.state.html);
-			}
+	handleChange(event) {
+		this.setState({ html: event.target.value });
+		// console.log(this.state.html);
+	}
 
-			componentDidMount() {
+	componentDidMount() {
 
-				const html = localStorage.getItem('html');
-				if (html) {
-					this.setState(() => ({ html: html }));
-				}
-				console.log(html);
-			}
-
-			componentDidUpdate(prevState) {
-				if (prevState.html !== this.state.html) {
-		
-					const html = this.state.html;
-					localStorage.setItem('html', html);
-					// console.log('Saving Data');
-				}
-			}
-
-			render = () => {
-				return <div id="greeting" className="app-container greeting transition">
-						Good
-						<span>
-							<Greetings />
-						</span>,
-						<ContentEditable html={this.state.html} disabled={false // innerHTML of the editable div
-					} onChange={this.handleChange} />
-					.	
-					</div>;
-			};
+		const html = localStorage.getItem('html');
+		if (html) {
+			this.setState(() => ({ html: html }));
 		}
+		console.log(html);
+	}
+
+	componentDidUpdate(prevState) {
+		if (prevState.html !== this.state.html) {
+
+			const html = this.state.html;
+			localStorage.setItem('html', html);
+			// console.log('Saving Data');
+		}
+	}
+
+	render = () => {
+		return <div id="greeting" className="app-container greeting transition">
+				Good
+				<span>
+					<Greetings />
+				</span>,
+				<ContentEditable html={this.state.html} disabled={false // innerHTML of the editable div
+			} onChange={this.handleChange} />
+			.	
+			</div>;
+	};
+}
 
 class ContentEditable extends React.Component {
     constructor(props) {
@@ -56,13 +56,13 @@ class ContentEditable extends React.Component {
     }
     render() {
         return (
-         <span
-            className="single-line"
-            onInput={this.emitChange}
-            onBlur={this.emitChange}
-            ref={function (e) { if (e != null) e.contentEditable = true; }}
-            dangerouslySetInnerHTML={{ __html: this.props.html }}>
-        </span>
+			<span
+				className="single-line"
+				onInput={this.emitChange}
+				onBlur={this.emitChange}
+				ref={function (e) { if (e != null) e.contentEditable = true; }}
+				dangerouslySetInnerHTML={{ __html: this.props.html }}>
+			</span>
         )
     }
 

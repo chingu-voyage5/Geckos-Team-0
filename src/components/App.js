@@ -21,7 +21,7 @@ class App extends Component {
 						<Links />
 						<Search />
 					</div>
-          <WeatherContainer />
+         			<WeatherContainer />
 				</div>
 				<div className="App__Center">
 					<Time />
@@ -33,7 +33,7 @@ class App extends Component {
 						<Settings />
 						<WallpaperInfo />
 					</div>
-          <QuoteContainer />
+        			<QuoteContainer />
 					<ToDo />
 				</div>
 			</div>
