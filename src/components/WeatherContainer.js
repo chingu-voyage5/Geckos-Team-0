@@ -6,19 +6,19 @@ import "../styles/Weather.css";
 class WeatherContainer extends React.Component {
     constructor() {
         super();
-	    this.state = {
+        this.state = {
             unit: false,
             // 👆 false: Fahrenheit, true: Celsius
             message: '',
-	        location: {},
+            location: {},
             buildTime: null,
             newLocation: {},
-	        currentWeather: {},
+            currentWeather: {},
             forecastWeather: {},
-	        convertToC: this.convertToC,
-	        handleTempUnit: this.handleTempUnit,
+            convertToC: this.convertToC,
+            handleTempUnit: this.handleTempUnit,
             handleGeoLocation: this.handleGeoLocation,
-	        handleChangeLocation: this.handleChangeLocation,
+            handleChangeLocation: this.handleChangeLocation,
             handleSubmitLocation: this.handleSubmitLocation
         };
     }
@@ -89,8 +89,8 @@ class WeatherContainer extends React.Component {
                 console.log('Loading state - getGeoLocation', new Date())
             }
         } catch (err) {
-	        console.log(err);
-	    } 
+            console.log(err);
+        } 
     };
 
     callEveryHour = () => {
@@ -112,18 +112,16 @@ class WeatherContainer extends React.Component {
         }, timeLeft);
     };
 
-    saveState = weatherState => {
-        localStorage.setItem("weatherObj", JSON.stringify(weatherState));
-    };
+    saveState = weatherState => localStorage.setItem("weatherObj", JSON.stringify(weatherState));
 
     getGeoLocation = () => {
         navigator.geolocation.getCurrentPosition(
             position => {
-	            let { latitude, longitude } = position.coords;
+                let { latitude, longitude } = position.coords;
                 this.getWeatherByGeo(latitude, longitude);
-	        },
-	        error => console.log(error)
-	    );
+            },
+            error => console.log(error)
+        );
     };
 
     getWeatherByCity = cityName => {
@@ -139,42 +137,42 @@ class WeatherContainer extends React.Component {
     getWeather = (searchText) => {
         const endPoint = `https://query.yahooapis.com/v1/public/yql?q=${searchText}&format=json`;
     
-	fetch(endPoint)
-	    .then(response => response.json())
-	    .then(json => {
-	        // console.log(json);
-            const data = json.query.results.channel;
-            const { forecast } = data.item;
-            const buildTime = this.changeTimeFormat(new Date());
-  
-            this.setState({
-                buildTime,
-                message: '',
-                location: {
-                    city: data.location.city,
-                    countryCode: `, ${data.title.split(", ").pop()}`
-                },
-                currentWeather: {
-                    weatherCode: data.item.condition.code,
-                    temperature: data.item.condition.temp,
-                    weather: data.item.condition.text
-                },
-                forecastWeather: {
-                    day1: forecast[0],
-                    day2: forecast[1],
-                    day3: forecast[2],
-                    day4: forecast[3],
-                    day5: forecast[4]
-                }
+        fetch(endPoint)
+            .then(response => response.json())
+            .then(json => {
+                // console.log(json);
+                const data = json.query.results.channel;
+                const { forecast } = data.item;
+                const buildTime = this.changeTimeFormat(new Date());
+    
+                this.setState({
+                    buildTime,
+                    message: '',
+                    location: {
+                        city: data.location.city,
+                        countryCode: `, ${data.title.split(", ").pop()}`
+                    },
+                    currentWeather: {
+                        weatherCode: data.item.condition.code,
+                        temperature: data.item.condition.temp,
+                        weather: data.item.condition.text
+                    },
+                    forecastWeather: {
+                        day1: forecast[0],
+                        day2: forecast[1],
+                        day3: forecast[2],
+                        day4: forecast[3],
+                        day5: forecast[4]
+                    }
+                });
+                this.setNewLocation();
+                this.saveState(this.state);
+                console.log("Loading from new api call", this.state.buildTime, new Date());
+            })
+            .catch(err => {
+                this.setState({ message: 'not found' });
+                console.log(err);
             });
-            this.setNewLocation();
-            this.saveState(this.state);
-            console.log("Loading from new api call", this.state.buildTime, new Date());
-        })
-        .catch(err => {
-            this.setState({ message: 'not found' });
-            console.log(err);
-        });
     };
   
     setNewLocation = () => {
@@ -188,11 +186,11 @@ class WeatherContainer extends React.Component {
 
     render() {
         return (
-	        <Fragment>
-		        <Store.Provider value={this.state}>
-		            <Weather />
-		        </Store.Provider>
-	        </Fragment>
+            <Fragment>
+                <Store.Provider value={this.state}>
+                    <Weather />
+                </Store.Provider>
+            </Fragment>
         );
     }
 }
